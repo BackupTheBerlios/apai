@@ -33,10 +33,10 @@ public class mapa {
 		// TODO Auto-generated constructor stub
 		this.x = x;
 		this.y = y;
-		this.tablero = new Vector(x);
-		for (int i = 0; i <= x; i ++){
-			Vector aux = new Vector(y);
-			for (int j = 0; j <= y; j ++){
+		this.tablero = new Vector();
+		for (int i = 0; i < x; i ++){
+			Vector aux = new Vector();
+			for (int j = 0; j < y; j ++){
 				aux.add(j,"libre");
 			}	
 			this.tablero.add(i, aux);
@@ -53,7 +53,7 @@ public class mapa {
 	
 	public String dameCelda (int x, int y){
 		Vector aux;
-		if ((x<0)||(x>this.getX())||(y<0)||(y>this.getY())){
+		if ((x<0)||(x>=this.getX())||(y<0)||(y>=this.getY())){
 			return "";
 		}
 		else {

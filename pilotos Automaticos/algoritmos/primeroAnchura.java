@@ -71,12 +71,12 @@ public class primeroAnchura implements algoritmo {
 	}*/
 
 	public void mostrarCamino(){
-		int i = 0; 
 		System.out.print("[");
-		while (!(this.getCamino().isEmpty())){
+		//while (!(this.getCamino().isEmpty())) 
+		for (int i = 0; i< this.getCamino().size(); i ++){
+			//((estado)this.getCamino().firstElement()).mostrar();
+			//this.getCamino().removeElementAt(0);
 			((estado)this.getCamino().elementAt(i)).mostrar();
-			this.getCamino().removeElementAt(i);
-			i ++;
 		}
 		System.out.println("]");
 	}

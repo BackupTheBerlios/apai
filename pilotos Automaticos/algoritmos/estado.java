@@ -88,6 +88,7 @@ public class estado {
 		System.out.print(this.y);
 		System.out.print(")");
 	}
+	
 	public boolean peligro(mapa m){
 		boolean aux = false;
 		String val = m.dameCelda(this.x, this.y);
@@ -123,6 +124,7 @@ public class estado {
 	public Vector generarCamino(estado ei){
 		estado e = this;
 		Vector aux = new Vector();
+		aux.add(0,e);
 		while (!(e.equals(ei))){
 			aux.add(0,e.padre);
 			e = e.padre;
