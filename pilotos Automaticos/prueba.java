@@ -1,23 +1,26 @@
 import mapa.mapa;
 import algoritmos.*;
+import java.util.Vector;
 
 public class prueba {
 
 	/**
 	 * @param args
 	 */
+	
 	public static void main(String[] args) {
-		mapa m = new mapa(3,3);
+		mapa m = new mapa(4,4);
 		m.ponCelda(2,0,"montaña");
 		m.ponCelda(1,1,"montaña");
 		m.ponCelda(1,2,"avion");
 		m.ponCelda(1,3,"montaña");
 		estado ini = new estado(0,0);
-		estado fin = new estado(0,3);
+		estado fin = new estado(3,0);
 		 /*boolean aux = ini.equals(fin);
 		System.out.print(aux);*/
 		
 		algoritmo alg= new primeroAnchura(ini,fin);
+		
 		/*
 		 * Prueba de generar sucesor
 		 * 
@@ -26,6 +29,18 @@ public class prueba {
 		alg.generarSucesor(fin,m);*/
 		alg.resolver(ini,fin,m);
 		alg.mostrarCamino();
+		
+		/*Vector v = new Vector(3);
+		
+		for (int i = 0; i< 3; i++){
+			Integer n = new Integer(i);
+			v.add(n);
+		}
+		
+		for (int i = 0; i<= v.size(); i++){
+			System.out.println("a");
+		}
+		*/
 		/*
 		 * Prueba de peligro
 		 * 
@@ -66,8 +81,7 @@ public class prueba {
 		e17.peligro(m);
 		estado e18 = new estado (0,-1);
 		e18.peligro(m);
-		*/
-		
+		*/	
 	}
 
 }
