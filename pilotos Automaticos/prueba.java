@@ -10,16 +10,16 @@ public class prueba {
 	
 	public static void main(String[] args) {
 		mapa m = new mapa(4,4);
-		m.ponCelda(2,0,"montaña");
+		m.ponCelda(1,0,"montaña");
 		m.ponCelda(1,1,"montaña");
 		m.ponCelda(1,2,"avion");
 		m.ponCelda(1,3,"montaña");
 		estado ini = new estado(0,0);
-		estado fin = new estado(0,2);
+		estado fin = new estado(3,3);
 		 /*boolean aux = ini.equals(fin);
 		System.out.print(aux);*/
 		
-		algoritmo alg= new primeroAnchura(ini,fin);
+		algoritmo alg= new primeroAnchuraCiclos(ini,fin);
 		
 		/*
 		 * Prueba de generar sucesor
@@ -27,9 +27,9 @@ public class prueba {
 		 */
 		/*alg.generarSucesor(ini,m);
 		alg.generarSucesor(fin,m);*/
-		alg.resolver(ini,fin,m);
+		alg.resolver(m);
 		alg.mostrarCamino();
-		
+
 		/*Vector v = new Vector(3);
 		
 		for (int i = 0; i< 3; i++){

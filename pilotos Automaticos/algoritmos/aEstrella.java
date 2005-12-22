@@ -56,7 +56,7 @@ public class aEstrella implements algoritmo {
 		// no basta con == hay que hacer equals
 	}
 
-	public void resolver(estado ei, estado ef, mapa m) {
+	public void resolver(mapa m) {
 		// TODO Auto-generated method stub
 		estado actual = new estado();
 		abiertos = new Vector();
@@ -70,7 +70,7 @@ public class aEstrella implements algoritmo {
 			generarSucesor(actual,m);
 		}
 		if (actual.equals(objetivo)){
-			camino = actual.generarCamino(ei);
+			camino = actual.generarCamino(this.inicial);
 		}
 	}
 	

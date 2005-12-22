@@ -97,7 +97,7 @@ public class primeroProfundidad implements algoritmo {
 	         3. Si la señal es éxito, retorne, de otra manera, continúe en este lazo.
 	*/
 	
-	public void resolver( estado ei, estado ef, mapa m){
+	public void resolver(mapa m){
 		estado actual = new estado();
 		abiertos = new Vector();
 		cerrados = new Vector();
@@ -110,7 +110,7 @@ public class primeroProfundidad implements algoritmo {
 			generarSucesor(actual,m);
 		}
 		if (actual.equals(objetivo)){
-			camino = actual.generarCamino(ei);
+			camino = actual.generarCamino(this.inicial);
 		}
 	}
 }

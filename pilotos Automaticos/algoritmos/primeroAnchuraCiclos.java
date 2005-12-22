@@ -1,10 +1,11 @@
 package algoritmos;
 
 import java.util.Vector;
+
 import mapa.mapa;
 
-public class primeroAnchura implements algoritmo {
-	
+public class primeroAnchuraCiclos implements algoritmo {
+
 	estado inicial;
 	estado objetivo;
 	Vector abiertos;
@@ -15,7 +16,7 @@ public class primeroAnchura implements algoritmo {
 	 * Constructores, vacío y con parámetros.
 	 */
 	
-	public primeroAnchura() {
+	public primeroAnchuraCiclos() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -24,7 +25,7 @@ public class primeroAnchura implements algoritmo {
 	 * Se da el estado inicial y el objetivo.
 	 */
 	
-	public primeroAnchura(estado inicial, estado objetivo) {
+	public primeroAnchuraCiclos(estado inicial, estado objetivo) {
 		super();
 		// TODO Auto-generated constructor stub
 		this.inicial = inicial;
@@ -87,17 +88,24 @@ public class primeroAnchura implements algoritmo {
 	 */
 
 	public void mostrarCamino(){
-		System.out.print("["); 
-		for (int i = 0; i< this.getCamino().size(); i ++){
-			((estado)this.getCamino().elementAt(i)).mostrar();
+		if (this.getCamino().isEmpty()){
+			System.out.println("No existe aolución");
 		}
-		System.out.println("]");
+		else{
+			System.out.print("["); 
+			for (int i = 0; i< this.getCamino().size(); i ++){
+				((estado)this.getCamino().elementAt(i)).mostrar();
+			}
+			System.out.println("]");
+		}	
 	}
 	
 	/*
 	 * Método que genera los hijos, aplicando los
 	 * operadores que no generen situaciones de
 	 * peligro.
+	 * 
+	 * Hay control de ciclos.
 	 * 
 	 * Al insertarlos en abiertos, tenemos en cuenta 
 	 * como extrae los hijos el algoritmo para 
@@ -106,16 +114,17 @@ public class primeroAnchura implements algoritmo {
 	 */
 	
 	public void generarSucesor(estado e, mapa m){
-		if (!e.moverAbajo().peligro(m)) {
+		System.out.println("generar sucesores");
+		if ((!e.moverAbajo().peligro(m)) && (!abiertos.contains(e.moverAbajo()))) { 
 			abiertos.add(e.moverAbajo());
 		}
-		if (!e.moverDerecha().peligro(m)) {
+		if ((!e.moverDerecha().peligro(m)) && (!abiertos.contains(e.moverAbajo()))) {
 			abiertos.add(e.moverDerecha());
 		}
-		if (!e.moverIzquierda().peligro(m)) {
+		if ((!e.moverIzquierda().peligro(m)) && (!abiertos.contains(e.moverAbajo()))){
 			abiertos.add(e.moverIzquierda());
 		}
-		if (!e.moverArriba().peligro(m)) {
+		if ((!e.moverArriba().peligro(m)) && (!abiertos.contains(e.moverAbajo()))) {
 			abiertos.add(e.moverArriba());
 		}
 	}
@@ -132,16 +141,23 @@ public class primeroAnchura implements algoritmo {
 	 */
 	
 	public void resolver(mapa m){
+		System.out.println("resolver");
 		estado actual = new estado();
 		abiertos.add(this.inicial);
 		while ((!abiertos.isEmpty()) && (!actual.equals(this.objetivo))){
+			System.out.println("bucle");
 			actual = (estado)abiertos.firstElement();
 			abiertos.removeElementAt(0);
 			cerrados.add(actual);
 			generarSucesor(actual, m);
 		}
 		if (actual.equals(this.objetivo)){
+			System.out.println("solucion");
 			camino = actual.generarCamino(this.inicial);
 		}
-	}	
+		if (abiertos.isEmpty()){
+			System.out.println("infinito");
+			camino.clear(); 
+		}
+	}
 }

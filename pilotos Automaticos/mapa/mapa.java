@@ -14,20 +14,28 @@ import java.util.Vector;
  * 
  */
 public class mapa {
-	int x;	//tamagno del mapa -1
+	int x;	//tamagno del mapa (0 .. x-1)
 	int y; 
-	Vector tablero;  
+	Vector tablero;  //contenido
+	
+	/*
+	 * Constructores, vacío y con parámetros.
+	 */
 	
 	public mapa() {
 		super();
-		// TODO Auto-generated constructor stub
+		// TODO Auto-geunnerated constructor stub
 	}
 	
-	/* 
+	/*
+	 * Se da el tamaño en x (filas) e y (columnas).
 	 * 
-	 * Genera un mapa que va de 0 a n, no a n-1
+	 * Generamos un vector de n elementos y en cada
+	 * posición metemos un vector de y elementos.
 	 * 
+	 * Lo genermos vacío, todas las celdas libres.
 	 */
+	
 	public mapa(int x, int y) {
 		super();
 		// TODO Auto-generated constructor stub
@@ -43,6 +51,10 @@ public class mapa {
 		}
 	}
 
+	/*
+	 * Acessores y mutadores para tablero, x e y.
+	 */
+	
 	public Vector getTablero() {
 		return tablero;
 	}
@@ -50,23 +62,7 @@ public class mapa {
 	public void setTablero(Vector tablero) {
 		this.tablero = tablero;
 	}
-	
-	public String dameCelda (int x, int y){
-		Vector aux;
-		if ((x<0)||(x>=this.getX())||(y<0)||(y>=this.getY())){
-			return "";
-		}
-		else {
-			aux = (Vector)this.tablero.elementAt(x);
-			String celda = (String)aux.elementAt(y);
-			return celda;
-		}	
-	}
-	
-	public void ponCelda (int x, int y, String val){
-		((Vector)this.tablero.elementAt(x)).set(y,val);		
-	}
-	
+
 	public int getX() {
 		return x;
 	}
@@ -82,5 +78,33 @@ public class mapa {
 	public void setY(int y) {
 		this.y = y;
 	}
+
+	/*
+	 * Métodos para acceder fácilmente a las celdas.
+	 */
 	
+	/*
+	 * Al acceder a la celda, si es de fuera del tablero
+	 * devuleve la cadena vacía. Sino devuelve el contenido.
+	 */
+	
+	public String dameCelda (int x, int y){
+		Vector aux;
+		if ((x<0)||(x>=this.getX())||(y<0)||(y>=this.getY())){
+			return "";
+		}
+		else {
+			aux = (Vector)this.tablero.elementAt(x);
+			String celda = (String)aux.elementAt(y);
+			return celda;
+		}	
+	}
+	
+	/*
+	 * Sustituye el contenido de la celda, ponemos
+	 * el contenido que les pasamos.
+	 */
+	public void ponCelda (int x, int y, String val){
+		((Vector)this.tablero.elementAt(x)).set(y,val);		
+	}
 }
