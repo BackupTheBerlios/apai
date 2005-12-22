@@ -18,8 +18,8 @@ public class prueba {
 		estado fin = new estado(0,3);
 		algoritmo alg= new primeroAnchura(ini,fin);
 		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
-		alg.resolver(m);
-		alg.mostrarCamino();
+		//alg.resolver(m);
+		//alg.mostrarCamino();
 		
 		/*
 		 * Prueba de equals
@@ -40,15 +40,20 @@ public class prueba {
 		 * Prueba de contains
 		 */
 		
-		/*Vector v = new Vector();
-				v.add(ini);
+		Vector v = new Vector();
+		v.add(ini);
 		v.add(fin);
 		estado e1 = ini.moverAbajo();
 		estado e2 = e1;
 		estado e3 = ini.moverDerecha();
-		v.add(e1);
-		boolean aux = v.contains(e3);
-		System.out.println(aux);*/
+		v.add(ini.moverAbajo());
+		v.add(e3);
+		boolean aux = v.contains(e1);
+		System.out.println(aux);
+		aux = v.contains(e2);
+		System.out.println(aux);
+		aux = v.contains(e3);
+		System.out.println(aux);
 	
 		/*
 		 * Prueba de generar sucesor anchura + ciclos
