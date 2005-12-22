@@ -27,6 +27,7 @@ public class estado {
 		// TODO Auto-generated constructor stub
 		this.x = x;
 		this.y = y;
+		this.valor = 0;
 	}
 	
 	/*
@@ -39,6 +40,21 @@ public class estado {
 		this.x = x;
 		this.y = y;
 		this.padre = padre;
+		this.valor = 0;
+	}
+	
+	/*
+	 * Se da la posición del avión, el nodo padre y 
+	 * el valor heurístico
+	 */
+	
+	public estado(int x, int y, estado padre, int valor) {
+		super();
+		// TODO Auto-generated constructor stub
+		this.x = x;
+		this.y = y;
+		this.padre = padre;
+		this.valor = valor;
 	}
 	
 	/*
@@ -86,22 +102,22 @@ public class estado {
 	 */
 	
 	public estado moverArriba(){
-		estado arriba = new estado (x, y-1, this);
+		estado arriba = new estado (this.x, (this.y)-1, this);
 		return arriba;
 	}
 
 	public estado moverAbajo(){
-		estado arriba = new estado (x, y+1, this);
+		estado arriba = new estado (this.x, (this.y)+1, this);
 		return arriba;
 	}
 	
 	public estado moverDerecha(){
-		estado arriba = new estado (x+1, y, this);
+		estado arriba = new estado ((this.x+1), this.y, this);
 		return arriba;
 	}
 	
 	public estado moverIzquierda(){
-		estado arriba = new estado (x-1, y, this);
+		estado arriba = new estado ((this.x)-1, this.y, this);
 		return arriba;
 	}
 	
@@ -190,6 +206,13 @@ public class estado {
 		else{
 			aux = aux && false;
 		}
-		return aux;	
+		if (e.getValor()==this.getValor()){
+			aux = aux && true;
+			}
+		else{
+			aux = aux && false;
 		}
+		return aux;	
+	}
+
 }

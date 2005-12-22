@@ -1,6 +1,6 @@
 import mapa.mapa;
 import algoritmos.*;
-//import java.util.Vector;
+import java.util.Vector;
 
 public class prueba {
 
@@ -15,24 +15,57 @@ public class prueba {
 		m.ponCelda(1,2,"avion");
 		m.ponCelda(1,3,"montaña");
 		estado ini = new estado(0,0);
-		estado fin = new estado(3,3);
-		 /*boolean aux = ini.equals(fin);
-		System.out.print(aux);*/
-		
-		algoritmo alg= new primeroAnchuraCiclos(ini,fin);
-		
-		/*
-		 * Prueba de generar sucesor
-		 * 
-		 */
-		/*alg.generarSucesor(ini,m);
-		alg.generarSucesor(fin,m);*/
+		estado fin = new estado(0,3);
+		algoritmo alg= new primeroAnchura(ini,fin);
+		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
 		alg.resolver(m);
 		alg.mostrarCamino();
-
-		/*Vector v = new Vector(3);
 		
-		for (int i = 0; i< 3; i++){
+		/*
+		 * Prueba de equals
+		 */
+		
+		/*boolean aux = ini.equals(fin);
+		System.out.print(aux);*/
+				
+		/*
+		 * Prueba de generar sucesor anchura
+		 * 
+		 */
+		
+		/*alg.generarSucesor(ini,m);
+		alg.generarSucesor(fin,m);*/
+		
+		/*
+		 * Prueba de contains
+		 */
+		
+		/*Vector v = new Vector();
+				v.add(ini);
+		v.add(fin);
+		estado e1 = ini.moverAbajo();
+		estado e2 = e1;
+		estado e3 = ini.moverDerecha();
+		v.add(e1);
+		boolean aux = v.contains(e3);
+		System.out.println(aux);*/
+	
+		/*
+		 * Prueba de generar sucesor anchura + ciclos
+		 */
+		
+		/*alg.getAbiertos().add(ini);
+		estado e1 = ini.moverAbajo();
+		ini.mostrar();
+		e1.mostrar();
+		alg.getAbiertos().add(e1);
+		alg.generarSucesor(ini,m);*/
+		
+		/*
+		 * Prueba de size
+		 */
+		
+		/*for (int i = 0; i< 3; i++){
 			Integer n = new Integer(i);
 			v.add(n);
 		}
@@ -41,10 +74,12 @@ public class prueba {
 			System.out.println("a");
 		}
 		*/
+		
 		/*
 		 * Prueba de peligro
 		 * 
 		 */
+		
 		/*estado e1 = new estado (0,0);
 		e1.peligro(m);
 		estado e2 = new estado (0,1);

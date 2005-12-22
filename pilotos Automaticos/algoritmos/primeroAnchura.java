@@ -107,16 +107,20 @@ public class primeroAnchura implements algoritmo {
 	
 	public void generarSucesor(estado e, mapa m){
 		if (!e.moverAbajo().peligro(m)) {
-			abiertos.add(e.moverAbajo());
+			e.moverAbajo().setValor(0);
+			this.abiertos.add(e.moverAbajo());
 		}
 		if (!e.moverDerecha().peligro(m)) {
-			abiertos.add(e.moverDerecha());
+			e.moverDerecha().setValor(0);
+			this.abiertos.add(e.moverDerecha());
 		}
 		if (!e.moverIzquierda().peligro(m)) {
-			abiertos.add(e.moverIzquierda());
+			e.moverIzquierda().setValor(0);
+			this.abiertos.add(e.moverIzquierda());
 		}
 		if (!e.moverArriba().peligro(m)) {
-			abiertos.add(e.moverArriba());
+			e.moverArriba().setValor(0);
+			this.abiertos.add(e.moverArriba());
 		}
 	}
 	
@@ -128,20 +132,20 @@ public class primeroAnchura implements algoritmo {
 	 * - Añadirlo a cerrados
 	 * - generar los sucesores
 	 * 
-	 * Si he encontrado el objetivo genreo el camino.
+	 * Si he encontrado el objetivo genero el camino.
 	 */
 	
 	public void resolver(mapa m){
 		estado actual = new estado();
-		abiertos.add(this.inicial);
-		while ((!abiertos.isEmpty()) && (!actual.equals(this.objetivo))){
-			actual = (estado)abiertos.firstElement();
-			abiertos.removeElementAt(0);
-			cerrados.add(actual);
+		this.abiertos.add(this.inicial);
+		while ((!this.abiertos.isEmpty()) && (!actual.equals(this.objetivo))){
+			actual = (estado)this.abiertos.firstElement();
+			this.abiertos.removeElementAt(0);
+			this.cerrados.add(actual);
 			generarSucesor(actual, m);
 		}
 		if (actual.equals(this.objetivo)){
-			camino = actual.generarCamino(this.inicial);
+			this.camino = actual.generarCamino(this.inicial);
 		}
 	}	
 }
