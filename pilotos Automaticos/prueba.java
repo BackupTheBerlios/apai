@@ -49,12 +49,18 @@ public class prueba {
 		v.add(ini.moverAbajo());
 		v.add(e3);
 		boolean aux = v.contains(e1);
+		System.out.println("Estan e1, e2, e3");
 		System.out.println(aux);
 		aux = v.contains(e2);
 		System.out.println(aux);
 		aux = v.contains(e3);
 		System.out.println(aux);
-	
+		e1.mostrar();
+		e1.getPadre().mostrar();
+		ini.moverAbajo().mostrar();
+		ini.moverAbajo().getPadre().mostrar();
+		System.out.println(e1.equals(ini.moverAbajo()));
+		
 		/*
 		 * Prueba de generar sucesor anchura + ciclos
 		 */

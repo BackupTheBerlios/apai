@@ -89,7 +89,7 @@ public class primeroAnchuraCiclos implements algoritmo {
 		esta = false;
 		estado aux;
 		for (int i = 0; i< this.getAbiertos().size(); i++){
-			aux = (estado) this.getAbiertos().elementAt(i);
+			aux = (estado)this.getAbiertos().elementAt(i);
 			if (aux.equals(e)){
 				esta = esta || true;
 			}
@@ -144,19 +144,19 @@ public class primeroAnchuraCiclos implements algoritmo {
 		e.moverDerecha().setValor(0);
 		e.moverIzquierda().setValor(0);
 		e.moverArriba().setValor(0);
-		if (!(e.moverAbajo().peligro(m)) || (this.abiertos.contains(e.moverAbajo()))) {
+		if (!(e.moverAbajo().peligro(m)) || (this.abiertos.contains(e.moverAbajo())) || (this.cerrados.contains(e.moverAbajo()))) {
 			this.abiertos.add(e.moverAbajo());
 			//e.moverAbajo().mostrar();
 		}
-		if (!(e.moverDerecha().peligro(m)) || (this.abiertos.contains(e.moverDerecha()))) {
+		if (!(e.moverDerecha().peligro(m)) || (this.abiertos.contains(e.moverDerecha())) || (this.cerrados.contains(e.moverAbajo()))) {
 			this.abiertos.add(e.moverDerecha());
 			//e.moverDerecha().mostrar();
 		}
-		if (!(e.moverIzquierda().peligro(m)) || (this.abiertos.contains(e.moverIzquierda()))){
+		if (!(e.moverIzquierda().peligro(m)) || (this.abiertos.contains(e.moverIzquierda())) || (this.cerrados.contains(e.moverAbajo()))) {
 			this.abiertos.add(e.moverIzquierda());
 			//e.moverIzquierda().mostrar();
 		}
-		if (!(e.moverArriba().peligro(m)) || (this.abiertos.contains(e.moverArriba()))) {
+		if (!(e.moverArriba().peligro(m)) || (this.abiertos.contains(e.moverArriba())) || (this.cerrados.contains(e.moverAbajo()))) {
 			this.abiertos.add(e.moverArriba());
 			//e.moverArriba().mostrar();
 		}
