@@ -135,7 +135,7 @@ public class estado {
 	
 	/*
 	 * Métodos que indica si un estado es de peligro:
-	 * Si ahy un avión, una montaña o es de fuera del mapa.
+	 * Si hay un avión, una montaña o es de fuera del mapa.
 	 */
 	
 	public boolean peligro(mapa m){
@@ -214,5 +214,4 @@ public class estado {
 		}
 		return aux;	
 	}
-
 }

@@ -35,7 +35,7 @@ public class primeroAnchura implements algoritmo {
 	}
 
 	/*
-	 * Acessores y mutadores para camino, abiertos, inicial,
+	 * Accesores y mutadores para camino, abiertos, inicial,
 	 * objetivo y cerrados.
 	 */
 	
@@ -79,11 +79,8 @@ public class primeroAnchura implements algoritmo {
 	}
 	
 	/*
-	 * Método que indica donde hay que 
-	 * insertar en función de la heurística.
-	 * 
-	 * Se coloca el último tras los que tengan menor
-	 * o igual valor que él.
+	 * Método que muestra el camino recorrido 
+	 * para llegar a un vector
 	 */
 
 	public void mostrarCamino(){
@@ -138,7 +135,7 @@ public class primeroAnchura implements algoritmo {
 	public void resolver(mapa m){
 		estado actual = new estado();
 		this.abiertos.add(this.inicial);
-		while ((!this.abiertos.isEmpty()) && (!actual.equals(this.objetivo))){
+		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
 			actual = (estado)this.abiertos.firstElement();
 			this.abiertos.removeElementAt(0);
 			this.cerrados.add(actual);

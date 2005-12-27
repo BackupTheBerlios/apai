@@ -1,6 +1,6 @@
 import mapa.mapa;
 import algoritmos.*;
-import java.util.Vector;
+//import java.util.Vector;
 
 public class prueba {
 
@@ -16,10 +16,10 @@ public class prueba {
 		m.ponCelda(1,3,"montaña");
 		estado ini = new estado(0,0);
 		estado fin = new estado(0,3);
-		algoritmo alg= new primeroAnchura(ini,fin);
-		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
-		//alg.resolver(m);
-		//alg.mostrarCamino();
+		//algoritmo alg= new primeroAnchura(ini,fin);
+		algoritmo alg= new primeroAnchuraCiclos(ini,fin);
+		alg.resolver(m);
+		alg.mostrarCamino();
 		
 		/*
 		 * Prueba de equals
@@ -40,7 +40,7 @@ public class prueba {
 		 * Prueba de contains
 		 */
 		
-		Vector v = new Vector();
+		/*Vector v = new Vector();
 		v.add(ini);
 		v.add(fin);
 		estado e1 = ini.moverAbajo();
@@ -59,7 +59,8 @@ public class prueba {
 		e1.getPadre().mostrar();
 		ini.moverAbajo().mostrar();
 		ini.moverAbajo().getPadre().mostrar();
-		System.out.println(e1.equals(ini.moverAbajo()));
+		System.out.println(e1.equals(ini.moverAbajo()));*/
+		
 		
 		/*
 		 * Prueba de generar sucesor anchura + ciclos
@@ -129,5 +130,4 @@ public class prueba {
 		e18.peligro(m);
 		*/	
 	}
-
 }

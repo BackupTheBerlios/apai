@@ -80,7 +80,8 @@ public class primeroAnchuraCiclos implements algoritmo {
 	}
 	
 	/*
-	 * Redefinición del método contains,
+	 * Redefinición del método contains, 
+	 * ( miro en abiertos y en cerrados ) 
 	 * si es el mismo estado (equals es true), esta contenido. 
 	 */
 	
@@ -94,20 +95,24 @@ public class primeroAnchuraCiclos implements algoritmo {
 				esta = esta || true;
 			}
 		}
+		for (int i = 0; i< this.getCerrados().size(); i++){
+			aux = (estado)this.getCerrados().elementAt(i);
+			if (aux.equals(e)){
+				esta = esta || true;
+			}
+		}
 		return esta;
 	}
 	
+	
 	/*
-	 * Método que indica donde hay que 
-	 * insertar en función de la heurística.
-	 * 
-	 * Se coloca el último tras los que tengan menor
-	 * o igual valor que él.
+	 * Método que muestra el camino recorrido 
+	 * para llegar a un vector
 	 */
-
+	
 	public void mostrarCamino(){
 		if (this.getCamino().isEmpty()){
-			System.out.println("No existe aolución");
+			System.out.println("No existe solución");
 		}
 		else{
 			System.out.print("["); 
@@ -132,33 +137,17 @@ public class primeroAnchuraCiclos implements algoritmo {
 	 */
 	
 	public void generarSucesor(estado e, mapa m){
-		System.out.println("generar sucesores");
-		System.out.println(this.abiertos.contains(e));
-		e.mostrar();
-		System.out.println(this.abiertos.contains(e.moverAbajo()));
-		e.moverAbajo().mostrar();
-		//System.out.println(this.abiertos.contains(e.moverDerecha()));
-		//System.out.println(this.abiertos.contains(e.moverIzquierda()));
-		//System.out.println(this.abiertos.contains(e.moverArriba()));
-		e.moverAbajo().setValor(0);
-		e.moverDerecha().setValor(0);
-		e.moverIzquierda().setValor(0);
-		e.moverArriba().setValor(0);
-		if (!(e.moverAbajo().peligro(m)) || (this.abiertos.contains(e.moverAbajo())) || (this.cerrados.contains(e.moverAbajo()))) {
+		if (!(e.moverAbajo().peligro(m) || this.contains(e.moverAbajo()))) {
 			this.abiertos.add(e.moverAbajo());
-			//e.moverAbajo().mostrar();
 		}
-		if (!(e.moverDerecha().peligro(m)) || (this.abiertos.contains(e.moverDerecha())) || (this.cerrados.contains(e.moverAbajo()))) {
+		if (!(e.moverDerecha().peligro(m) || this.contains(e.moverDerecha()))) {
 			this.abiertos.add(e.moverDerecha());
-			//e.moverDerecha().mostrar();
 		}
-		if (!(e.moverIzquierda().peligro(m)) || (this.abiertos.contains(e.moverIzquierda())) || (this.cerrados.contains(e.moverAbajo()))) {
+		if (!(e.moverIzquierda().peligro(m) || this.contains(e.moverIzquierda()))) {
 			this.abiertos.add(e.moverIzquierda());
-			//e.moverIzquierda().mostrar();
 		}
-		if (!(e.moverArriba().peligro(m)) || (this.abiertos.contains(e.moverArriba())) || (this.cerrados.contains(e.moverAbajo()))) {
+		if (!(e.moverArriba().peligro(m) || this.contains(e.moverArriba()))) {
 			this.abiertos.add(e.moverArriba());
-			//e.moverArriba().mostrar();
 		}
 	}
 	
@@ -174,28 +163,22 @@ public class primeroAnchuraCiclos implements algoritmo {
 	 */
 	
 	public void resolver(mapa m){
-		System.out.println("resolver");
 		estado actual = new estado();
-		abiertos.add(this.inicial);
-		while (!abiertos.isEmpty()){
-		//while ((!abiertos.isEmpty()) && (!actual.equals(this.objetivo))){
-		//System.out.println("bucle");
-			actual = (estado)abiertos.firstElement();
-			abiertos.removeElementAt(0);
-			cerrados.add(actual);
-			actual.mostrar();
-			String s = m.dameCelda(actual.getX(),actual.getY());
-			System.out.println(s);
+		this.abiertos.add(this.inicial);
+		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
+			actual = (estado)this.abiertos.firstElement();
+			this.abiertos.removeElementAt(0);
+			this.cerrados.add(actual);
 			generarSucesor(actual, m);
 		}
 		if (actual.equals(this.objetivo)){
-			System.out.println("solucion");
-			camino = actual.generarCamino(this.inicial);
+			this.camino = actual.generarCamino(this.inicial);
 		}
-		System.out.println ("abiertos vacio = " + abiertos.isEmpty());
-		if (abiertos.isEmpty()){
-			//System.out.println("infinito");
-			camino.clear(); 
+		else{
+			if (abiertos.isEmpty()){
+				System.out.println("infinito");
+				camino.clear(); 
+			}
 		}
 	}
 }

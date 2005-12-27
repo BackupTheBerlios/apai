@@ -11,6 +11,34 @@ public class aEstrella implements algoritmo {
 	Vector cerrados;
 	Vector camino;
 	
+	/*
+	 * Constructores, vacío y con parámetros.
+	 */
+	
+	public aEstrella() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/*
+	 * Se da el estado inicial y el objetivo.
+	 */
+	
+	public aEstrella(estado inicial, estado objetivo) {
+		super();
+		// TODO Auto-generated constructor stub
+		this.inicial = inicial;
+		this.objetivo = objetivo;
+		this.abiertos = new Vector();
+		this.cerrados = new Vector();
+		this.camino = new Vector();
+	}
+	
+	/*
+	 * Acessores y mutadores para camino, abiertos, inicial,
+	 * objetivo y cerrados.
+	 */
+	
 	public Vector getAbiertos() {
 		return abiertos;
 	}
@@ -51,6 +79,19 @@ public class aEstrella implements algoritmo {
 		this.objetivo = objetivo;
 	}
 
+	/*
+	 * Método que muestra el camino recorrido 
+	 * para llegar a un vector
+	 */
+
+	public void mostrarCamino(){
+		System.out.print("["); 
+		for (int i = 0; i< this.getCamino().size(); i ++){
+			((estado)this.getCamino().elementAt(i)).mostrar();
+		}
+		System.out.println("]");
+	}
+	
 	public boolean comprobarObjetivo(estado eo) {
 		return true;
 		// no basta con == hay que hacer equals
@@ -73,14 +114,20 @@ public class aEstrella implements algoritmo {
 			camino = actual.generarCamino(this.inicial);
 		}
 	}
-	
-	public void mostrarCamino(){
-		
-	}
 
 	/*
+	 * Método que genera los hijos, aplicando los
+	 * operadores que no generen situaciones de
+	 * peligro.
+	 * 
+	 * Al insertarlos en abiertos, tenemos en cuenta 
+	 * como extrae los hijos el algoritmo para 
+	 * insertarlos en orden y tener que sacar
+	 * siempre el primero.
+	 * 
 	 * Hay que añadir en orden en función de la heurística
 	 */
+	
 	public void generarSucesor(estado e, mapa m) {
 		if (!e.moverAbajo().peligro(m)) {
 			estado aux = e.moverAbajo();
