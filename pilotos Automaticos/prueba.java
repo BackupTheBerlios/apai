@@ -10,14 +10,16 @@ public class prueba {
 	
 	public static void main(String[] args) {
 		mapa m = new mapa(4,4);
-		m.ponCelda(1,0,"montaña");
 		m.ponCelda(1,1,"montaña");
-		m.ponCelda(1,2,"avion");
-		m.ponCelda(1,3,"montaña");
+		m.ponCelda(1,2,"montaña");
+		m.ponCelda(2,2,"avion");
+		m.ponCelda(3,0,"montaña");
+		m.ponCelda(1,0,"viento");
 		estado ini = new estado(0,0);
-		estado fin = new estado(0,3);
+		estado fin = new estado(3,2);
 		//algoritmo alg= new primeroAnchura(ini,fin);
-		algoritmo alg= new primeroAnchuraCiclos(ini,fin);
+		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
+		algoritmo alg= new aEstrella(ini,fin,"celdas");
 		alg.resolver(m);
 		alg.mostrarCamino();
 		

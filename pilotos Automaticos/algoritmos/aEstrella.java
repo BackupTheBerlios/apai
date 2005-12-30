@@ -3,13 +3,14 @@ package algoritmos;
 import java.util.Vector;
 import mapa.mapa;
 
-public class aEstrella implements algoritmo {
+public class aEstrella implements algoritmoInformado {
 
 	estado inicial;
 	estado objetivo;
 	Vector abiertos;
 	Vector cerrados;
 	Vector camino;
+	String heuristica;
 	
 	/*
 	 * Constructores, vacío y con parámetros.
@@ -32,6 +33,22 @@ public class aEstrella implements algoritmo {
 		this.abiertos = new Vector();
 		this.cerrados = new Vector();
 		this.camino = new Vector();
+	}
+	
+	/*
+	 * Se da el estado inicial, el objetivo y
+	 * la heurística elegida.
+	 */
+	
+	public aEstrella(estado inicial, estado objetivo, String heuristica) {
+		super();
+		// TODO Auto-generated constructor stub
+		this.inicial = inicial;
+		this.objetivo = objetivo;
+		this.abiertos = new Vector();
+		this.cerrados = new Vector();
+		this.camino = new Vector();
+		this.heuristica = heuristica;
 	}
 	
 	/*
@@ -79,6 +96,14 @@ public class aEstrella implements algoritmo {
 		this.objetivo = objetivo;
 	}
 
+	public String getHeuristica() {
+		return heuristica;
+	}
+
+	public void setHeuristica(String heuristica) {
+		this.heuristica = heuristica;
+	}
+	
 	/*
 	 * Método que muestra el camino recorrido 
 	 * para llegar a un vector
@@ -91,30 +116,6 @@ public class aEstrella implements algoritmo {
 		}
 		System.out.println("]");
 	}
-	
-	public boolean comprobarObjetivo(estado eo) {
-		return true;
-		// no basta con == hay que hacer equals
-	}
-
-	public void resolver(mapa m) {
-		// TODO Auto-generated method stub
-		estado actual = new estado();
-		abiertos = new Vector();
-		cerrados = new Vector();
-		camino = new Vector();
-		abiertos.add(inicial);
-		actual = (estado)abiertos.firstElement();
-		while (!abiertos.isEmpty() && (!actual.equals(objetivo))){
-			abiertos.removeElement(abiertos.firstElement());
-			cerrados.add(actual);
-			generarSucesor(actual,m);
-		}
-		if (actual.equals(objetivo)){
-			camino = actual.generarCamino(this.inicial);
-		}
-	}
-
 	/*
 	 * Método que genera los hijos, aplicando los
 	 * operadores que no generen situaciones de
@@ -129,26 +130,63 @@ public class aEstrella implements algoritmo {
 	 */
 	
 	public void generarSucesor(estado e, mapa m) {
-		if (!e.moverAbajo().peligro(m)) {
-			estado aux = e.moverAbajo();
-			int i = aux.damePosicion(abiertos,aux.getValor());
-			abiertos.add(i,aux);
+			if (!e.moverAbajo().peligro(m)) {
+				int aux;
+				aux = e.moverAbajo().calculaHeurisitica(this.heuristica, this.objetivo, m);
+				aux = aux + e.getValor();
+				e.moverAbajo().setValor(aux);
+				int i = e.moverAbajo().damePosicion(this.abiertos,aux);
+				this.abiertos.add(i,e.moverAbajo());
+			}
+			if (!e.moverDerecha().peligro(m)) {
+				int aux;
+				aux = e.moverDerecha().calculaHeurisitica(this.heuristica, this.objetivo, m);
+				aux = aux + e.getValor();
+				e.moverDerecha().setValor(aux);
+				int i = e.moverDerecha().damePosicion(this.abiertos,aux);
+				this.abiertos.add(i,e.moverDerecha());
+			}
+			if (!e.moverIzquierda().peligro(m)) {
+				int aux;
+				aux = e.moverIzquierda().calculaHeurisitica(this.heuristica, this.objetivo, m);
+				aux = aux + e.getValor();
+				e.moverIzquierda().setValor(aux);
+				int i = e.moverIzquierda().damePosicion(this.abiertos,aux);
+				this.abiertos.add(i,e.moverIzquierda());
+			}
+			if (!e.moverArriba().peligro(m)) {
+				int aux;
+				aux = e.moverArriba().calculaHeurisitica(this.heuristica, this.objetivo, m);
+				aux = aux + e.getValor();
+				e.moverArriba().setValor(aux);
+				int i = e.moverArriba().damePosicion(this.abiertos,aux);
+				this.abiertos.add(i,e.moverArriba());
+			}	 
+	}
+	
+	/* 
+	 * Añadir abiertos el estado inicial.
+	 * 
+	 * Hasta que no me queden nodos o encuentre la solución:
+	 * - Sacar de abiertos el primero
+	 * - Añadirlo a cerrados
+	 * - generar los sucesores: al generarlos los insertamos en orden
+	 * para luego tener que extraer el primero que coincide con el de menor heuristica. 
+	 * 
+	 * Si he encontrado el objetivo genero el camino.
+	 */
+	public void resolver(mapa m) {
+		// TODO Auto-generated method stub
+		estado actual = new estado();
+		this.abiertos.add(this.inicial);
+		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
+			actual = (estado)this.abiertos.firstElement();
+			this.abiertos.removeElementAt(0);
+			this.cerrados.add(actual);
+			generarSucesor(actual, m);
 		}
-		if (!e.moverDerecha().peligro(m)) {
-			estado aux = e.moverDerecha();
-			int i = aux.damePosicion(abiertos,aux.getValor());
-			abiertos.add(i,aux);
-		}
-		if (!e.moverIzquierda().peligro(m)) {
-			estado aux = e.moverIzquierda();
-			int i = aux.damePosicion(abiertos,aux.getValor());
-			abiertos.add(i,aux);
-		}
-		if (!e.moverArriba().peligro(m)) {
-			estado aux = e.moverArriba();
-			int i = aux.damePosicion(abiertos,aux.getValor());
-			abiertos.add(i,aux);
+		if (actual.equals(this.objetivo)){
+			this.camino = actual.generarCamino(this.inicial);
 		}
 	}
-
 }

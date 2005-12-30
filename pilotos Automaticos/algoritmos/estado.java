@@ -214,4 +214,66 @@ public class estado {
 		}
 		return aux;	
 	}
+	
+	/*
+	 * Metodo para calcular las distintas heurísiticas
+	 */
+	
+	public int calculaHeurisitica (String heuristica, estado objetivo, mapa m){
+		int aux = 0;
+		if (heuristica == "manhattan"){ 
+			aux = this.calculaManhattan(objetivo);				
+		}
+		if (heuristica == "celdas"){
+			aux = this.calculaCelda(objetivo, m);
+		}
+		if (heuristica == "manhattanCelda"){
+			aux = this.calculaManhattan(objetivo);
+			aux = aux  + this.calculaCelda(objetivo, m);
+		}
+		return aux;
+	}
+	
+	/*
+	 * Metodo para calcular la distancia manhattan al objetivo
+	 */
+	
+	public int calculaManhattan (estado objetivo){
+		int aux;
+		int distanciaX;
+		int distanciaY;
+		distanciaX = objetivo.getX() - this.getX();
+		distanciaY = objetivo.getY() - this.getY();
+		aux = distanciaX + distanciaY;
+		return aux;
+	}
+	
+	/*
+	 * Metodo que asigna un valor en funcion del 
+	 * contenido de la celda.
+	 * 
+	 *  Libre mejor que turbulencia
+	 *  Turbulencia mejor que tormenta o viento
+	 */
+	public int calculaCelda(estado objetivo, mapa m){
+		int aux = 1;
+		String celda;
+		celda = m.dameCelda(this.x,this.y);
+		if (this.equals(objetivo)){
+			aux = 0; 
+		}
+		if (celda == "libre"){
+			aux = 1; 
+		}
+		if (celda == "turbulencia"){
+			aux = 5; 
+		}
+		if (celda == "viento"){
+			aux = 10; 
+		}
+		if (celda == "tormenta"){
+			aux = 10; 
+		}
+		return aux;
+	}
 }
