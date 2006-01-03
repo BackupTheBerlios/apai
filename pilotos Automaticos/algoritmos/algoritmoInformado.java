@@ -1,7 +1,7 @@
 package algoritmos;
 
 /*
- * Los valores de heurística son
+ * Los valores de heuristica son
  * manhattan
  * celdas
  * manhattanCeldas

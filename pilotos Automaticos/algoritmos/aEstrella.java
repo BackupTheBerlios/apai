@@ -13,7 +13,7 @@ public class aEstrella implements algoritmoInformado {
 	String heuristica;
 	
 	/*
-	 * Constructores, vacío y con parámetros.
+	 * Constructores, vacio y con parametros.
 	 */
 	
 	public aEstrella() {
@@ -37,7 +37,7 @@ public class aEstrella implements algoritmoInformado {
 	
 	/*
 	 * Se da el estado inicial, el objetivo y
-	 * la heurística elegida.
+	 * la heuristica elegida.
 	 */
 	
 	public aEstrella(estado inicial, estado objetivo, String heuristica) {
@@ -105,7 +105,7 @@ public class aEstrella implements algoritmoInformado {
 	}
 	
 	/*
-	 * Método que muestra el camino recorrido 
+	 * Metodo que muestra el camino recorrido 
 	 * para llegar a un vector
 	 */
 
@@ -117,7 +117,7 @@ public class aEstrella implements algoritmoInformado {
 		System.out.println("]");
 	}
 	/*
-	 * Método que genera los hijos, aplicando los
+	 * Metodo que genera los hijos, aplicando los
 	 * operadores que no generen situaciones de
 	 * peligro.
 	 * 
@@ -126,50 +126,65 @@ public class aEstrella implements algoritmoInformado {
 	 * insertarlos en orden y tener que sacar
 	 * siempre el primero.
 	 * 
-	 * Hay que añadir en orden en función de la heurística
+	 * Hay que agnadir en orden en funcion de la heuristica
 	 */
 	
 	public void generarSucesor(estado e, mapa m) {
+			System.out.print("generar sucesor de ");
+			e.mostrar();
+			System.out.println();
 			if (!e.moverAbajo().peligro(m)) {
+				System.out.println("abajo");
 				int aux;
 				aux = e.moverAbajo().calculaHeurisitica(this.heuristica, this.objetivo, m);
 				aux = aux + e.getValor();
 				e.moverAbajo().setValor(aux);
+				System.out.print("Valor = ");
+				System.out.println(aux);
 				int i = e.moverAbajo().damePosicion(this.abiertos,aux);
 				this.abiertos.add(i,e.moverAbajo());
 			}
 			if (!e.moverDerecha().peligro(m)) {
+				System.out.println("derecha");
 				int aux;
 				aux = e.moverDerecha().calculaHeurisitica(this.heuristica, this.objetivo, m);
 				aux = aux + e.getValor();
 				e.moverDerecha().setValor(aux);
+				System.out.print("Valor = ");
+				System.out.println(aux);
 				int i = e.moverDerecha().damePosicion(this.abiertos,aux);
 				this.abiertos.add(i,e.moverDerecha());
 			}
 			if (!e.moverIzquierda().peligro(m)) {
+				System.out.println("izquierda");
 				int aux;
 				aux = e.moverIzquierda().calculaHeurisitica(this.heuristica, this.objetivo, m);
 				aux = aux + e.getValor();
 				e.moverIzquierda().setValor(aux);
+				System.out.print("Valor = ");
+				System.out.println(aux);
 				int i = e.moverIzquierda().damePosicion(this.abiertos,aux);
 				this.abiertos.add(i,e.moverIzquierda());
 			}
 			if (!e.moverArriba().peligro(m)) {
+				System.out.println("arriba");
 				int aux;
 				aux = e.moverArriba().calculaHeurisitica(this.heuristica, this.objetivo, m);
 				aux = aux + e.getValor();
 				e.moverArriba().setValor(aux);
+				System.out.print("Valor = ");
+				System.out.println(aux);
 				int i = e.moverArriba().damePosicion(this.abiertos,aux);
 				this.abiertos.add(i,e.moverArriba());
 			}	 
 	}
 	
 	/* 
-	 * Añadir abiertos el estado inicial.
+	 * Agnadir abiertos el estado inicial.
 	 * 
-	 * Hasta que no me queden nodos o encuentre la solución:
+	 * Hasta que no me queden nodos o encuentre la solucion:
 	 * - Sacar de abiertos el primero
-	 * - Añadirlo a cerrados
+	 * - Agnadirlo a cerrados
 	 * - generar los sucesores: al generarlos los insertamos en orden
 	 * para luego tener que extraer el primero que coincide con el de menor heuristica. 
 	 * 
@@ -184,6 +199,11 @@ public class aEstrella implements algoritmoInformado {
 			this.abiertos.removeElementAt(0);
 			this.cerrados.add(actual);
 			generarSucesor(actual, m);
+			System.out.print("["); 
+			for (int i = 0; i< this.getAbiertos().size(); i ++){
+				((estado)this.getAbiertos().elementAt(i)).mostrar();
+			}
+			System.out.println("]");
 		}
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);

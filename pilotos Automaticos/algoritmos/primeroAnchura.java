@@ -12,7 +12,7 @@ public class primeroAnchura implements algoritmo {
 	Vector camino;
 	
 	/*
-	 * Constructores, vacío y con parámetros.
+	 * Constructores, vacio y con parametros.
 	 */
 	
 	public primeroAnchura() {
@@ -79,7 +79,7 @@ public class primeroAnchura implements algoritmo {
 	}
 	
 	/*
-	 * Método que muestra el camino recorrido 
+	 * Metodo que muestra el camino recorrido 
 	 * para llegar a un vector
 	 */
 
@@ -92,7 +92,7 @@ public class primeroAnchura implements algoritmo {
 	}
 	
 	/*
-	 * Método que genera los hijos, aplicando los
+	 * Metodo que genera los hijos, aplicando los
 	 * operadores que no generen situaciones de
 	 * peligro.
 	 * 
@@ -122,11 +122,11 @@ public class primeroAnchura implements algoritmo {
 	}
 	
 	/* 
-	 * Añadir abiertos el estado inicial.
+	 * Agnadir abiertos el estado inicial.
 	 * 
-	 * Hasta que no me queden nodos o encuentre la solución:
+	 * Hasta que no me queden nodos o encuentre la solucion:
 	 * - Sacar de abiertos el primero
-	 * - Añadirlo a cerrados
+	 * - Agnadirlo a cerrados
 	 * - generar los sucesores
 	 * 
 	 * Si he encontrado el objetivo genero el camino.

@@ -2,15 +2,16 @@ package algoritmos;
 import java.util.Vector;
 import mapa.mapa;
 
+
 public class estado {
 	
 	int x;	//representamos el avion con sus coordenadas
 	int y;
 	estado padre; 
-	int	valor; //representación del valor heurístico
+	int	valor; //representacion del valor heuristico
 
 	/*
-	 * Constructores, vacío y con parámetros.
+	 * Constructores, vacio y con parametros.
 	 */
 	
 	public estado() {
@@ -19,7 +20,7 @@ public class estado {
 	}
 	
 	/*
-	 * Se da la posición del avión.
+	 * Se da la posicion del avion.
 	 */
 	
 	public estado(int x, int y) {
@@ -31,7 +32,7 @@ public class estado {
 	}
 	
 	/*
-	 * Se da la posición del avión y el nodo padre.
+	 * Se da la posicion del avion y el nodo padre.
 	 */
 	
 	public estado(int x, int y, estado padre) {
@@ -44,8 +45,8 @@ public class estado {
 	}
 	
 	/*
-	 * Se da la posición del avión, el nodo padre y 
-	 * el valor heurístico
+	 * Se da la posicion del avion, el nodo padre y 
+	 * el valor heuristico
 	 */
 	
 	public estado(int x, int y, estado padre, int valor) {
@@ -94,7 +95,7 @@ public class estado {
 	}
 
 	/*
-	 * Métodos de los operadores de movimiento.
+	 * Metodos de los operadores de movimiento.
 	 */
 	
 	/*
@@ -122,7 +123,7 @@ public class estado {
 	}
 	
 	/*
-	 * Método para mostrar las coordenadas de un estado.
+	 * Metodo para mostrar las coordenadas de un estado.
 	 */
 	
 	public void mostrar(){
@@ -134,25 +135,25 @@ public class estado {
 	}
 	
 	/*
-	 * Métodos que indica si un estado es de peligro:
-	 * Si hay un avión, una montaña o es de fuera del mapa.
+	 * Metodos que indica si un estado es de peligro:
+	 * Si hay un avion, una montaña o es de fuera del mapa.
 	 */
 	
 	public boolean peligro(mapa m){
 		boolean aux = false;
 		String val = m.dameCelda(this.x, this.y);
-		if ((val=="avion")||(val=="montaña")||(val=="")){
+		if ((val=="avion")||(val=="montana")||(val=="")){
 			aux = aux || true;
 		}
 		return aux;
 	}
 
 	/*
-	 * Método que indica donde hay que 
-	 * insertar en función de la heurística.
+	 * Metodo que indica donde hay que 
+	 * insertar en funcion de la heuristica.
 	 * 
-	 * Se coloca el último tras los que tengan menor
-	 * o igual valor que él.
+	 * Se coloca el ultimo tras los que tengan menor
+	 * o igual valor que el.
 	 */
 	
 	public int damePosicion(Vector v, int heu){
@@ -160,18 +161,23 @@ public class estado {
 		boolean encontrado = false;
 		while (i < v.size() && !encontrado){
 			estado aux = (estado) v.elementAt(i);
+			System.out.println(aux.getValor());
+			System.out.println(heu);
 			if (heu >= aux.getValor()){
-				i ++;
+				System.out.println("Entro en el if porque heu>=valor");
+				i ++;		
 			}
 			else {
 				encontrado = true;
 			}
 		}
+		System.out.print("La posici�n es ");
+		System.out.println (i);
 		return i;
 	}
 	
 	/*
-	 * Método que genera el camino, recorriendo los padres
+	 * Metodo que genera el camino, recorriendo los padres
 	 * hasta llegar al estado inicial. 
 	 */
 	
@@ -187,7 +193,7 @@ public class estado {
 	}
 
 	/*
-	 * Redefinición del método equals,
+	 * Redefinicion del metodo equals,
 	 * si es la misma celda, son iguales. 
 	 */
 	
@@ -216,13 +222,13 @@ public class estado {
 	}
 	
 	/*
-	 * Metodo para calcular las distintas heurísiticas
+	 * Metodo para calcular las distintas heurisiticas
 	 */
 	
 	public int calculaHeurisitica (String heuristica, estado objetivo, mapa m){
 		int aux = 0;
 		if (heuristica == "manhattan"){ 
-			aux = this.calculaManhattan(objetivo);				
+			aux = this.calculaManhattan(objetivo);
 		}
 		if (heuristica == "celdas"){
 			aux = this.calculaCelda(objetivo, m);
@@ -230,6 +236,7 @@ public class estado {
 		if (heuristica == "manhattanCelda"){
 			aux = this.calculaManhattan(objetivo);
 			aux = aux  + this.calculaCelda(objetivo, m);
+			this.mostrar();
 		}
 		return aux;
 	}
@@ -244,6 +251,12 @@ public class estado {
 		int distanciaY;
 		distanciaX = objetivo.getX() - this.getX();
 		distanciaY = objetivo.getY() - this.getY();
+		if (distanciaX < 0){
+			distanciaX = -1 * distanciaX;
+		}
+		if (distanciaY < 0){
+			distanciaY = -1 * distanciaY;
+		}
 		aux = distanciaX + distanciaY;
 		return aux;
 	}
@@ -266,13 +279,13 @@ public class estado {
 			aux = 1; 
 		}
 		if (celda == "turbulencia"){
-			aux = 5; 
+			aux = 10; 
 		}
 		if (celda == "viento"){
-			aux = 10; 
+			aux = 30; 
 		}
 		if (celda == "tormenta"){
-			aux = 10; 
+			aux = 30; 
 		}
 		return aux;
 	}
