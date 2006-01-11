@@ -15,7 +15,7 @@ public class prueba {
 		m.ponCelda(2,2,"avion");
 		m.ponCelda(2,1,"montana");
 		//m.ponCelda(3,1,"montana");
-		m.ponCelda(1,0,"viento");
+		m.ponCelda(1,0,"montana");
 		estado ini = new estado(2,0);
 		estado fin = new estado(1,1);
 		//algoritmo alg= new primeroAnchura(ini,fin);

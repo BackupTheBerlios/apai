@@ -10,6 +10,7 @@ public class estado {
 	estado padre; 
 	int	valor; //representacion del valor heuristico
 	int coste; //coste de llegar al nodo desde el inicial
+	int ctotal; // La estimacion del coste total -->  ctotal = heuristica + coste
 
 	/*
 	 * Constructores, vacio y con parametros.
@@ -31,6 +32,7 @@ public class estado {
 		this.y = y;
 		this.valor = 0;
 		this.coste = 0;
+		this.ctotal = 0;
 	}
 	
 	/*
@@ -45,6 +47,7 @@ public class estado {
 		this.padre = padre;
 		this.valor = 0;
 		this.coste = padre.getCoste() + 1 ;
+		this.ctotal = valor + coste;
 	}
 	
 	/*
@@ -60,6 +63,7 @@ public class estado {
 		this.padre = padre;
 		this.valor = valor;
 		this.coste = padre.getCoste() + 1;
+		this.ctotal = this.valor + coste;
 	}
 	
 	/*
@@ -105,7 +109,14 @@ public class estado {
 	public void setCoste(int coste) {
 		this.coste = coste;
 	}
-	
+
+	public int getCtotal() {
+		return ctotal;
+	}
+
+	public void setCtotal(int ctotal) {
+		this.ctotal = ctotal;
+	}
 	/*
 	 * Metodos de los operadores de movimiento.
 	 */
@@ -120,18 +131,18 @@ public class estado {
 	}
 
 	public estado moverAbajo(){
-		estado arriba = new estado (this.x, (this.y)+1, this);
-		return arriba;
+		estado abajo = new estado (this.x, (this.y)+1, this);
+		return abajo;
 	}
 	
 	public estado moverDerecha(){
-		estado arriba = new estado ((this.x+1), this.y, this);
-		return arriba;
+		estado derecha = new estado ((this.x)+1, this.y, this);
+		return derecha;
 	}
 	
 	public estado moverIzquierda(){
-		estado arriba = new estado ((this.x)-1, this.y, this);
-		return arriba;
+		estado izquierda = new estado ((this.x)-1, this.y, this);
+		return izquierda;
 	}
 	
 	/*
@@ -309,4 +320,5 @@ public class estado {
 		}
 		return aux;
 	}
+
 }

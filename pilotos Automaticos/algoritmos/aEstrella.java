@@ -134,43 +134,47 @@ public class aEstrella implements algoritmoInformado {
 		estado derecha = e.moverDerecha();
 		estado izquierda = e.moverIzquierda();
 		estado arriba = e.moverArriba();
-		System.out.print("generar sucesor de ");
+		//System.out.print("generar sucesor de ");
 		e.mostrar();
 		System.out.println();
 		if (!abajo.peligro(m)) {
-			System.out.println("abajo");
+			//System.out.println("abajo");
+//			System.out.println("(" + e.x + ", "+e.y+")");
 			int aux;
 			aux = abajo.calculaHeurisitica(this.heuristica, this.objetivo, m);
 			aux = aux + abajo.getCoste();
-			abajo.setValor(aux);
-			int i = abajo.damePosicion(this.abiertos,aux);
+			abajo.setCtotal(aux + abajo.getValor());
+			int i = abajo.damePosicion(this.abiertos,abajo.getCtotal());
 			this.abiertos.add(i,abajo);
 		}
 		if (!derecha.peligro(m)) {
-			System.out.println("derecha");
+			//System.out.println("derecha");
+	//		System.out.println("(" + e.x + ", "+e.y+")");
 			int aux;
 			aux = derecha.calculaHeurisitica(this.heuristica, this.objetivo, m);
 			aux = aux + derecha.getCoste();
-			derecha.setValor(aux);
-			int i = derecha.damePosicion(this.abiertos,aux);
+			derecha.setCtotal(aux + derecha.getValor());
+			int i = derecha.damePosicion(this.abiertos,derecha.getCtotal());
 			this.abiertos.add(i,derecha);
 		}
 		if (!izquierda.peligro(m)) {
-			System.out.println("izquierda");
+			//System.out.println("izquierda");
+		//	System.out.println("(" + e.x + ", "+e.y+")");
 			int aux;
 			aux = izquierda.calculaHeurisitica(this.heuristica, this.objetivo, m);
 			aux = aux + izquierda.getCoste();
-			izquierda.setValor(aux);
-			int i = izquierda.damePosicion(this.abiertos,aux);
+			izquierda.setCtotal(aux + izquierda.getValor());
+			int i = izquierda.damePosicion(this.abiertos,izquierda.getCtotal());
 			this.abiertos.add(i,izquierda);
 		}
 		if (!arriba.peligro(m)) {
-			System.out.println("arriba");
+			//System.out.println("arriba");
+			//System.out.println("(" + e.x + ", "+e.y+")");
 			int aux;
 			aux = arriba.calculaHeurisitica(this.heuristica, this.objetivo, m);
 			aux = aux + arriba.getCoste();
-			arriba.setValor(aux);
-			int i = arriba.damePosicion(this.abiertos,aux);
+			arriba.setCtotal(aux + arriba.getValor());
+			int i = arriba.damePosicion(this.abiertos,arriba.getCtotal());
 			this.abiertos.add(i,arriba);
 		}	 
 	}
