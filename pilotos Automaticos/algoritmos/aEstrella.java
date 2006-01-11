@@ -130,53 +130,49 @@ public class aEstrella implements algoritmoInformado {
 	 */
 	
 	public void generarSucesor(estado e, mapa m) {
-			System.out.print("generar sucesor de ");
-			e.mostrar();
-			System.out.println();
-			if (!e.moverAbajo().peligro(m)) {
-				System.out.println("abajo");
-				int aux;
-				aux = e.moverAbajo().calculaHeurisitica(this.heuristica, this.objetivo, m);
-				aux = aux + e.getValor();
-				e.moverAbajo().setValor(aux);
-				System.out.print("Valor = ");
-				System.out.println(aux);
-				int i = e.moverAbajo().damePosicion(this.abiertos,aux);
-				this.abiertos.add(i,e.moverAbajo());
-			}
-			if (!e.moverDerecha().peligro(m)) {
-				System.out.println("derecha");
-				int aux;
-				aux = e.moverDerecha().calculaHeurisitica(this.heuristica, this.objetivo, m);
-				aux = aux + e.getValor();
-				e.moverDerecha().setValor(aux);
-				System.out.print("Valor = ");
-				System.out.println(aux);
-				int i = e.moverDerecha().damePosicion(this.abiertos,aux);
-				this.abiertos.add(i,e.moverDerecha());
-			}
-			if (!e.moverIzquierda().peligro(m)) {
-				System.out.println("izquierda");
-				int aux;
-				aux = e.moverIzquierda().calculaHeurisitica(this.heuristica, this.objetivo, m);
-				aux = aux + e.getValor();
-				e.moverIzquierda().setValor(aux);
-				System.out.print("Valor = ");
-				System.out.println(aux);
-				int i = e.moverIzquierda().damePosicion(this.abiertos,aux);
-				this.abiertos.add(i,e.moverIzquierda());
-			}
-			if (!e.moverArriba().peligro(m)) {
-				System.out.println("arriba");
-				int aux;
-				aux = e.moverArriba().calculaHeurisitica(this.heuristica, this.objetivo, m);
-				aux = aux + e.getValor();
-				e.moverArriba().setValor(aux);
-				System.out.print("Valor = ");
-				System.out.println(aux);
-				int i = e.moverArriba().damePosicion(this.abiertos,aux);
-				this.abiertos.add(i,e.moverArriba());
-			}	 
+		estado abajo = e.moverAbajo();
+		estado derecha = e.moverDerecha();
+		estado izquierda = e.moverIzquierda();
+		estado arriba = e.moverArriba();
+		System.out.print("generar sucesor de ");
+		e.mostrar();
+		System.out.println();
+		if (!abajo.peligro(m)) {
+			System.out.println("abajo");
+			int aux;
+			aux = abajo.calculaHeurisitica(this.heuristica, this.objetivo, m);
+			aux = aux + abajo.getCoste();
+			abajo.setValor(aux);
+			int i = abajo.damePosicion(this.abiertos,aux);
+			this.abiertos.add(i,abajo);
+		}
+		if (!derecha.peligro(m)) {
+			System.out.println("derecha");
+			int aux;
+			aux = derecha.calculaHeurisitica(this.heuristica, this.objetivo, m);
+			aux = aux + derecha.getCoste();
+			derecha.setValor(aux);
+			int i = derecha.damePosicion(this.abiertos,aux);
+			this.abiertos.add(i,derecha);
+		}
+		if (!izquierda.peligro(m)) {
+			System.out.println("izquierda");
+			int aux;
+			aux = izquierda.calculaHeurisitica(this.heuristica, this.objetivo, m);
+			aux = aux + izquierda.getCoste();
+			izquierda.setValor(aux);
+			int i = izquierda.damePosicion(this.abiertos,aux);
+			this.abiertos.add(i,izquierda);
+		}
+		if (!arriba.peligro(m)) {
+			System.out.println("arriba");
+			int aux;
+			aux = arriba.calculaHeurisitica(this.heuristica, this.objetivo, m);
+			aux = aux + arriba.getCoste();
+			arriba.setValor(aux);
+			int i = arriba.damePosicion(this.abiertos,aux);
+			this.abiertos.add(i,arriba);
+		}	 
 	}
 	
 	/* 
@@ -191,8 +187,17 @@ public class aEstrella implements algoritmoInformado {
 	 * Si he encontrado el objetivo genero el camino.
 	 */
 	public void resolver(mapa m) {
+		/*
+		 * Problemas:
+		 * 1.- El valor no se modifica con setValor();
+		 * 2.- El valor heurístico no debe sumar el padre??;
+		 */
 		// TODO Auto-generated method stub
 		estado actual = new estado();
+		int aux;
+		aux = this.inicial.calculaHeurisitica(this.heuristica,this.objetivo,m);
+		this.inicial.setValor(aux);
+		this.objetivo.setValor(0);
 		this.abiertos.add(this.inicial);
 		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
 			actual = (estado)this.abiertos.firstElement();

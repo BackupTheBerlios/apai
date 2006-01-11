@@ -103,21 +103,25 @@ public class primeroAnchura implements algoritmo {
 	 */
 	
 	public void generarSucesor(estado e, mapa m){
-		if (!e.moverAbajo().peligro(m)) {
-			e.moverAbajo().setValor(0);
-			this.abiertos.add(e.moverAbajo());
+		estado abajo = e.moverAbajo();
+		estado derecha = e.moverDerecha();
+		estado izquierda = e.moverIzquierda();
+		estado arriba = e.moverArriba();
+		if (!abajo.peligro(m)) {
+			abajo.setValor(0);
+			this.abiertos.add(abajo);
 		}
-		if (!e.moverDerecha().peligro(m)) {
-			e.moverDerecha().setValor(0);
-			this.abiertos.add(e.moverDerecha());
+		if (!derecha.peligro(m)) {
+			derecha.setValor(0);
+			this.abiertos.add(derecha);
 		}
-		if (!e.moverIzquierda().peligro(m)) {
-			e.moverIzquierda().setValor(0);
-			this.abiertos.add(e.moverIzquierda());
+		if (!izquierda.peligro(m)) {
+			izquierda.setValor(0);
+			this.abiertos.add(izquierda);
 		}
-		if (!e.moverArriba().peligro(m)) {
-			e.moverArriba().setValor(0);
-			this.abiertos.add(e.moverArriba());
+		if (!arriba.peligro(m)) {
+			arriba.setValor(0);
+			this.abiertos.add(arriba);
 		}
 	}
 	

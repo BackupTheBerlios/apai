@@ -137,17 +137,21 @@ public class primeroAnchuraCiclos implements algoritmo {
 	 */
 	
 	public void generarSucesor(estado e, mapa m){
-		if (!(e.moverAbajo().peligro(m) || this.contains(e.moverAbajo()))) {
-			this.abiertos.add(e.moverAbajo());
+		estado abajo = e.moverAbajo();
+		estado derecha = e.moverDerecha();
+		estado izquierda = e.moverIzquierda();
+		estado arriba = e.moverArriba();
+		if (!(abajo.peligro(m) || this.contains(abajo))) {
+			this.abiertos.add(abajo);
 		}
-		if (!(e.moverDerecha().peligro(m) || this.contains(e.moverDerecha()))) {
-			this.abiertos.add(e.moverDerecha());
+		if (!(derecha.peligro(m) || this.contains(derecha))) {
+			this.abiertos.add(derecha);
 		}
-		if (!(e.moverIzquierda().peligro(m) || this.contains(e.moverIzquierda()))) {
-			this.abiertos.add(e.moverIzquierda());
+		if (!(izquierda.peligro(m) || this.contains(izquierda))) {
+			this.abiertos.add(izquierda);
 		}
-		if (!(e.moverArriba().peligro(m) || this.contains(e.moverArriba()))) {
-			this.abiertos.add(e.moverArriba());
+		if (!(arriba.peligro(m) || this.contains(arriba))) {
+			this.abiertos.add(arriba);
 		}
 	}
 	

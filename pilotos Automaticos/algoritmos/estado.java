@@ -9,6 +9,7 @@ public class estado {
 	int y;
 	estado padre; 
 	int	valor; //representacion del valor heuristico
+	int coste; //coste de llegar al nodo desde el inicial
 
 	/*
 	 * Constructores, vacio y con parametros.
@@ -29,6 +30,7 @@ public class estado {
 		this.x = x;
 		this.y = y;
 		this.valor = 0;
+		this.coste = 0;
 	}
 	
 	/*
@@ -42,6 +44,7 @@ public class estado {
 		this.y = y;
 		this.padre = padre;
 		this.valor = 0;
+		this.coste = padre.getCoste() + 1 ;
 	}
 	
 	/*
@@ -56,6 +59,7 @@ public class estado {
 		this.y = y;
 		this.padre = padre;
 		this.valor = valor;
+		this.coste = padre.getCoste() + 1;
 	}
 	
 	/*
@@ -93,7 +97,15 @@ public class estado {
 	public void setValor(int valor) {
 		this.valor = valor;
 	}
+	
+	public int getCoste() {
+		return coste;
+	}
 
+	public void setCoste(int coste) {
+		this.coste = coste;
+	}
+	
 	/*
 	 * Metodos de los operadores de movimiento.
 	 */
@@ -101,7 +113,7 @@ public class estado {
 	/*
 	 * Al acceder al estado, le asignamos el padre.
 	 */
-	
+
 	public estado moverArriba(){
 		estado arriba = new estado (this.x, (this.y)-1, this);
 		return arriba;
@@ -159,19 +171,26 @@ public class estado {
 	public int damePosicion(Vector v, int heu){
 		int i = 0;
 		boolean encontrado = false;
-		while (i < v.size() && !encontrado){
-			estado aux = (estado) v.elementAt(i);
-			System.out.println(aux.getValor());
-			System.out.println(heu);
-			if (heu >= aux.getValor()){
-				System.out.println("Entro en el if porque heu>=valor");
-				i ++;		
-			}
-			else {
-				encontrado = true;
-			}
+		if (v.isEmpty()){
+			i = 0;
 		}
-		System.out.print("La posición es ");
+		else {
+			while (i < v.size() && !encontrado){
+				estado aux = (estado) v.elementAt(i);
+				//System.out.print("Valor del nuevo (valor)");
+				//System.out.println(aux.getValor());
+				//System.out.print("Valor del de la lista (heu)");
+				//System.out.println(heu);
+				if (heu >= aux.getValor()){
+					//System.out.println("Entro en el if porque heu>=valor");
+					i ++;		
+				}
+				else {
+					encontrado = true;
+				}
+			}
+		}	
+		System.out.print("La posicion es ");
 		System.out.println (i);
 		return i;
 	}
@@ -274,6 +293,7 @@ public class estado {
 		celda = m.dameCelda(this.x,this.y);
 		if (this.equals(objetivo)){
 			aux = 0; 
+			return aux;
 		}
 		if (celda == "libre"){
 			aux = 1; 
