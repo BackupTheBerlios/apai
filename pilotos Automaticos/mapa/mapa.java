@@ -1,13 +1,15 @@
 package mapa;
 
 import java.util.Vector;
+import java.io.*;
+import java.lang.String.*;
 
 /*
  * Los valores para las celdas son:
  * 
  * libre
  * avion
- * montaña
+ * montana
  * turbulencia
  * tormenta
  * viento
@@ -28,12 +30,12 @@ public class mapa {
 	}
 	
 	/*
-	 * Se da el tamaño en x (filas) e y (columnas).
+	 * Se da el tamano en x (filas) e y (columnas).
 	 * 
 	 * Generamos un vector de n elementos y en cada
-	 * posición metemos un vector de y elementos.
+	 * posicion metemos un vector de y elementos.
 	 * 
-	 * Lo genermos vacío, todas las celdas libres.
+	 * Lo genermos vacio, todas las celdas libres.
 	 */
 	
 	public mapa(int x, int y) {
@@ -106,5 +108,83 @@ public class mapa {
 	 */
 	public void ponCelda (int x, int y, String val){
 		((Vector)this.tablero.elementAt(x)).set(y,val);		
+	}
+	
+	/*
+	 * 
+	 */
+	public String readString(){
+		BufferedReader br
+	      = new BufferedReader(new InputStreamReader(System.in), 1);
+
+	    // Declare and initialize the string
+	    String s = "";
+
+	    // Get the string from the keyboard
+	    try
+	    {
+	      s = br.readLine();
+	    }
+	    catch (IOException ex)
+	    {
+	      System.out.println(ex);
+	    }
+	     return s;
+	}
+	/*
+	 * Metodo para actualizar el Mapa por consola
+	 */
+	public boolean actualizaMapa(){
+		
+		System.out.println("Desea actualizar el mapa(S/N)?");
+		String s = readString();
+		if (s.equals("s")||s.equals("S")){
+	    		while (s.equals("s")||s.equals("S")){
+	    			System.out.println("Introduzca el valor de X");
+	    			int x= Integer.parseInt(readString());
+	    			System.out.println("Introduzca el valor de Y");
+	    			int y= Integer.parseInt(readString());
+	    			System.out.print("Introduzca el valor de la celda");
+	    			System.out.println("Recuerde L(libre), A(avion), M(montana), Tu(turbulencia), To (Tormenta), V(viento)");
+	    			String v = readString();
+	    			if (v.equals("l") || v.equals("L")){
+	    				ponCelda(x,y,"libre");
+	    			}
+	    			else{
+	    				if (v.equals("a") || v.equals("A")){
+		    				ponCelda(x,y,"avion");
+		    			}
+		    			else{
+		    				if (v.equals("m") || v.equals("M")){
+			    				ponCelda(x,y,"montana");
+			    			}
+			    			else{
+			    				if (v.equals("Tu") || v.equals("tu") || v.equals("TU") || v.equals("tU")){
+				    				ponCelda(x,y,"tubulencia");
+				    			}
+				    			else{
+				    				if (v.equals("To") || v.equals("to") || v.equals("TO") || v.equals("tO")){
+					    				ponCelda(x,y,"avion");
+					    			}
+					    			else{
+					    				if (v.equals("v") || v.equals("V")){
+						    				ponCelda(x,y,"viento");
+						    			}
+					    				else{
+					    					System.out.println("Si quiere actualizar el mapa, introduce bien los datos (TORPE)");
+					    				}
+					    			}
+				    			}
+			    			}
+		    			}
+	    			}
+	    			System.out.println("Desea seguir actualizando(S/N)?");
+	    			s = readString();
+	    		}
+	    		return true;
+	    }
+	    else{
+	    		return false;
+	    }
 	}
 }
