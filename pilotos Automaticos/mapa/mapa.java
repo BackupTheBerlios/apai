@@ -111,7 +111,7 @@ public class mapa {
 	}
 	
 	/*
-	 * 
+	 * Metodo para leer de consola
 	 */
 	public String readString(){
 		BufferedReader br
@@ -132,7 +132,8 @@ public class mapa {
 	     return s;
 	}
 	/*
-	 * Metodo para actualizar el Mapa por consola
+	 * Metodo para actualizar el Mapa por consola, solo actualiza celdas existentes ya que usa
+	 * el metodo ponCelda.
 	 */
 	public boolean actualizaMapa(){
 		
