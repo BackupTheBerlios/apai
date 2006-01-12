@@ -67,7 +67,7 @@ public class primeroProfundidad implements algoritmo {
 		this.cerrados = cerrados;
 	}
 
-	public void generarSucesor(estado e, mapa m){
+	public void generarSucesor(estado e, mapa m, String s){
 		estado abajo = e.moverAbajo();
 		estado derecha = e.moverDerecha();
 		estado izquierda = e.moverIzquierda();
@@ -111,7 +111,7 @@ public class primeroProfundidad implements algoritmo {
 			actual = (estado)this.abiertos.lastElement();
 			this.abiertos.removeElement(abiertos.lastElement());
 			this.cerrados.add(actual);
-			generarSucesor(actual, m);
+			generarSucesor(actual, m,"");
 		}
 		actual.mostrar();
 		if (actual.equals(this.objetivo)){

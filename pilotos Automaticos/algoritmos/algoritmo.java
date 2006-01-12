@@ -15,5 +15,5 @@ public interface algoritmo {
 		public void setCerrados(Vector cerrados);
 		public void mostrarCamino();
 		public void resolver(mapa m);
-		public void generarSucesor(estado e, mapa m);
+		public void generarSucesor(estado e, mapa m, String s);
 }

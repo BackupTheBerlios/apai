@@ -1,9 +1,10 @@
 package algoritmos;
 
 import java.util.Vector;
+
 import mapa.mapa;
 
-public class aEstrella implements algoritmoInformado {
+public class escaladaSimple implements algoritmoInformado {
 
 	estado inicial;
 	estado objetivo;
@@ -16,7 +17,7 @@ public class aEstrella implements algoritmoInformado {
 	 * Constructores, vacio y con parametros.
 	 */
 	
-	public aEstrella() {
+	public escaladaSimple() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -25,7 +26,7 @@ public class aEstrella implements algoritmoInformado {
 	 * Se da el estado inicial y el objetivo.
 	 */
 	
-	public aEstrella(estado inicial, estado objetivo) {
+	public escaladaSimple(estado inicial, estado objetivo) {
 		super();
 		// TODO Auto-generated constructor stub
 		this.inicial = inicial;
@@ -40,7 +41,7 @@ public class aEstrella implements algoritmoInformado {
 	 * la heuristica elegida.
 	 */
 	
-	public aEstrella(estado inicial, estado objetivo, String heuristica) {
+	public escaladaSimple(estado inicial, estado objetivo, String heuristica) {
 		super();
 		// TODO Auto-generated constructor stub
 		this.inicial = inicial;
@@ -120,65 +121,53 @@ public class aEstrella implements algoritmoInformado {
 	 * Metodo que genera los hijos, aplicando los
 	 * operadores que no generen situaciones de
 	 * peligro.
-	 * 
-	 * Al insertarlos en abiertos, tenemos en cuenta 
-	 * como extrae los hijos el algoritmo para 
-	 * insertarlos en orden y tener que sacar
-	 * siempre el primero.
-	 * 
-	 * Hay que agnadir en orden en funcion de la heuristica
 	 */
 	
 	public void generarSucesor(estado e, mapa m, String s) {
-		estado abajo = e.moverAbajo();
-		estado derecha = e.moverDerecha();
-		estado izquierda = e.moverIzquierda();
-		estado arriba = e.moverArriba();
-		System.out.println();
-		if (!abajo.peligro(m)) {
-			int aux;
-			aux = abajo.calculaHeurisitica(this.heuristica, this.objetivo, m);
-			aux = aux + abajo.getCoste();
-			abajo.setCtotal(aux + abajo.getValor());
-			int i = abajo.damePosicion(this.abiertos,abajo.getCtotal());
-			this.abiertos.add(i,abajo);
+		if (s.equals("abajo")){
+			estado abajo = e.moverAbajo();
+			if (!abajo.peligro(m)) {
+				int aux;
+				aux = abajo.calculaHeurisitica(this.heuristica, this.objetivo, m);
+				aux = aux + abajo.getCoste();
+				abajo.setCtotal(aux + abajo.getValor());
+				this.abiertos.add(abajo);
+			}
 		}
-		if (!derecha.peligro(m)) {
-			int aux;
-			aux = derecha.calculaHeurisitica(this.heuristica, this.objetivo, m);
-			aux = aux + derecha.getCoste();
-			derecha.setCtotal(aux + derecha.getValor());
-			int i = derecha.damePosicion(this.abiertos,derecha.getCtotal());
-			this.abiertos.add(i,derecha);
+		if (s.equals("derecha")){
+			estado derecha = e.moverDerecha();
+			if (!derecha.peligro(m)) {
+				int aux;
+				aux = derecha.calculaHeurisitica(this.heuristica, this.objetivo, m);
+				aux = aux + derecha.getCoste();
+				derecha.setCtotal(aux + derecha.getValor());
+				this.abiertos.add(derecha);
+			}
+		}	
+		if (s.equals("izquierda")){
+			estado izquierda = e.moverIzquierda();
+			if (!izquierda.peligro(m)) {
+				int aux;
+				aux = izquierda.calculaHeurisitica(this.heuristica, this.objetivo, m);
+				aux = aux + izquierda.getCoste();
+				izquierda.setCtotal(aux + izquierda.getValor());
+				this.abiertos.add(izquierda);
+			}
 		}
-		if (!izquierda.peligro(m)) {
-			int aux;
-			aux = izquierda.calculaHeurisitica(this.heuristica, this.objetivo, m);
-			aux = aux + izquierda.getCoste();
-			izquierda.setCtotal(aux + izquierda.getValor());
-			int i = izquierda.damePosicion(this.abiertos,izquierda.getCtotal());
-			this.abiertos.add(i,izquierda);
-		}
-		if (!arriba.peligro(m)) {
-			int aux;
-			aux = arriba.calculaHeurisitica(this.heuristica, this.objetivo, m);
-			aux = aux + arriba.getCoste();
-			arriba.setCtotal(aux + arriba.getValor());
-			int i = arriba.damePosicion(this.abiertos,arriba.getCtotal());
-			this.abiertos.add(i,arriba);
-		}	 
+		if (s.equals("arriba")){
+			estado arriba = e.moverArriba();
+			if (!arriba.peligro(m)) {
+				int aux;
+				aux = arriba.calculaHeurisitica(this.heuristica, this.objetivo, m);
+				aux = aux + arriba.getCoste();
+				arriba.setCtotal(aux + arriba.getValor());
+				this.abiertos.add(arriba);
+			}	 
+		}	
 	}
 	
 	/* 
-	 * Agnadir abiertos el estado inicial.
 	 * 
-	 * Hasta que no me queden nodos o encuentre la solucion:
-	 * - Sacar de abiertos el primero
-	 * - Agnadirlo a cerrados
-	 * - generar los sucesores: al generarlos los insertamos en orden
-	 * para luego tener que extraer el primero que coincide con el de menor heuristica. 
-	 * 
-	 * Si he encontrado el objetivo genero el camino.
 	 */
 	public void resolver(mapa m) {
 		estado actual = new estado();
@@ -191,7 +180,7 @@ public class aEstrella implements algoritmoInformado {
 			actual = (estado)this.abiertos.firstElement();
 			this.abiertos.removeElementAt(0);
 			this.cerrados.add(actual);
-			generarSucesor(actual, m,"");
+			generarSucesor(actual, m, "");
 			 
 		}
 		if (actual.equals(this.objetivo)){

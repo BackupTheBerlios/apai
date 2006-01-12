@@ -102,7 +102,7 @@ public class primeroAnchura implements algoritmo {
 	 * siempre el primero.
 	 */
 	
-	public void generarSucesor(estado e, mapa m){
+	public void generarSucesor(estado e, mapa m, String s){
 		estado abajo = e.moverAbajo();
 		estado derecha = e.moverDerecha();
 		estado izquierda = e.moverIzquierda();
@@ -143,7 +143,7 @@ public class primeroAnchura implements algoritmo {
 			actual = (estado)this.abiertos.firstElement();
 			this.abiertos.removeElementAt(0);
 			this.cerrados.add(actual);
-			generarSucesor(actual, m);
+			generarSucesor(actual, m,"");
 		}
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);

@@ -7,6 +7,73 @@ import operaciones.*;
  */
 public class piloto {
 
+	/*
+	 * Eleccion de el algoritmo
+	 */
+	public static algoritmo eleccionA(estado i, estado f, input t){
+		algoritmo alg;
+		String s;
+		System.out.print("Que algoritmo desea ejecutar?");
+		System.out.println("Anchura(A), Anchura sin Ciclos(AC), aEstrella(AE), Profundidad(P), Profundidad sin Ciclos(PC)?");
+		s= t.readString();
+		boolean correcto=false;
+		while (!correcto){
+			System.out.print("Que algoritmo desea ejecutar?");
+			System.out.println("Anchura(A), Anchura sin Ciclos(AC), aEstrella(AE), Profundidad(P), Profundidad sin Ciclos(PC)?");
+			s= t.readString();
+			if (s.equals("a")||s.equals("A")){
+				alg= new primeroAnchura(i,f);
+				correcto=true;
+			}
+			else{
+				if (s.equals("ac")||s.equals("AC")||s.equals("aC")||s.equals("Ac")){
+					alg= new primeroAnchuraCiclos(i,f);
+					correcto=true;
+				}
+				else{
+					if (s.equals("ae")||s.equals("AE")||s.equals("aE")||s.equals("Ae")){
+						System.out.println("Que heuristica desea ejecutar manhattan(M) o celdas(C)?");
+						s= t.readString();
+						if (s.equals("m")||s.equals("M")){
+							alg= new aEstrella(i,f,"manhattan");
+							correcto=true;
+						}
+						else{
+							if (s.equals("c")||s.equals("C")){
+								alg= new aEstrella(i,f,"celdas");
+								correcto=true;
+							}
+							else{
+								System.out.println("Los datos son incorrectos");
+								correcto=false;
+							}
+						}
+						correcto=true;
+					}
+					else{
+						if (s.equals("p")||s.equals("P")){
+							alg = new primeroProfundidad(i, f);
+							correcto=true;
+						}
+						else{
+							if (s.equals("pc")||s.equals("PC")||s.equals("pC")||s.equals("Pc")){
+								alg= new PrimeroProfundidadCiclos(i,f);
+								correcto=true;
+							}
+							else{
+								System.out.println("Introduzca de forma correcta los datos la proxima vez.");
+								correcto=false;
+							}
+						}
+					}
+				}
+			}
+		}
+		alg= new PrimeroProfundidadCiclos(i,f);
+		return alg;
+	}
+	
+	
 	/**
 	 * @param args
 	 */
@@ -23,56 +90,7 @@ public class piloto {
 		String s;
 		algoritmo alg= new aEstrella(ini,fin,"manhattan");
 		input t = new input();
-		System.out.print("Que algoritmo desea ejecutar?");
-		System.out.println("Anchura(A), Anchura sin Ciclos(AC), aEstrella(AE), Profundidad(P)?");
-		s= t.readString();
-		boolean correcto=false;
-		while (!correcto){
-			System.out.print("Que algoritmo desea ejecutar?");
-			System.out.println("Anchura(A), Anchura sin Ciclos(AC), aEstrella(AE), Profundidad(P)?");
-			s= t.readString();
-			if (s.equals("a")||s.equals("A")){
-				alg= new primeroAnchura(ini,fin);
-				correcto=true;
-			}
-			else{
-				if (s.equals("ac")||s.equals("AC")||s.equals("aC")||s.equals("Ac")){
-					alg= new primeroAnchuraCiclos(ini,fin);
-					correcto=true;
-				}
-				else{
-					if (s.equals("ae")||s.equals("AE")||s.equals("aE")||s.equals("Ae")){
-						System.out.println("Que heuristica desea ejecutar manhattan(M) o celdas(C)?");
-						s= t.readString();
-						if (s.equals("m")||s.equals("M")){
-							alg= new aEstrella();
-							correcto=true;
-						}
-						else{
-							if (s.equals("c")||s.equals("C")){
-								alg= new aEstrella(ini,fin,"celdas");
-								correcto=true;
-							}
-							else{
-								System.out.println("Los datos son incorrectos");
-								correcto=false;
-							}
-						}
-						correcto=true;
-					}
-					else{
-						if (s.equals("p")||s.equals("P")){
-							alg = new primeroProfundidad(ini, fin);
-							correcto=true;
-						}
-						else{
-							System.out.println("Introduzca de forma correcta los datos la proxima vez.");
-							correcto=false;
-						}
-					}
-				}
-			}
-		}
+		
 		
 		//algoritmo alg= new primeroAnchura(ini,fin);
 		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
