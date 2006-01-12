@@ -140,7 +140,7 @@ public class mapa {
 	    				s= t.readString();
 	    				if (s.equals("s")||s.equals("S")){
 	    					System.out.print("Introduzca el valor de la celda");
-		    				System.out.println("Recuerde L(libre), A(avion), M(montana), Tu(turbulencia), To (Tormenta), V(viento)");
+		    				System.out.println("Recuerde L(libre), A(avion), Tu(turbulencia), To (Tormenta), V(viento)");
 		    				String v = t.readString();
 		    				if (v.equals("l") || v.equals("L")){
 		    					ponCelda(x,y,"libre");
@@ -150,24 +150,19 @@ public class mapa {
 		    						ponCelda(x,y,"avion");
 		    					}
 		    					else{
-		    						if (v.equals("m") || v.equals("M")){
-		    							ponCelda(x,y,"montana");
+		    						if (v.equals("Tu") || v.equals("tu") || v.equals("TU") || v.equals("tU")){
+		    							ponCelda(x,y,"tubulencia");
 		    						}
 		    						else{
-		    							if (v.equals("Tu") || v.equals("tu") || v.equals("TU") || v.equals("tU")){
-		    								ponCelda(x,y,"tubulencia");
+		    							if (v.equals("To") || v.equals("to") || v.equals("TO") || v.equals("tO")){
+		    								ponCelda(x,y,"avion");
 		    							}
 		    							else{
-		    								if (v.equals("To") || v.equals("to") || v.equals("TO") || v.equals("tO")){
-		    									ponCelda(x,y,"avion");
+		    								if (v.equals("v") || v.equals("V")){
+		    									ponCelda(x,y,"viento");
 		    								}
 		    								else{
-		    									if (v.equals("v") || v.equals("V")){
-		    										ponCelda(x,y,"viento");
-		    									}
-		    									else{
-						    						System.out.println("Si quiere actualizar el mapa, introduce bien los datos (TORPE)");
-		    									}
+						    					System.out.println("Si quiere actualizar el mapa, introduce bien los datos (TORPE)");
 		    								}
 		    							}
 		    						}
