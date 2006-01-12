@@ -24,12 +24,52 @@ public class prueba {
 		//algoritmo alg= new aEstrella(ini,fin,"celdas");
 		alg.resolver(m);
 		alg.mostrarCamino();
-		
-		while (m.actualizaMapa()){
-			alg= new aEstrella(ini,fin,"manhattan");
-			alg.resolver(m);
-			alg.mostrarCamino();
+		String s;
+		System.out.println("Desea realizar algun cambio o seguir ejecutando(S/N)?");
+		s= m.readString();
+		if (s.equals("s")||s.equals("S")){
+			System.out.println("Quiere modificar la celda de inicio ("+ini.getX()+","+ini.getY()+") (S/N)?");
+			s= m.readString();
+			if (s.equals("s")||s.equals("S")){
+				System.out.println("Introduzca el valor de X");
+				int x= Integer.parseInt(m.readString());
+				System.out.println("Introduzca el valor de Y");
+				int y= Integer.parseInt(m.readString());
+				if ((x<0)||(x>=m.getX())||(y<0)||(y>=m.getY())){
+					System.out.print("Introduzca de forma correcta los datos la proxima vez. ");
+					System.out.print("Recuerde que el tamaño actual del mapa es: ");
+					System.out.println("(" + m.getX() + ", "+m.getY()+")");
+					System.out.println("No se actualizara.");
+				}
+				else{
+					ini= new estado(x,y); 
+				}
+			}
+			System.out.println("Quiere modificar la celda objetivo ("+fin.getX()+","+fin.getY()+") (S/N)?");
+			s= m.readString();
+			if (s.equals("s")||s.equals("S")){
+				System.out.println("Introduzca el valor de X");
+				int x= Integer.parseInt(m.readString());
+				System.out.println("Introduzca el valor de Y");
+				int y= Integer.parseInt(m.readString());
+				if ((x<0)||(x>=m.getX())||(y<0)||(y>=m.getY())){
+					System.out.print("Introduzca de forma correcta los datos la proxima vez");
+					System.out.print("Recuerde que el tamaño actual del mapa es: ");
+					System.out.println("(" + m.getX() + ", "+m.getY()+")");
+					System.out.println("No se actualizara.");
+				}
+				else{
+					fin= new estado(x,y); 
+				}
+			}
+			
+			while (m.actualizaMapa()){
+				alg= new aEstrella(ini,fin,"manhattan");
+				alg.resolver(m);
+				alg.mostrarCamino();
+			}
 		}
+		
 		System.out.println("Gracias por tratar de depurarme");
 		/*
 		 * Prueba de equals
