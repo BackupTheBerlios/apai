@@ -135,11 +135,11 @@ public class aEstrella implements algoritmoInformado {
 		estado izquierda = e.moverIzquierda();
 		estado arriba = e.moverArriba();
 		//System.out.print("generar sucesor de ");
-		e.mostrar();
+		//e.mostrar();
 		System.out.println();
 		if (!abajo.peligro(m)) {
 			//System.out.println("abajo");
-//			System.out.println("(" + e.x + ", "+e.y+")");
+			//System.out.println("(" + e.x + ", "+e.y+")");
 			int aux;
 			aux = abajo.calculaHeurisitica(this.heuristica, this.objetivo, m);
 			aux = aux + abajo.getCoste();
@@ -191,12 +191,6 @@ public class aEstrella implements algoritmoInformado {
 	 * Si he encontrado el objetivo genero el camino.
 	 */
 	public void resolver(mapa m) {
-		/*
-		 * Problemas:
-		 * 1.- El valor no se modifica con setValor();
-		 * 2.- El valor heurístico no debe sumar el padre??;
-		 */
-		// TODO Auto-generated method stub
 		estado actual = new estado();
 		int aux;
 		aux = this.inicial.calculaHeurisitica(this.heuristica,this.objetivo,m);
@@ -208,11 +202,7 @@ public class aEstrella implements algoritmoInformado {
 			this.abiertos.removeElementAt(0);
 			this.cerrados.add(actual);
 			generarSucesor(actual, m);
-			System.out.print("["); 
-			for (int i = 0; i< this.getAbiertos().size(); i ++){
-				((estado)this.getAbiertos().elementAt(i)).mostrar();
-			}
-			System.out.println("]");
+			 
 		}
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);

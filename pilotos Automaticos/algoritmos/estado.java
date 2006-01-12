@@ -188,12 +188,7 @@ public class estado {
 		else {
 			while (i < v.size() && !encontrado){
 				estado aux = (estado) v.elementAt(i);
-				//System.out.print("Valor del nuevo (valor)");
-				//System.out.println(aux.getValor());
-				//System.out.print("Valor del de la lista (heu)");
-				//System.out.println(heu);
-				if (heu >= aux.getValor()){
-					//System.out.println("Entro en el if porque heu>=valor");
+				if (heu >= aux.getCtotal()){
 					i ++;		
 				}
 				else {
@@ -201,8 +196,6 @@ public class estado {
 				}
 			}
 		}	
-		System.out.print("La posicion es ");
-		System.out.println (i);
 		return i;
 	}
 	
