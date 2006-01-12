@@ -10,22 +10,19 @@ public class prueba {
 	
 	public static void main(String[] args) {
 		mapa m = new mapa(4,4);
-		m.ponCelda(0,3,"montana");
+		m.ponCelda(1,0,"montana");
 		m.ponCelda(1,1,"montana");
-		m.ponCelda(1,2,"avion");
-		m.ponCelda(3,0,"montana");
-		m.ponCelda(3,1,"montana");
+		m.ponCelda(0,3,"avion");
+		m.ponCelda(0,2,"avion");
 		estado ini = new estado(0,0);
-		estado fin = new estado(1,3);
+		estado fin = new estado(2,2);
 		//algoritmo alg= new primeroAnchura(ini,fin);
 		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
 		//algoritmo alg= new aEstrella(ini,fin,"manhattan");
 		//algoritmo alg= new aEstrella(ini,fin,"celdas");
-		algoritmo alg = new primeroProfundidad(ini, fin);
+		algoritmo alg = new PrimeroProfundidadCiclos(ini, fin);
 		alg.resolver(m);
 		alg.mostrarCamino();
-	
-		
 		/*
 		 * Prueba de equals
 		 */

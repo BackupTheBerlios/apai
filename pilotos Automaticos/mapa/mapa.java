@@ -1,7 +1,6 @@
 package mapa;
 
 import java.util.Vector;
-import java.io.*;
 import operaciones.*;
 
 /*
@@ -111,9 +110,65 @@ public class mapa {
 	}
 	
 	/*
-	 * Metodo para leer de consola
+	 * Metodo que solicita la celda.
+	 * 
+	 * Te pide las coordenadas de la celda a modificar hasta que sea una del mapa
 	 */
 	
+	public par coordenadas(input t){
+		par v;
+		System.out.println("Introduzca el valor de X");
+		int x= Integer.parseInt(t.readString());
+		System.out.println("Introduzca el valor de Y");
+		int y= Integer.parseInt(t.readString());
+		while ((x<0)||(x>=this.getX())||(y<0)||(y>=this.getY())){
+			System.out.print("Introduzca de forma correcta los datos la proxima vez. ");
+			System.out.print("Recuerde que el tamagno actual del mapa es: ");
+			System.out.println("(" + this.getX() + ", "+this.getY()+")");
+			System.out.println("Introduzca el valor de X");
+			x= Integer.parseInt(t.readString());
+			System.out.println("Introduzca el valor de Y");
+			y= Integer.parseInt(t.readString());
+		}
+		v = new par(x,y);
+		return v;
+	}
+	
+	/*
+	 * Metodo que solicita el contenido de la celda.
+	 * 
+	 * Te pide el contenido hasta que sea un valor valido.
+	 */
+	
+	public void contenido(input t, par p){
+		System.out.print("Introduzca el valor de la celda");
+		System.out.println("Recuerde L(libre), A(avion), Tu(turbulencia), To (Tormenta), V(viento)");
+		String v = t.readString();
+		boolean b = false;
+		if (v.equals("l") || v.equals("L")){
+			ponCelda(p.getX(),p.getY(),"libre");
+			b = true;
+		}
+		if (v.equals("a") || v.equals("A")){
+			ponCelda(p.getX(),p.getY(),"avion");
+			b = true;
+		}
+		if (v.equals("Tu") || v.equals("tu") || v.equals("TU") || v.equals("tU")){
+			ponCelda(p.getX(),p.getY(),"tubulencia");
+			b = true;
+		}
+		if (v.equals("To") || v.equals("to") || v.equals("TO") || v.equals("tO")){
+			ponCelda(p.getX(),p.getY(),"avion");
+			b = true;
+		}
+		if (v.equals("v") || v.equals("V")){
+			ponCelda(p.getX(),p.getY(),"viento");
+			b = true;
+		}
+		if (!b){
+			System.out.println("Si quiere actualizar el mapa, introduce un valor valido");
+		}	
+	}	
 	/*
 	 * Metodo para actualizar el Mapa por consola, va actualizar solo las celdas que el usuario pida, 
 	 * mateniendo las celdas iniciales salvo que se pida un cambio de las mismas. Antes de efectuar 
@@ -121,63 +176,30 @@ public class mapa {
 	 */
 	public boolean actualizaMapa(){
 		input t= new input();
+		par aux; 
 		System.out.println("Desea actualizar el mapa(S/N)?");
 		String s = t.readString();
-		if (s.equals("s")||s.equals("S")){
-	    		while (s.equals("s")||s.equals("S")){
-	    			System.out.println("Introduzca el valor de X");
-	    			int x= Integer.parseInt(t.readString());
-	    			System.out.println("Introduzca el valor de Y");
-	    			int y= Integer.parseInt(t.readString());
-	    			if ((x<0)||(x>=this.getX())||(y<0)||(y>=this.getY())){
-	    				System.out.print("Introduzca de forma correcta los datos la proxima vez. ");
-	    				System.out.print("Recuerde que el tamao actual del mapa es: ");
-	    				System.out.println("(" + this.getX() + ", "+this.getY()+")");
-	    			}
-	    			else {
-	    				System.out.println("El valor actual de la celda es:"+this.dameCelda(x,y));
-	    				System.out.println("Deseas continuar con el cambio(S/N)?");
-	    				s= t.readString();
-	    				if (s.equals("s")||s.equals("S")){
-	    					System.out.print("Introduzca el valor de la celda");
-		    				System.out.println("Recuerde L(libre), A(avion), Tu(turbulencia), To (Tormenta), V(viento)");
-		    				String v = t.readString();
-		    				if (v.equals("l") || v.equals("L")){
-		    					ponCelda(x,y,"libre");
-		    				}
-		    				else{
-		    					if (v.equals("a") || v.equals("A")){
-		    						ponCelda(x,y,"avion");
-		    					}
-		    					else{
-		    						if (v.equals("Tu") || v.equals("tu") || v.equals("TU") || v.equals("tU")){
-		    							ponCelda(x,y,"tubulencia");
-		    						}
-		    						else{
-		    							if (v.equals("To") || v.equals("to") || v.equals("TO") || v.equals("tO")){
-		    								ponCelda(x,y,"avion");
-		    							}
-		    							else{
-		    								if (v.equals("v") || v.equals("V")){
-		    									ponCelda(x,y,"viento");
-		    								}
-		    								else{
-						    					System.out.println("Si quiere actualizar el mapa, introduce bien los datos (TORPE)");
-		    								}
-		    							}
-		    						}
-			    				}
-		    				}
-
-	    				}
-	    				System.out.println("Desea seguir actualizando(S/N)?");
-	    				s = t.readString();
-	    			}
-	    		}
-	    		return true;
-	    }
-	    else{
-	    	return false;
-	    }
+		if ( s.equals("s") || s.equals("S") ){
+			while (s.equals("s")||s.equals("S")){
+				aux = coordenadas(t);
+				System.out.println("El valor actual de la celda es:" + this.dameCelda(aux.getX(),aux.getY()));
+				if (this.dameCelda(aux.getX(),aux.getY()).equals("montana")){
+					System.out.println("Las montanas no se mueven");
+				}
+				else{
+					System.out.println("Deseas continuar con el cambio(S/N)?");
+					s= t.readString();
+					if (s.equals("s")||s.equals("S")){
+							contenido(t,aux);
+					}
+				}	
+				System.out.println("Desea seguir actualizando(S/N)?");
+				s = t.readString();
+			}
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 }

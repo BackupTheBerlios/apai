@@ -163,6 +163,7 @@ public class estado {
 	 */
 	
 	public boolean peligro(mapa m){
+		m.actualizaMapa();
 		boolean aux = false;
 		String val = m.dameCelda(this.x, this.y);
 		if ((val=="avion")||(val=="montana")||(val=="")){
@@ -249,6 +250,7 @@ public class estado {
 	 */
 	
 	public int calculaHeurisitica (String heuristica, estado objetivo, mapa m){
+		m.actualizaMapa();
 		int aux = 0;
 		if (heuristica == "manhattan"){ 
 			aux = this.calculaManhattan(objetivo);

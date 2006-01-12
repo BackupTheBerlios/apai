@@ -66,32 +66,47 @@ public class PrimeroProfundidadCiclos implements algoritmo {
 	public void setCerrados(Vector cerrados) {
 		this.cerrados = cerrados;
 	}
-	
-	public boolean comprobarObjetivo(estado eo){
-		return true;
-			// no basta con == hay que hacer equals
-	}
 
+	/*
+	 * Redefinición del método contains, 
+	 * ( miro en abiertos y en cerrados ) 
+	 * si es el mismo estado (equals es true), esta contenido. 
+	 */
+	
+	public boolean contains (estado e){
+		boolean esta;
+		esta = false;
+		estado aux;
+		for (int i = 0; i< this.getAbiertos().size(); i++){
+			aux = (estado)this.getAbiertos().elementAt(i);
+			if (aux.equals(e)){
+				esta = esta || true;
+			}
+		}
+		for (int i = 0; i< this.getCerrados().size(); i++){
+			aux = (estado)this.getCerrados().elementAt(i);
+			if (aux.equals(e)){
+				esta = esta || true;
+			}
+		}
+		return esta;
+	}
 	public void generarSucesor(estado e, mapa m){
 		estado abajo = e.moverAbajo();
 		estado derecha = e.moverDerecha();
 		estado izquierda = e.moverIzquierda();
 		estado arriba = e.moverArriba();
-		if (!arriba.peligro(m)) {
-			arriba.setValor(0);
-			this.abiertos.add(arriba);
+		if (!(abajo.peligro(m) || this.contains(abajo))) {
+			this.abiertos.add(abajo);
 		}
-		if (!izquierda.peligro(m)) {
-			izquierda.setValor(0);
-			this.abiertos.add(izquierda);
-		}
-		if (!derecha.peligro(m)) {
-			derecha.setValor(0);
+		if (!(derecha.peligro(m) || this.contains(derecha))) {
 			this.abiertos.add(derecha);
 		}
-		if (!abajo.peligro(m)) {
-			abajo.setValor(0);
-			this.abiertos.add(abajo);
+		if (!(izquierda.peligro(m) || this.contains(izquierda))) {
+			this.abiertos.add(izquierda);
+		}
+		if (!(arriba.peligro(m) || this.contains(arriba))) {
+			this.abiertos.add(arriba);
 		}
 	}
 	
@@ -114,8 +129,7 @@ public class PrimeroProfundidadCiclos implements algoritmo {
 		this.abiertos.add(this.inicial);
 		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
 			actual = (estado)this.abiertos.lastElement();
-			int i = abiertos.size()-1;
-			this.abiertos.removeElementAt(i);
+			this.abiertos.removeElement(abiertos.lastElement());
 			this.cerrados.add(actual);
 			generarSucesor(actual, m);
 		}

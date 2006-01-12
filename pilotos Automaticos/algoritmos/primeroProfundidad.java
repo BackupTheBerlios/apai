@@ -66,11 +66,6 @@ public class primeroProfundidad implements algoritmo {
 	public void setCerrados(Vector cerrados) {
 		this.cerrados = cerrados;
 	}
-	
-	public boolean comprobarObjetivo(estado eo){
-		return true;
-			// no basta con == hay que hacer equals
-	}
 
 	public void generarSucesor(estado e, mapa m){
 		estado abajo = e.moverAbajo();
@@ -113,16 +108,21 @@ public class primeroProfundidad implements algoritmo {
 		estado actual = new estado();
 		this.abiertos.add(this.inicial);
 		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
-			
 			actual = (estado)this.abiertos.lastElement();
 			this.abiertos.removeElement(abiertos.lastElement());
 			this.cerrados.add(actual);
 			generarSucesor(actual, m);
-			actual.mostrar();
 		}
+		actual.mostrar();
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);
 		}
-	}
+		else{
+			if (abiertos.isEmpty()){
+				System.out.println("infinito");
+				camino.clear(); 
+			}
+		}	
+	}	
 }
 
