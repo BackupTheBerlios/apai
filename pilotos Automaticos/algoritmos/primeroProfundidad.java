@@ -113,11 +113,11 @@ public class primeroProfundidad implements algoritmo {
 		estado actual = new estado();
 		this.abiertos.add(this.inicial);
 		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
-			actual = (estado)this.abiertos.firstElement();
-			int i = abiertos.size()-1;
-			this.abiertos.removeElementAt(i);
+			actual = (estado)this.abiertos.lastElement();
+			this.abiertos.removeElement(abiertos.lastElement());
 			this.cerrados.add(actual);
 			generarSucesor(actual, m);
+			actual.mostrar();
 		}
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);

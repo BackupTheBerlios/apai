@@ -2,6 +2,7 @@ package mapa;
 
 import java.util.Vector;
 import java.io.*;
+import operaciones.*;
 
 /*
  * Los valores para las celdas son:
@@ -114,40 +115,20 @@ public class mapa {
 	 */
 	
 	/*
-	 * Metodo para leer de consola
-	 */
-	public String readString(){
-		BufferedReader br
-	      = new BufferedReader(new InputStreamReader(System.in), 1);
-
-	    // Declare and initialize the string
-	    String s = "";
-
-	    // Get the string from the keyboard
-	    try
-	    {
-	      s = br.readLine();
-	    }
-	    catch (IOException ex)
-	    {
-	      System.out.println(ex);
-	    }
-	     return s;
-	}
-	/*
 	 * Metodo para actualizar el Mapa por consola, va actualizar solo las celdas que el usuario pida, 
 	 * mateniendo las celdas iniciales salvo que se pida un cambio de las mismas. Antes de efectuar 
 	 * el cambio informa del estado actual de la celda y pregunta si deseas continuar.
 	 */
 	public boolean actualizaMapa(){
+		input t= new input();
 		System.out.println("Desea actualizar el mapa(S/N)?");
-		String s = readString();
+		String s = t.readString();
 		if (s.equals("s")||s.equals("S")){
 	    		while (s.equals("s")||s.equals("S")){
 	    			System.out.println("Introduzca el valor de X");
-	    			int x= Integer.parseInt(readString());
+	    			int x= Integer.parseInt(t.readString());
 	    			System.out.println("Introduzca el valor de Y");
-	    			int y= Integer.parseInt(readString());
+	    			int y= Integer.parseInt(t.readString());
 	    			if ((x<0)||(x>=this.getX())||(y<0)||(y>=this.getY())){
 	    				System.out.print("Introduzca de forma correcta los datos la proxima vez. ");
 	    				System.out.print("Recuerde que el tamao actual del mapa es: ");
@@ -156,11 +137,11 @@ public class mapa {
 	    			else {
 	    				System.out.println("El valor actual de la celda es:"+this.dameCelda(x,y));
 	    				System.out.println("Deseas continuar con el cambio(S/N)?");
-	    				s= readString();
+	    				s= t.readString();
 	    				if (s.equals("s")||s.equals("S")){
 	    					System.out.print("Introduzca el valor de la celda");
 		    				System.out.println("Recuerde L(libre), A(avion), M(montana), Tu(turbulencia), To (Tormenta), V(viento)");
-		    				String v = readString();
+		    				String v = t.readString();
 		    				if (v.equals("l") || v.equals("L")){
 		    					ponCelda(x,y,"libre");
 		    				}
@@ -195,13 +176,13 @@ public class mapa {
 
 	    				}
 	    				System.out.println("Desea seguir actualizando(S/N)?");
-	    				s = readString();
+	    				s = t.readString();
 	    			}
 	    		}
 	    		return true;
 	    }
 	    else{
-	    		return false;
+	    	return false;
 	    }
 	}
 }
