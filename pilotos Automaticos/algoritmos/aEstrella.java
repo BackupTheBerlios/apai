@@ -134,12 +134,8 @@ public class aEstrella implements algoritmoInformado {
 		estado derecha = e.moverDerecha();
 		estado izquierda = e.moverIzquierda();
 		estado arriba = e.moverArriba();
-		//System.out.print("generar sucesor de ");
-		//e.mostrar();
 		System.out.println();
 		if (!abajo.peligro(m)) {
-			//System.out.println("abajo");
-			//System.out.println("(" + e.x + ", "+e.y+")");
 			int aux;
 			aux = abajo.calculaHeurisitica(this.heuristica, this.objetivo, m);
 			aux = aux + abajo.getCoste();
@@ -148,8 +144,6 @@ public class aEstrella implements algoritmoInformado {
 			this.abiertos.add(i,abajo);
 		}
 		if (!derecha.peligro(m)) {
-			//System.out.println("derecha");
-	//		System.out.println("(" + e.x + ", "+e.y+")");
 			int aux;
 			aux = derecha.calculaHeurisitica(this.heuristica, this.objetivo, m);
 			aux = aux + derecha.getCoste();
@@ -158,8 +152,6 @@ public class aEstrella implements algoritmoInformado {
 			this.abiertos.add(i,derecha);
 		}
 		if (!izquierda.peligro(m)) {
-			//System.out.println("izquierda");
-		//	System.out.println("(" + e.x + ", "+e.y+")");
 			int aux;
 			aux = izquierda.calculaHeurisitica(this.heuristica, this.objetivo, m);
 			aux = aux + izquierda.getCoste();
@@ -168,8 +160,6 @@ public class aEstrella implements algoritmoInformado {
 			this.abiertos.add(i,izquierda);
 		}
 		if (!arriba.peligro(m)) {
-			//System.out.println("arriba");
-			//System.out.println("(" + e.x + ", "+e.y+")");
 			int aux;
 			aux = arriba.calculaHeurisitica(this.heuristica, this.objetivo, m);
 			aux = aux + arriba.getCoste();

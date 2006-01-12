@@ -73,17 +73,25 @@ public class primeroProfundidad implements algoritmo {
 	}
 
 	public void generarSucesor(estado e, mapa m){
-		if (!e.moverAbajo().peligro(m)) {
-			abiertos.add(0, e.moverAbajo());
+		estado abajo = e.moverAbajo();
+		estado derecha = e.moverDerecha();
+		estado izquierda = e.moverIzquierda();
+		estado arriba = e.moverArriba();
+		if (!abajo.peligro(m)) {
+			abajo.setValor(0);
+			this.abiertos.add(abajo);
 		}
-		if (!e.moverDerecha().peligro(m)) {
-			abiertos.add(0, e.moverDerecha());
+		if (!derecha.peligro(m)) {
+			derecha.setValor(0);
+			this.abiertos.add(derecha);
 		}
-		if (!e.moverIzquierda().peligro(m)) {
-			abiertos.add(0, e.moverIzquierda());
+		if (!izquierda.peligro(m)) {
+			izquierda.setValor(0);
+			this.abiertos.add(izquierda);
 		}
-		if (!e.moverArriba().peligro(m)) {
-			abiertos.add(0, e.moverArriba());
+		if (!arriba.peligro(m)) {
+			arriba.setValor(0);
+			this.abiertos.add(arriba);
 		}
 	}
 	
@@ -102,19 +110,17 @@ public class primeroProfundidad implements algoritmo {
 	*/
 	
 	public void resolver(mapa m){
-		estado actual;
-		abiertos = new Vector();
-		cerrados = new Vector();
-		camino = new Vector();
-		abiertos.add(inicial);
-		actual = (estado)abiertos.firstElement();
-		while (!abiertos.isEmpty() && (!actual.equals(objetivo))){
-			abiertos.removeElement(abiertos.firstElement());
-			cerrados.add(actual);
-			generarSucesor(actual,m);
+		estado actual = new estado();
+		this.abiertos.add(this.inicial);
+		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
+			actual = (estado)this.abiertos.firstElement();
+			int i = abiertos.size()-1;
+			this.abiertos.removeElementAt(i);
+			this.cerrados.add(actual);
+			generarSucesor(actual, m);
 		}
-		if (actual.equals(objetivo)){
-			camino = actual.generarCamino(this.inicial);
+		if (actual.equals(this.objetivo)){
+			this.camino = actual.generarCamino(this.inicial);
 		}
 	}
 }

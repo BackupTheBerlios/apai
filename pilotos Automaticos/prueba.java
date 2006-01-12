@@ -10,28 +10,20 @@ public class prueba {
 	
 	public static void main(String[] args) {
 		mapa m = new mapa(4,4);
-		//m.ponCelda(1,1,"montana");
-		m.ponCelda(1,0,"montana");
-		m.ponCelda(1,1,"avion");
-		//m.ponCelda(2,1,"montana");
-		//m.ponCelda(3,1,"montana");
-<<<<<<< prueba.java
-		//m.ponCelda(1,0,"montana");
+		m.ponCelda(0,3,"montana");
+		m.ponCelda(1,1,"montana");
+		m.ponCelda(1,2,"avion");
+		m.ponCelda(3,0,"montana");
+		m.ponCelda(3,1,"montana");
 		estado ini = new estado(0,0);
 		estado fin = new estado(2,2);
-=======
-		m.ponCelda(1,0,"viento");
-		estado ini = new estado(2,0);
-		estado fin = new estado(1,1);
->>>>>>> 1.15
 		//algoritmo alg= new primeroAnchura(ini,fin);
 		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
-		algoritmo alg= new aEstrella(ini,fin,"manhattan");
+		//algoritmo alg= new aEstrella(ini,fin,"manhattan");
 		//algoritmo alg= new aEstrella(ini,fin,"celdas");
-		//algoritmo algo = new primeroProfundidad(ini, fin);
+		algoritmo alg = new primeroProfundidad(ini, fin);
 		alg.resolver(m);
 		alg.mostrarCamino();
-<<<<<<< prueba.java
 		/*String s;
 		System.out.println("Desea realizar algun cambio o seguir ejecutando(S/N)?");
 		s= m.readString();
@@ -79,8 +71,6 @@ public class prueba {
 		}
 		
 		System.out.println("Gracias por tratar de depurarme");
-		*/
-=======
 		String s;
 		System.out.println("Desea realizar algun cambio o seguir ejecutando(S/N)?");
 		s= m.readString();
@@ -126,9 +116,9 @@ public class prueba {
 				alg.mostrarCamino();
 			}
 		}
->>>>>>> 1.15
 		
 		System.out.println("Gracias por tratar de depurarme");
+		*/
 		/*
 		 * Prueba de equals
 		 */
