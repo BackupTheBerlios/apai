@@ -22,6 +22,7 @@ public class prueba {
 		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
 		algoritmo alg= new aEstrella(ini,fin,"manhattan");
 		//algoritmo alg= new aEstrella(ini,fin,"celdas");
+		//algoritmo algo = new primeroProfundidad(ini, fin);
 		alg.resolver(m);
 		alg.mostrarCamino();
 		String s;

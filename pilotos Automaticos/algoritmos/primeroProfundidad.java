@@ -88,7 +88,11 @@ public class primeroProfundidad implements algoritmo {
 	}
 	
 	public void mostrarCamino(){
-		
+		System.out.print("["); 
+		for (int i = 0; i< this.getCamino().size(); i ++){
+			((estado)this.getCamino().elementAt(i)).mostrar();
+		}
+		System.out.println("]");
 	}
 	/* 1. Si el estado inicial es el objetivo, salir y retornar éxito.
 	   2. Sino, haga lo siguiente hasta que se obtenga señal de éxito o fracaso:
@@ -98,7 +102,7 @@ public class primeroProfundidad implements algoritmo {
 	*/
 	
 	public void resolver(mapa m){
-		estado actual = new estado();
+		estado actual;
 		abiertos = new Vector();
 		cerrados = new Vector();
 		camino = new Vector();
