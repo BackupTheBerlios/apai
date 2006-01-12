@@ -16,7 +16,7 @@ public class prueba {
 		m.ponCelda(3,0,"montana");
 		m.ponCelda(3,1,"montana");
 		estado ini = new estado(0,0);
-		estado fin = new estado(2,2);
+		estado fin = new estado(1,3);
 		//algoritmo alg= new primeroAnchura(ini,fin);
 		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
 		//algoritmo alg= new aEstrella(ini,fin,"manhattan");

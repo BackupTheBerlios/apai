@@ -4,7 +4,7 @@ import java.util.Vector;
 import mapa.mapa;
 
 
-public class primeroProfundidad implements algoritmo {
+public class PrimeroProfundidadCiclos implements algoritmo {
 
 	estado inicial;
 	estado objetivo;
@@ -12,12 +12,12 @@ public class primeroProfundidad implements algoritmo {
 	Vector cerrados;
 	Vector camino;
 
-	public primeroProfundidad() {
+	public PrimeroProfundidadCiclos() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public primeroProfundidad(estado inicial, estado objetivo) {
+	public PrimeroProfundidadCiclos(estado inicial, estado objetivo) {
 		super();
 		// TODO Auto-generated constructor stub
 		this.inicial = inicial;
@@ -113,12 +113,11 @@ public class primeroProfundidad implements algoritmo {
 		estado actual = new estado();
 		this.abiertos.add(this.inicial);
 		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
-			
 			actual = (estado)this.abiertos.lastElement();
-			this.abiertos.removeElement(abiertos.lastElement());
+			int i = abiertos.size()-1;
+			this.abiertos.removeElementAt(i);
 			this.cerrados.add(actual);
 			generarSucesor(actual, m);
-			actual.mostrar();
 		}
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);
