@@ -91,23 +91,29 @@ public class PrimeroProfundidadCiclos implements algoritmo {
 		}
 		return esta;
 	}
+	
 	public void generarSucesor(estado e, mapa m){
 		estado abajo = e.moverAbajo();
 		estado derecha = e.moverDerecha();
 		estado izquierda = e.moverIzquierda();
 		estado arriba = e.moverArriba();
-		if (!(abajo.peligro(m) || this.contains(abajo))) {
-			this.abiertos.add(abajo);
-		}
-		if (!(derecha.peligro(m) || this.contains(derecha))) {
-			this.abiertos.add(derecha);
-		}
-		if (!(izquierda.peligro(m) || this.contains(izquierda))) {
-			this.abiertos.add(izquierda);
-		}
 		if (!(arriba.peligro(m) || this.contains(arriba))) {
+			arriba.setValor(0);
 			this.abiertos.add(arriba);
 		}
+		if (!(izquierda.peligro(m) || this.contains(izquierda))) {
+			izquierda.setValor(0);
+			this.abiertos.add(izquierda);
+		}
+		if (!(derecha.peligro(m) || this.contains(derecha))) {
+			derecha.setValor(0);
+			this.abiertos.add(derecha);
+		}
+		if (!(abajo.peligro(m) || this.contains(abajo))) {
+			abajo.setValor(0);
+			this.abiertos.add(abajo);
+		}
+		//System.out.println(this.contains(abajo));
 	}
 	
 	public void mostrarCamino(){
@@ -129,7 +135,8 @@ public class PrimeroProfundidadCiclos implements algoritmo {
 		this.abiertos.add(this.inicial);
 		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
 			actual = (estado)this.abiertos.lastElement();
-			this.abiertos.removeElement(abiertos.lastElement());
+			//int i = abiertos.size()-1;
+			this.abiertos.removeElement(actual);
 			this.cerrados.add(actual);
 			generarSucesor(actual, m);
 		}
