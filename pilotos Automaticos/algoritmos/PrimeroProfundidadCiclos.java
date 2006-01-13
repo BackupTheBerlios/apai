@@ -110,13 +110,6 @@ public class PrimeroProfundidadCiclos implements algoritmo {
 		}
 	}
 	
-	public void mostrarCamino(){
-		System.out.print("["); 
-		for (int i = 0; i< this.getCamino().size(); i ++){
-			((estado)this.getCamino().elementAt(i)).mostrar();
-		}
-		System.out.println("]");
-	}
 	/* 1. Si el estado inicial es el objetivo, salir y retornar éxito.
 	   2. Sino, haga lo siguiente hasta que se obtenga señal de éxito o fracaso:
 	         1. Genere un sucesor E del estado inicial. Si no hay más sucesores, retorne con señal de fracaso.
@@ -137,5 +130,22 @@ public class PrimeroProfundidadCiclos implements algoritmo {
 			this.camino = actual.generarCamino(this.inicial);
 		}
 	}
+	
+	/*
+	 *  Muestra un vector.
+	 */
+	public void mostrar(Vector v){
+		if (v.isEmpty()){
+			System.out.println("Vacío");
+		}
+		else{
+			System.out.print("["); 
+			for (int i = 0; i< v.size(); i ++){
+				((estado)v.elementAt(i)).mostrar();
+			}
+			System.out.println("]");
+		}
+	}
+
 }
 

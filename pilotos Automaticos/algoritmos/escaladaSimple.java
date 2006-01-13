@@ -171,7 +171,6 @@ public class escaladaSimple implements algoritmoInformado {
 	 */
 	public void resolver(mapa m) {
 		estado actual = new estado();
-		estado auxE;
 		int aux;
 		aux = this.inicial.calculaHeurisitica(this.heuristica,this.objetivo,m);
 		this.inicial.setValor(aux);
@@ -181,27 +180,28 @@ public class escaladaSimple implements algoritmoInformado {
 			actual = (estado)this.abiertos.firstElement();
 			this.abiertos.removeElementAt(0);
 			this.cerrados.add(actual);
-			//No se mu bien cual es el que primero debo generar
-			generarSucesor(actual, m, "abajo");
-			//Una vez generado y evaluarlo
-			auxE=(estado)this.abiertos.firstElement();
-			if (!auxE.equals(this.objetivo)){
-				//Si auxE es mejor que actual entonces actual=auxE repito bucle
-				if(auxE.getCtotal()<actual.getCtotal()){
-					actual=auxE;
-					this.abiertos.removeElementAt(0);
-					this.cerrados.add(actual);
-					//No se mu bien cual es el segundoque debo generar, ni si seria aqui
-					generarSucesor(actual, m, "izquierda");
-					
-				}
-				//sino debere aplicar otro operador diferente al 1º para generar
-				//otro sucesor, no?
-			}
+			generarSucesor(actual, m, "");
 			 
 		}
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);
 		}
 	}
+	
+	/*
+	 *  Muestra un vector.
+	 */
+	public void mostrar(Vector v){
+		if (v.isEmpty()){
+			System.out.println("VacÃ­o");
+		}
+		else{
+			System.out.print("["); 
+			for (int i = 0; i< v.size(); i ++){
+				((estado)v.elementAt(i)).mostrar();
+			}
+			System.out.println("]");
+		}
+	}
+
 }

@@ -77,20 +77,7 @@ public class primeroAnchura implements algoritmo {
 	public void setCerrados(Vector cerrados) {
 		this.cerrados = cerrados;
 	}
-	
-	/*
-	 * Metodo que muestra el camino recorrido 
-	 * para llegar a un vector
-	 */
 
-	public void mostrarCamino(){
-		System.out.print("["); 
-		for (int i = 0; i< this.getCamino().size(); i ++){
-			((estado)this.getCamino().elementAt(i)).mostrar();
-		}
-		System.out.println("]");
-	}
-	
 	/*
 	 * Metodo que genera los hijos, aplicando los
 	 * operadores que no generen situaciones de
@@ -149,4 +136,20 @@ public class primeroAnchura implements algoritmo {
 			this.camino = actual.generarCamino(this.inicial);
 		}
 	}	
+	/*
+	 *  Muestra un vector.
+	 */
+	public void mostrar(Vector v){
+		if (v.isEmpty()){
+			System.out.println("Vacío");
+		}
+		else{
+			System.out.print("["); 
+			for (int i = 0; i< v.size(); i ++){
+				((estado)v.elementAt(i)).mostrar();
+			}
+			System.out.println("]");
+		}
+	}
+
 }

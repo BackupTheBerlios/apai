@@ -105,18 +105,6 @@ public class aEstrella implements algoritmoInformado {
 	}
 	
 	/*
-	 * Metodo que muestra el camino recorrido 
-	 * para llegar a un vector
-	 */
-
-	public void mostrarCamino(){
-		System.out.print("["); 
-		for (int i = 0; i< this.getCamino().size(); i ++){
-			((estado)this.getCamino().elementAt(i)).mostrar();
-		}
-		System.out.println("]");
-	}
-	/*
 	 * Metodo que genera los hijos, aplicando los
 	 * operadores que no generen situaciones de
 	 * peligro.
@@ -140,32 +128,32 @@ public class aEstrella implements algoritmoInformado {
 			aux = abajo.calculaHeurisitica(this.heuristica, this.objetivo, m);
 			aux = aux + abajo.getCoste();
 			abajo.setCtotal(aux + abajo.getValor());
-			int i = abajo.damePosicion(this.abiertos,abajo.getCtotal());
-			this.abiertos.add(i,abajo);
+			//int i = abajo.damePosicion(this.abiertos,abajo.getCtotal());
+			this.abiertos.add(abajo);
 		}
 		if (!derecha.peligro(m)) {
 			int aux;
 			aux = derecha.calculaHeurisitica(this.heuristica, this.objetivo, m);
 			aux = aux + derecha.getCoste();
 			derecha.setCtotal(aux + derecha.getValor());
-			int i = derecha.damePosicion(this.abiertos,derecha.getCtotal());
-			this.abiertos.add(i,derecha);
+			//int i = derecha.damePosicion(this.abiertos,derecha.getCtotal());
+			this.abiertos.add(derecha);
 		}
 		if (!izquierda.peligro(m)) {
 			int aux;
 			aux = izquierda.calculaHeurisitica(this.heuristica, this.objetivo, m);
 			aux = aux + izquierda.getCoste();
 			izquierda.setCtotal(aux + izquierda.getValor());
-			int i = izquierda.damePosicion(this.abiertos,izquierda.getCtotal());
-			this.abiertos.add(i,izquierda);
+			//int i = izquierda.damePosicion(this.abiertos,izquierda.getCtotal());
+			this.abiertos.add(izquierda);
 		}
 		if (!arriba.peligro(m)) {
 			int aux;
 			aux = arriba.calculaHeurisitica(this.heuristica, this.objetivo, m);
 			aux = aux + arriba.getCoste();
 			arriba.setCtotal(aux + arriba.getValor());
-			int i = arriba.damePosicion(this.abiertos,arriba.getCtotal());
-			this.abiertos.add(i,arriba);
+			//int i = arriba.damePosicion(this.abiertos,arriba.getCtotal());
+			this.abiertos.add(arriba);
 		}	 
 	}
 	
@@ -183,19 +171,56 @@ public class aEstrella implements algoritmoInformado {
 	public void resolver(mapa m) {
 		estado actual = this.inicial;
 		int aux;
+		int i;
 		aux = this.inicial.calculaHeurisitica(this.heuristica,this.objetivo,m);
 		this.inicial.setValor(aux);
 		this.objetivo.setValor(0);
 		this.abiertos.add(this.inicial);
 		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
-			actual = (estado)this.abiertos.firstElement();
-			this.abiertos.removeElementAt(0);
+			i = this.masPrometedor(this.abiertos);
+			actual = (estado)this.abiertos.elementAt(i);
+			this.abiertos.removeElementAt(i);
 			this.cerrados.add(actual);
 			generarSucesor(actual, m,"");
-			 
+			actual.mostrar();
+			System.out.println(actual.getCtotal());
+			this.mostrar(this.getAbiertos());
 		}
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);
 		}
 	}
+	
+	public int masPrometedor(Vector v){
+		int j = 300000; //Cambiar por maxint
+		int i = 0;
+		int pos = 0;
+		while (i < v.size()){
+			estado aux = (estado) v.elementAt(i);
+			if (aux.getCtotal() < j){
+					pos = i;
+					System.out.println("Entre en el if");
+					System.out.println(i);		
+			} 
+			i++;
+		}	
+		return pos;
+	}
+	
+	/*
+	 *  Muestra un vector.
+	 */
+	public void mostrar(Vector v){
+		if (v.isEmpty()){
+			System.out.println("Vacío");
+		}
+		else{
+			System.out.print("["); 
+			for (int i = 0; i< v.size(); i ++){
+				((estado)v.elementAt(i)).mostrar();
+			}
+			System.out.println("]");
+		}
+	}
+
 }

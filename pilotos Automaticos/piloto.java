@@ -8,6 +8,8 @@ import operaciones.*;
 public class piloto {
 
 	/*
+	 * Eleccion de el algoritmo
+	/*
 	 * Da la posibilidad de elegir el algoritmo con el que calcularemos el camino.
 	 */
 	public static algoritmo eleccionA(estado i, estado f, input t){
@@ -107,6 +109,7 @@ public class piloto {
 		return e;
 	}
 	
+	
 	/**
 	 * @param args
 	 */
@@ -121,11 +124,16 @@ public class piloto {
 		estado ini = new estado(0,0);
 		estado fin = new estado(2,2);
 		String s;
-		algoritmo alg;
+		algoritmo alg= new aEstrella(ini,fin,"manhattan");
 		input t = new input();
-		alg = eleccionA(ini,fin,t);
-		alg.resolver(m);
-		alg.mostrarCamino();
+		
+		
+		//algoritmo alg= new primeroAnchura(ini,fin);
+		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
+		//alg= new aEstrella(ini,fin,"manhattan");
+		//algoritmo alg= new aEstrella(ini,fin,"celdas");
+		//algoritmo alg = new primeroProfundidad(ini, fin);
+		alg.mostrar(alg.getCamino());
 			
 		System.out.println("Desea realizar algun cambio o seguir ejecutando(S/N)?");
 		s= t.readString();
@@ -140,9 +148,15 @@ public class piloto {
 			if (s.equals("s")||s.equals("S")){
 				fin= cambioCelda(t,m);
 			}
+			
+			while (m.actualizaMapa()){
+				alg= new aEstrella(ini,fin,"manhattan");
+				alg.resolver(m);
+				alg.mostrar(alg.getCamino());
+			}
 			alg = eleccionA(ini,fin,t);
 			alg.resolver(m);
-			alg.mostrarCamino();
+			alg.mostrar(alg.getCamino());
 			System.out.println("Desea realizar algun cambio o seguir ejecutando(S/N)?");
 			s= t.readString();
 		}

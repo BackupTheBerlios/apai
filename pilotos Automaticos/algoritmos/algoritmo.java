@@ -13,7 +13,7 @@ public interface algoritmo {
 		public void setCamino(Vector camino);
 		public Vector getCamino();
 		public void setCerrados(Vector cerrados);
-		public void mostrarCamino();
 		public void resolver(mapa m);
 		public void generarSucesor(estado e, mapa m, String s);
+		public void mostrar(Vector v);
 }

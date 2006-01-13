@@ -1,6 +1,6 @@
 import mapa.mapa;
 import algoritmos.*;
-//import java.util.Vector;
+import java.util.Vector;
 
 public class prueba {
 
@@ -10,20 +10,37 @@ public class prueba {
 	
 	public static void main(String[] args) {
 		mapa m = new mapa(4,4);
+		m.ponCelda(1,1,"montana");
+		m.ponCelda(0,3,"avion");
+		m.ponCelda(1,3,"avion");
+		estado ini = new estado(0,0);
+		estado fin = new estado(0,1);
 		m.ponCelda(1,0,"montana");
 		m.ponCelda(1,1,"avion");
 		m.ponCelda(1,2,"montana");
 		m.ponCelda(2,1,"montana");
 		m.ponCelda(3,3,"montana");
-		estado ini = new estado(2,0);
-		estado fin = new estado(0,0);
 		//algoritmo alg= new primeroAnchura(ini,fin);
 		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
-		//algoritmo alg= new aEstrella(ini,fin,"manhattan");
+		algoritmo alg= new aEstrella(ini,fin,"manhattan");
 		//algoritmo alg= new aEstrella(ini,fin,"celdas");
-		algoritmo alg = new PrimeroProfundidadCiclos(ini, fin);
-		alg.resolver(m);
-		alg.mostrarCamino();
+		//algoritmo alg = new PrimeroProfundidadCiclos(ini, fin);
+		//alg.resolver(m);
+		//alg.mostrar(alg.getCamino());
+		
+		/*
+		 * Prueba de mas prometedor
+		 */
+		Vector v= new Vector();
+		estado e1 = new estado(0,1,ini,1);
+		estado e2 = new estado(0,1,ini,2);
+		estado e3 = new estado(0,1,ini,4);
+		v.add(ini);
+		v.add(e1);
+		v.add(e2);
+		v.add(e3);
+		//alg.masPrometedor(v);
+	
 		/*
 		 * Prueba de equals
 		 */

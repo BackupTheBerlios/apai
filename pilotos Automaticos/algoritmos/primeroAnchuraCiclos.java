@@ -104,25 +104,6 @@ public class primeroAnchuraCiclos implements algoritmo {
 		return esta;
 	}
 	
-	
-	/*
-	 * Método que muestra el camino recorrido 
-	 * para llegar a un vector
-	 */
-	
-	public void mostrarCamino(){
-		if (this.getCamino().isEmpty()){
-			System.out.println("No existe solución");
-		}
-		else{
-			System.out.print("["); 
-			for (int i = 0; i< this.getCamino().size(); i ++){
-				((estado)this.getCamino().elementAt(i)).mostrar();
-			}
-			System.out.println("]");
-		}	
-	}
-	
 	/*
 	 * Método que genera los hijos, aplicando los
 	 * operadores que no generen situaciones de
@@ -167,7 +148,7 @@ public class primeroAnchuraCiclos implements algoritmo {
 	 */
 	
 	public void resolver(mapa m){
-		estado actual = this.inicial;
+		estado actual = new estado();
 		this.abiertos.add(this.inicial);
 		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
 			actual = (estado)this.abiertos.firstElement();
@@ -185,4 +166,21 @@ public class primeroAnchuraCiclos implements algoritmo {
 			}
 		}
 	}
+	
+	/*
+	 *  Muestra un vector.
+	 */
+	public void mostrar(Vector v){
+		if (v.isEmpty()){
+			System.out.println("Vacío");
+		}
+		else{
+			System.out.print("["); 
+			for (int i = 0; i< v.size(); i ++){
+				((estado)v.elementAt(i)).mostrar();
+			}
+			System.out.println("]");
+		}
+	}
+
 }
