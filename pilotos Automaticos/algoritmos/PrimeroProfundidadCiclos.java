@@ -129,6 +129,12 @@ public class PrimeroProfundidadCiclos implements algoritmo {
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);
 		}
+		else{
+			if (abiertos.isEmpty()){
+				System.out.println("infinito");
+				camino.clear(); 
+			}
+		}
 	}
 	
 	/*

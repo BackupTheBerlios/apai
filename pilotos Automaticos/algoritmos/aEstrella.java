@@ -176,6 +176,8 @@ public class aEstrella implements algoritmoInformado {
 		this.inicial.setValor(aux);
 		this.objetivo.setValor(0);
 		this.abiertos.add(this.inicial);
+		//int j=2;
+		//while (!(j==0)){
 		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
 			i = this.masPrometedor(this.abiertos);
 			actual = (estado)this.abiertos.elementAt(i);
@@ -183,11 +185,22 @@ public class aEstrella implements algoritmoInformado {
 			this.cerrados.add(actual);
 			generarSucesor(actual, m,"");
 			actual.mostrar();
-			System.out.println(actual.getCtotal());
-			this.mostrar(this.getAbiertos());
+			System.out.println(actual.getValor());
+			objetivo.mostrar();
+			System.out.println(actual.getValor());
+			boolean b;
+			b = actual.equals(this.objetivo);
+			System.out.println(b);
+			//j--;
 		}
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);
+		}
+		else{
+			if (abiertos.isEmpty()){
+				System.out.println("infinito");
+				camino.clear(); 
+			}
 		}
 	}
 	
@@ -199,8 +212,8 @@ public class aEstrella implements algoritmoInformado {
 			estado aux = (estado) v.elementAt(i);
 			if (aux.getCtotal() < j){
 					pos = i;
-					System.out.println("Entre en el if");
-					System.out.println(i);		
+					//System.out.println("Entre en el if");
+					//System.out.println(i);		
 			} 
 			i++;
 		}	

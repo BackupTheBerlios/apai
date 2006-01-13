@@ -53,7 +53,7 @@ public class escaladaSimple implements algoritmoInformado {
 	}
 	
 	/*
-	 * Acessores y mutadores para camino, abiertos, inicial,
+	 * Acesores y mutadores para camino, abiertos, inicial,
 	 * objetivo y cerrados.
 	 */
 	
@@ -170,21 +170,54 @@ public class escaladaSimple implements algoritmoInformado {
 	 * 
 	 */
 	public void resolver(mapa m) {
-		estado actual = new estado();
+		estado actual;
+		estado nuevoEstado;
+		Vector operadores;
 		int aux;
 		aux = this.inicial.calculaHeurisitica(this.heuristica,this.objetivo,m);
+		System.out.println(aux);
 		this.inicial.setValor(aux);
 		this.objetivo.setValor(0);
 		this.abiertos.add(this.inicial);
+		actual = this.getInicial();
+		System.out.println(actual.getCtotal());
+		operadores = regenerarOperadores();
 		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
-			actual = (estado)this.abiertos.firstElement();
-			this.abiertos.removeElementAt(0);
-			this.cerrados.add(actual);
-			generarSucesor(actual, m, "");
-			 
+			actual.mostrar();
+			boolean cambio = false;
+			while (operadores.isEmpty() || (!cambio)){
+				String op;
+				op = (String)operadores.firstElement();
+				System.out.println(op);
+				generarSucesor(actual, m, op);
+				nuevoEstado = (estado)this.abiertos.lastElement();
+				nuevoEstado.mostrar();
+				System.out.println(nuevoEstado.getCtotal());
+				System.out.println(actual.getCtotal());
+				if (nuevoEstado.getCtotal() > actual.getCtotal()){
+						actual = (estado)this.abiertos.lastElement();
+						cambio = true;
+						System.out.println("Cambiando actual por nuevo");
+				}
+				operadores.removeElement(operadores.elementAt(0));	
+			}
+			if (!cambio){
+				System.out.println("Antes de cambiar");
+				this.abiertos.removeElementAt(0);
+				this.cerrados.add(actual);
+				actual = (estado)this.abiertos.firstElement();
+				System.out.println("Cambiando actual por primero");
+				operadores = regenerarOperadores();
+			}
 		}
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);
+		}
+		else{
+			if (abiertos.isEmpty()){
+				System.out.println("infinito");
+				camino.clear(); 
+			}
 		}
 	}
 	
@@ -204,4 +237,16 @@ public class escaladaSimple implements algoritmoInformado {
 		}
 	}
 
+	/*
+	 *  Añadirmos todos los operadores a operadores sin aplicar.
+	 */
+	
+	public Vector regenerarOperadores(){
+		Vector operadores = new Vector();
+		operadores.add("abajo");
+		operadores.add("derecha");
+		operadores.add("izquierda");
+		operadores.add("arriba");
+		return operadores;
+	}
 }

@@ -12,26 +12,28 @@ public class prueba {
 		mapa m = new mapa(4,4);
 		m.ponCelda(1,1,"montana");
 		m.ponCelda(0,3,"avion");
-		m.ponCelda(1,3,"avion");
+		m.ponCelda(1,0,"avion");
+		m.ponCelda(2,3,"avion");
+		//m.ponCelda(3,3,"avion");
 		estado ini = new estado(0,0);
-		estado fin = new estado(0,1);
-		m.ponCelda(1,0,"montana");
-		m.ponCelda(1,1,"avion");
-		m.ponCelda(1,2,"montana");
-		m.ponCelda(2,1,"montana");
-		m.ponCelda(3,3,"montana");
+		estado fin = new estado(3,2);
+		//m.ponCelda(3,0,"montana");
+		//m.ponCelda(3,1,"montana");
+		//m.ponCelda(3,2,"montana");
 		//algoritmo alg= new primeroAnchura(ini,fin);
 		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
-		algoritmo alg= new aEstrella(ini,fin,"manhattan");
+		//algoritmo alg= new aEstrella(ini,fin,"manhattan");
 		//algoritmo alg= new aEstrella(ini,fin,"celdas");
 		//algoritmo alg = new PrimeroProfundidadCiclos(ini, fin);
-		//alg.resolver(m);
-		//alg.mostrar(alg.getCamino());
+		//algoritmo alg = new PrimeroProfundidad(ini, fin);
+		algoritmo alg = new escaladaSimple(ini,fin,"manhattan");
+		alg.resolver(m);
+		alg.mostrar(alg.getCamino());
 		
 		/*
 		 * Prueba de mas prometedor
 		 */
-		Vector v= new Vector();
+		/*Vector v= new Vector();
 		estado e1 = new estado(0,1,ini,1);
 		estado e2 = new estado(0,1,ini,2);
 		estado e3 = new estado(0,1,ini,4);
@@ -39,7 +41,7 @@ public class prueba {
 		v.add(e1);
 		v.add(e2);
 		v.add(e3);
-		//alg.masPrometedor(v);
+		alg.masPrometedor(v);*/
 	
 		/*
 		 * Prueba de equals
