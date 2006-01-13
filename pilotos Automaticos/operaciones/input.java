@@ -6,7 +6,8 @@ import java.io.InputStreamReader;
 
 public class input {
 	/*
-	 * Metodo para leer de consola
+	 * Metodo para leer de consola, obtiene los datos como un string y alli donde los solicitaron
+	 * ya los transforman al tipo que quieran.
 	 */
 	public String readString(){
 		BufferedReader br
