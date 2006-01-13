@@ -181,7 +181,7 @@ public class aEstrella implements algoritmoInformado {
 	 * Si he encontrado el objetivo genero el camino.
 	 */
 	public void resolver(mapa m) {
-		estado actual = new estado();
+		estado actual = this.inicial;
 		int aux;
 		aux = this.inicial.calculaHeurisitica(this.heuristica,this.objetivo,m);
 		this.inicial.setValor(aux);

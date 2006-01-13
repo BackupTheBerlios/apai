@@ -137,7 +137,7 @@ public class primeroAnchura implements algoritmo {
 	 */
 	
 	public void resolver(mapa m){
-		estado actual = new estado();
+		estado actual = this.inicial;
 		this.abiertos.add(this.inicial);
 		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
 			actual = (estado)this.abiertos.firstElement();

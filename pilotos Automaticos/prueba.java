@@ -11,11 +11,12 @@ public class prueba {
 	public static void main(String[] args) {
 		mapa m = new mapa(4,4);
 		m.ponCelda(1,0,"montana");
-		m.ponCelda(1,1,"montana");
-		m.ponCelda(0,3,"avion");
-		m.ponCelda(0,2,"avion");
-		estado ini = new estado(0,0);
-		estado fin = new estado(2,2);
+		m.ponCelda(1,1,"avion");
+		m.ponCelda(1,2,"montana");
+		m.ponCelda(2,1,"montana");
+		m.ponCelda(3,3,"montana");
+		estado ini = new estado(2,0);
+		estado fin = new estado(0,0);
 		//algoritmo alg= new primeroAnchura(ini,fin);
 		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
 		//algoritmo alg= new aEstrella(ini,fin,"manhattan");
