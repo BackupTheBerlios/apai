@@ -149,11 +149,6 @@ public class piloto {
 				fin= cambioCelda(t,m);
 			}
 			
-			while (m.actualizaMapa()){
-				alg= new aEstrella(ini,fin,"manhattan");
-				alg.resolver(m);
-				alg.mostrar(alg.getCamino());
-			}
 			alg = eleccionA(ini,fin,t);
 			alg.resolver(m);
 			alg.mostrar(alg.getCamino());
