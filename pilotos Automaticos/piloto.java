@@ -142,18 +142,39 @@ public class piloto {
 	}
 	
 	public static void main(String[] args) {
-		mapa m = new mapa(4,4);
-		m.ponCelda(0,3,"montana");
-		m.ponCelda(1,1,"montana");
-		m.ponCelda(1,2,"avion");
-		m.ponCelda(3,0,"montana");
-		m.ponCelda(3,1,"montana");
-		estado ini = new estado(0,0);
-		estado fin = new estado(2,2);
+		// TODO Auto-generated method stub
 		String s;
 		input t = new input();
-		algoritmo alg= new aEstrella(ini,fin,"manhattan");
+		estado ini=new estado(0,0);
+		estado fin=new estado(0,0);
+		mapa m;
+		
+		System.out.println("Introduzca el tamaño maximo del mapa para las filas");
+		s= t.readString();
+		int x= Integer.parseInt(t.readString());
+		System.out.println("Introduzca el tamaño maximo del mapa para las columnas");
+		s= t.readString();
+		int y= Integer.parseInt(t.readString());
+		m = new mapa(x,y);
+
+		System.out.println("Quiere modificar la celda de inicio (S/N)?");
+		s= t.readString();
+		if (s.equals("s")||s.equals("S")){
+			ini = cambioCelda(t,m);
+		}
+	
+		System.out.println("Quiere modificar la celda objetivo ("+fin.getX()+","+fin.getY()+") (S/N)?");
+		s= t.readString();
+		if (s.equals("s")||s.equals("S")){
+			fin= cambioCelda(t,m);
+		}
+		
+		m.actualizaMapa();
+		algoritmo alg;
+		alg = eleccionA(ini,fin,t);
+		alg.resolver(m);
 		alg.mostrar(alg.getCamino());
+		
 		System.out.println("Desea realizar algun cambio o seguir ejecutando(S/N)?");
 		s= t.readString();
 		
