@@ -1,5 +1,6 @@
-import mapa.mapa;
+import mapa.*;
 import algoritmos.*;
+import java.io.File;
 //import java.util.Vector;
 
 public class prueba {
@@ -9,25 +10,54 @@ public class prueba {
 	 */
 	
 	public static void main(String[] args) {
-		mapa m = new mapa(4,4);
+		//mapa m = new mapa(4,4);
+		//mapa m = new mapa(4,5);
+		/*mapa m = new mapa(6,6);
+		m.ponCelda(0,0,"turbulencia");
+		m.ponCelda(0,1,"viento");
+		m.ponCelda(0,2,"tormenta");
+		m.ponCelda(0,3,"tormenta");
+		m.ponCelda(1,0,"turbulencia");
 		m.ponCelda(1,1,"montana");
-		m.ponCelda(0,3,"avion");
-		m.ponCelda(1,0,"avion");
+		m.ponCelda(1,2,"montana");
+		m.ponCelda(1,3,"montana");
+		m.ponCelda(1,4,"montana");
+		m.ponCelda(2,0,"tormenta");
 		m.ponCelda(2,3,"avion");
-		m.ponCelda(3,1,"montana");
+		m.ponCelda(2,4,"montana");
+		m.ponCelda(3,1,"avion");
+		m.ponCelda(3,2,"montana");
 		m.ponCelda(3,3,"montana");
-		//m.ponCelda(3,3,"avion");
-		//m.ponCelda(3,0,"montana");
+		m.ponCelda(3,4,"montana");
+		m.ponCelda(4,4,"avion");
+		m.ponCelda(5,2,"avion");*/
+		
+		File arch = new File("/tmp/mapa3.map");
+		MapaCargado mc = new MapaCargado(arch);
+		mapa m = mc.getMapa();
+		estado ini = mc.getIni();
+		estado fin = mc.getFin();
+		
+		//m.ponCelda(1,1,"montana");
+		//m.ponCelda(0,3,"avion");
+		//m.ponCelda(1,0,"avion");
+		//m.ponCelda(2,0,"avion");
+		//m.ponCelda(2,3,"avion");
 		//m.ponCelda(3,1,"montana");
+		//m.ponCelda(3,3,"montana");
+		
+		//m.ponCelda(1,0,"avion");
+		//m.ponCelda(1,2,"viento");
+		//m.ponCelda(1,3,"montana");
 		//m.ponCelda(3,2,"montana");
-		estado ini = new estado(0,0);
-		estado fin = new estado(3,0);
+		//estado ini = new estado(2,2);
+		//estado fin = new estado(0,4);
 		//algoritmo alg= new primeroAnchura(ini,fin);
-		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
+		algoritmo alg= new primeroAnchuraCiclos(ini,fin);
 		//algoritmo alg= new aEstrella(ini,fin,"manhattan");
 		//algoritmo alg= new aEstrella(ini,fin,"celdas");
 		//algoritmo alg= new aEstrella(ini,fin,"manhattanCelda");
-		algoritmo alg = new PrimeroProfundidadCiclos(ini, fin);
+		//algoritmo alg = new PrimeroProfundidadCiclos(ini, fin);
 		//algoritmo alg = new primeroProfundidad(ini, fin);
 		//algoritmo alg = new escaladaSimple(ini,fin,"manhattan");
 		//algoritmo alg = new escaladaSimple(ini,fin,"celdas");
