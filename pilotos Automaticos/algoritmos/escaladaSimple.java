@@ -182,56 +182,37 @@ public class escaladaSimple implements algoritmoInformado {
 		this.objetivo.setValor(0);
 		this.abiertos.add(this.inicial);
 		actual = (estado)this.abiertos.firstElement();
-		//System.out.println(this.inicial.getValor());
 		operadores = regenerarOperadores();
-		//System.out.println(actual.equals(this.objetivo));
 		while ((!this.abiertos.isEmpty()) && !(actual.equals(this.objetivo))){
-			//System.out.println("Mostrando actual");
-			//actual.mostrar();
-			//System.out.println(actual.getValor());
-			//this.objetivo.mostrar();
-			//System.out.println(this.objetivo.getValor());
-			//System.out.println(actual.equals(this.objetivo));
-			//this.mostrar(this.abiertos);
 			boolean cambio = false;
+			
 			while (!(operadores.isEmpty() || cambio)){
-				//System.out.print("Entro al bucle de operadores con ");
 				String op;
 				op = (String)operadores.firstElement();
-				//System.out.println(op);
 				b = generarSucesor(actual, m, op);
+			
 				if (b){
-					//System.out.print ("if de generado ");
-					//System.out.println(op);
 					nuevoEstado = (estado)this.abiertos.lastElement();
-					//nuevoEstado.mostrar();
-					//System.out.println("Cambio porque");
-					//System.out.println(nuevoEstado.getCtotal());
-					//System.out.println(actual.getCtotal());
+				
 					if (nuevoEstado.getCtotal() < actual.getCtotal()){
 						actual = (estado)this.abiertos.lastElement();
 						cambio = true;
-						//System.out.println("Cambiando actual por nuevo");
 					}
-					//else {
-						//System.out.println("No cambio porque no");
-					//}
+					
 				}
+				
 				operadores.removeElementAt(0);
-				//this.mostrar(this.abiertos);
+				this.mostrar(this.abiertos);
 			}
-			//System.out.print("Salgo del bucle de operadores. ");
-			//System.out.println("He aplicado todos los operadores");
+			
 			if (cambio){
-				//System.out.println("Antes de cambiar");
 				this.abiertos.removeElementAt(0);
 				this.cerrados.add(actual);
-				//System.out.println("Cambiando actual por primero");
 				operadores = regenerarOperadores();
 			}
 			else{
+		
 				if (operadores.isEmpty()){
-					//System.out.println("Me quede sin");
 					this.abiertos.removeElementAt(0);
 					this.cerrados.add(actual);
 					actual = (estado)this.getAbiertos().firstElement();
@@ -239,15 +220,18 @@ public class escaladaSimple implements algoritmoInformado {
 				}	
 			}
 		}
+		
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);
 		}
 		else{
+		
 			if (abiertos.isEmpty()){
 				System.out.println("infinito");
 				camino.clear(); 
 			}
 		}
+		
 	}
 	
 	/*

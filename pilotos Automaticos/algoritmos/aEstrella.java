@@ -151,16 +151,21 @@ public class aEstrella implements algoritmoInformado {
 	}
 	
 	/* 
-	 * Agnadir abiertos el estado inicial.
+	 * Inicializar la lista de abiertos a la lista unaria 
+	 * que contiene el estado inicial.
 	 * 
-	 * Hasta que no me queden nodos o encuentre la solucion:
-	 * - Sacar de abiertos el primero
-	 * - Agnadirlo a cerrados
-	 * - generar los sucesores: al generarlos los insertamos en orden
-	 * para luego tener que extraer el primero que coincide con el de menor heuristica. 
+	 * Mientras que existan estados en la lsita de abiertos nodos y
+	 * no encuentre la solucion:
+	 * - Actual es el elemento más pormetedor de abiertos.
+	 * - Expandir actual 
+	 * - Eliminarlo de abiertos y ponerlo en cerrados
 	 * 
 	 * Si he encontrado el objetivo genero el camino.
+	 * 
+	 * Si no quedan elementos en la lista de abiertos es que no
+	 * existe solucion y termino indicando la situacion.
 	 */
+	
 	public void resolver(mapa m) {
 		estado actual = this.inicial;
 		int aux;
@@ -174,8 +179,8 @@ public class aEstrella implements algoritmoInformado {
 			i = this.masPrometedor(this.abiertos);
 			actual = (estado)this.abiertos.elementAt(i);
 			this.abiertos.removeElementAt(i);
-			this.cerrados.add(actual);
 			generarSucesor(actual, m,"");
+			this.cerrados.add(actual);
 		}
 		
 		if (actual.equals(this.objetivo)){
@@ -183,7 +188,7 @@ public class aEstrella implements algoritmoInformado {
 		}
 		else{
 			if (abiertos.isEmpty()){
-				System.out.println("infinito");
+				System.out.println("Infinito, no existe solucion");
 				camino.clear(); 
 			}
 		}
