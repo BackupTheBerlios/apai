@@ -122,37 +122,33 @@ public class aEstrella implements algoritmoInformado {
 		estado derecha = e.moverDerecha();
 		estado izquierda = e.moverIzquierda();
 		estado arriba = e.moverArriba();
-		System.out.println();
+		//System.out.println();
 		if (!abajo.peligro(m)) {
 			int aux;
 			aux = abajo.calculaHeurisitica(this.heuristica, this.objetivo, m);
-			aux = aux + abajo.getCoste();
-			abajo.setCtotal(aux + abajo.getValor());
-			//int i = abajo.damePosicion(this.abiertos,abajo.getCtotal());
+			abajo.setValor(aux);
+			abajo.setCtotal(abajo.getCoste() + abajo.getValor());
 			this.abiertos.add(abajo);
 		}
 		if (!derecha.peligro(m)) {
 			int aux;
 			aux = derecha.calculaHeurisitica(this.heuristica, this.objetivo, m);
-			aux = aux + derecha.getCoste();
-			derecha.setCtotal(aux + derecha.getValor());
-			//int i = derecha.damePosicion(this.abiertos,derecha.getCtotal());
+			derecha.setValor(aux);
+			derecha.setCtotal(derecha.getCoste() + derecha.getValor());
 			this.abiertos.add(derecha);
 		}
 		if (!izquierda.peligro(m)) {
 			int aux;
 			aux = izquierda.calculaHeurisitica(this.heuristica, this.objetivo, m);
-			aux = aux + izquierda.getCoste();
-			izquierda.setCtotal(aux + izquierda.getValor());
-			//int i = izquierda.damePosicion(this.abiertos,izquierda.getCtotal());
+			izquierda.setValor(aux);
+			izquierda.setCtotal(izquierda.getCoste() + izquierda.getValor());
 			this.abiertos.add(izquierda);
 		}
 		if (!arriba.peligro(m)) {
 			int aux;
-			aux = arriba.calculaHeurisitica(this.heuristica, this.objetivo, m);
-			aux = aux + arriba.getCoste();
-			arriba.setCtotal(aux + arriba.getValor());
-			//int i = arriba.damePosicion(this.abiertos,arriba.getCtotal());
+			aux = arriba.calculaHeurisitica(this.heuristica, this.objetivo, 	m);
+			arriba.setValor(aux);
+			arriba.setCtotal(arriba.getCoste() + arriba.getValor());
 			this.abiertos.add(arriba);
 		}	 
 		return true;
@@ -185,14 +181,6 @@ public class aEstrella implements algoritmoInformado {
 			this.abiertos.removeElementAt(i);
 			this.cerrados.add(actual);
 			generarSucesor(actual, m,"");
-			actual.mostrar();
-			System.out.println(actual.getValor());
-			objetivo.mostrar();
-			System.out.println(actual.getValor());
-			boolean b;
-			b = actual.equals(this.objetivo);
-			System.out.println(b);
-			//j--;
 		}
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);
@@ -205,16 +193,21 @@ public class aEstrella implements algoritmoInformado {
 		}
 	}
 	
+	/*
+	 * Tal como indica el algoritmo A*, hay que recorrer el vector 
+	 * de abiertos, buscando el más prometedor, esto es, el mínimo.
+	 * Esta forma es lineal, aunque podríamos hacer un divide y vencerás
+	 * y de esta forma obtener un coste logarítmico...
+	 */
 	public int masPrometedor(Vector v){
-		int j = 300000; //Cambiar por maxint
+		int peor = Integer.MAX_VALUE;
 		int i = 0;
 		int pos = 0;
 		while (i < v.size()){
 			estado aux = (estado) v.elementAt(i);
-			if (aux.getCtotal() < j){
+			if (aux.getCtotal() < peor){
 					pos = i;
-					//System.out.println("Entre en el if");
-					//System.out.println(i);		
+					peor = aux.getCtotal();		
 			} 
 			i++;
 		}	

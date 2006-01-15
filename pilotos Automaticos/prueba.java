@@ -16,17 +16,17 @@ public class prueba {
 		m.ponCelda(2,3,"avion");
 		//m.ponCelda(3,3,"avion");
 		estado ini = new estado(0,0);
-		estado fin = new estado(0,1);
+		estado fin = new estado(3,0);
 		//m.ponCelda(3,0,"montana");
 		//m.ponCelda(3,1,"montana");
 		//m.ponCelda(3,2,"montana");
 		//algoritmo alg= new primeroAnchura(ini,fin);
 		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
-		//algoritmo alg= new aEstrella(ini,fin,"manhattan");
+		algoritmo alg= new aEstrella(ini,fin,"manhattan");
 		//algoritmo alg= new aEstrella(ini,fin,"celdas");
 		//algoritmo alg = new PrimeroProfundidadCiclos(ini, fin);
 		//algoritmo alg = new PrimeroProfundidad(ini, fin);
-		algoritmo alg = new escaladaSimple(ini,fin,"manhattan");
+		//algoritmo alg = new escaladaSimple(ini,fin,"manhattan");
 		alg.resolver(m);
 		alg.mostrar(alg.getCamino());
 		
