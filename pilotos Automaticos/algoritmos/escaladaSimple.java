@@ -109,6 +109,9 @@ public class escaladaSimple implements algoritmoInformado {
 	 * Metodo que genera los hijos, aplicando los
 	 * operadores que no generen situaciones de
 	 * peligro.
+	 * 
+	 * Se genera en funcion del operador que recibe
+	 * como parametro.
 	 */
 	
 	public boolean generarSucesor(estado e, mapa m, String s) {

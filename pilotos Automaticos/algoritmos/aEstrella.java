@@ -108,13 +108,6 @@ public class aEstrella implements algoritmoInformado {
 	 * Metodo que genera los hijos, aplicando los
 	 * operadores que no generen situaciones de
 	 * peligro.
-	 * 
-	 * Al insertarlos en abiertos, tenemos en cuenta 
-	 * como extrae los hijos el algoritmo para 
-	 * insertarlos en orden y tener que sacar
-	 * siempre el primero.
-	 * 
-	 * Hay que agnadir en orden en funcion de la heuristica
 	 */
 	
 	public boolean generarSucesor(estado e, mapa m, String s) {
@@ -122,7 +115,7 @@ public class aEstrella implements algoritmoInformado {
 		estado derecha = e.moverDerecha();
 		estado izquierda = e.moverIzquierda();
 		estado arriba = e.moverArriba();
-		//System.out.println();
+		
 		if (!abajo.peligro(m)) {
 			int aux;
 			aux = abajo.calculaHeurisitica(this.heuristica, this.objetivo, m);
@@ -130,6 +123,7 @@ public class aEstrella implements algoritmoInformado {
 			abajo.setCtotal(abajo.getCoste() + abajo.getValor());
 			this.abiertos.add(abajo);
 		}
+		
 		if (!derecha.peligro(m)) {
 			int aux;
 			aux = derecha.calculaHeurisitica(this.heuristica, this.objetivo, m);
@@ -137,6 +131,7 @@ public class aEstrella implements algoritmoInformado {
 			derecha.setCtotal(derecha.getCoste() + derecha.getValor());
 			this.abiertos.add(derecha);
 		}
+		
 		if (!izquierda.peligro(m)) {
 			int aux;
 			aux = izquierda.calculaHeurisitica(this.heuristica, this.objetivo, m);
@@ -144,6 +139,7 @@ public class aEstrella implements algoritmoInformado {
 			izquierda.setCtotal(izquierda.getCoste() + izquierda.getValor());
 			this.abiertos.add(izquierda);
 		}
+		
 		if (!arriba.peligro(m)) {
 			int aux;
 			aux = arriba.calculaHeurisitica(this.heuristica, this.objetivo, 	m);
@@ -173,8 +169,7 @@ public class aEstrella implements algoritmoInformado {
 		this.inicial.setValor(aux);
 		this.objetivo.setValor(0);
 		this.abiertos.add(this.inicial);
-		//int j=2;
-		//while (!(j==0)){
+		
 		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
 			i = this.masPrometedor(this.abiertos);
 			actual = (estado)this.abiertos.elementAt(i);
@@ -182,6 +177,7 @@ public class aEstrella implements algoritmoInformado {
 			this.cerrados.add(actual);
 			generarSucesor(actual, m,"");
 		}
+		
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);
 		}
@@ -191,14 +187,16 @@ public class aEstrella implements algoritmoInformado {
 				camino.clear(); 
 			}
 		}
+		
 	}
 	
 	/*
 	 * Tal como indica el algoritmo A*, hay que recorrer el vector 
-	 * de abiertos, buscando el ms prometedor, esto es, el mnimo.
+	 * de abiertos, buscando el mas prometedor, esto es, el minimo.
 	 * Esta forma es lineal, aunque podramos hacer un divide y vencers
 	 * y de esta forma obtener un coste logartmico...
 	 */
+	
 	public int masPrometedor(Vector v){
 		int peor = Integer.MAX_VALUE;
 		int i = 0;
