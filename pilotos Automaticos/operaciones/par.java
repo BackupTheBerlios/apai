@@ -11,6 +11,7 @@ public class par {
 	/*
 	 * Contructor sin parametros.
 	 */
+	
 	public par() {
 		super();
 		this.x = 0;
@@ -20,6 +21,7 @@ public class par {
 	/*
 	 * Constructor con el par de puntos.
 	 */
+	
 	public par(int x, int y) {
 		super();
 		this.x = x;
@@ -33,12 +35,15 @@ public class par {
 	public int getX() {
 		return x;
 	}
+	
 	public void setX(int x) {
 		this.x = x;
 	}
+	
 	public int getY() {
 		return y;
 	}
+	
 	public void setY(int y) {
 		this.y = y;
 	}

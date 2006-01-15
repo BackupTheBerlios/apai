@@ -14,13 +14,14 @@ import operaciones.*;
  * viento
  * 
  */
+
 public class mapa {
 	int x;	//tamagno del mapa (0 .. x-1)
 	int y; 
 	Vector tablero;  //contenido
 	
 	/*
-	 * Constructores, vacío y con parámetros.
+	 * Constructores, vacio y con parametros.
 	 */
 	
 	public mapa() {
@@ -33,6 +34,12 @@ public class mapa {
 	 * 
 	 * Generamos un vector de n elementos y en cada
 	 * posicion metemos un vector de y elementos.
+	 * 
+	 * Ejemplo de mapa 4*4
+	 * (0,0)(1,0)(2,0)(3,0) 
+	 * (0,1)(1,1)(2,1)(3,1)
+	 * (0,2)(1,2)(2,2)(3,2)
+	 * (0,3)(1,3)(2,3)(3,3)
 	 * 
 	 * Lo genermos vacio, todas las celdas libres.
 	 */
@@ -53,7 +60,7 @@ public class mapa {
 	}
 
 	/*
-	 * Acessores y mutadores para tablero, x e y.
+	 * Accesores y mutadores para tablero, x e y.
 	 */
 	
 	public Vector getTablero() {
@@ -81,7 +88,7 @@ public class mapa {
 	}
 
 	/*
-	 * Métodos para acceder fácilmente a las celdas.
+	 * Metodos para acceder fácilmente a las celdas.
 	 */
 	
 	/*
@@ -90,7 +97,9 @@ public class mapa {
 	 */
 	
 	public String dameCelda (int x, int y){
+		
 		Vector aux;
+		
 		if ((x<0)||(x>=this.getX())||(y<0)||(y>=this.getY())){
 			return "";
 		}
@@ -105,12 +114,15 @@ public class mapa {
 	 * Sustituye el contenido de la celda, ponemos
 	 * el contenido que les pasamos.
 	 */
+	
 	public void ponCelda (int x, int y, String val){
 		((Vector)this.tablero.elementAt(x)).set(y,val);		
 	}
 	
 	/*
-	 * Metodo que solicita la celda.
+	 * Metodo que solicita la celda. 
+	 * 
+	 * Auxiliar para actualizar.
 	 * 
 	 * Te pide las coordenadas de la celda a modificar hasta que sea una del mapa
 	 */
@@ -121,6 +133,7 @@ public class mapa {
 		int x= Integer.parseInt(t.readString());
 		System.out.println("Introduzca el valor de Y");
 		int y= Integer.parseInt(t.readString());
+		
 		while ((x<0)||(x>=this.getX())||(y<0)||(y>=this.getY())){
 			System.out.print("Introduzca de forma correcta los datos la proxima vez. ");
 			System.out.print("Recuerde que el tamagno actual del mapa es: ");
@@ -130,6 +143,7 @@ public class mapa {
 			System.out.println("Introduzca el valor de Y");
 			y= Integer.parseInt(t.readString());
 		}
+		
 		v = new par(x,y);
 		return v;
 	}
@@ -137,52 +151,66 @@ public class mapa {
 	/*
 	 * Metodo que solicita el contenido de la celda.
 	 * 
+	 * Auxiliar para actualizar.
+	 *  
 	 * Te pide el contenido hasta que sea un valor valido.
 	 */
 	
 	public void contenido(input t, par p){
+		
 		System.out.print("Introduzca el valor de la celda");
 		System.out.println("Recuerde L(libre), A(avion), Tu(turbulencia), To (Tormenta), V(viento)");
 		String v = t.readString();
 		boolean b = false;
+		
 		if (v.equals("l") || v.equals("L")){
 			ponCelda(p.getX(),p.getY(),"libre");
 			b = true;
 		}
+		
 		if (v.equals("a") || v.equals("A")){
 			ponCelda(p.getX(),p.getY(),"avion");
 			b = true;
 		}
+		
 		if (v.equals("Tu") || v.equals("tu") || v.equals("TU") || v.equals("tU")){
 			ponCelda(p.getX(),p.getY(),"tubulencia");
 			b = true;
 		}
+		
 		if (v.equals("To") || v.equals("to") || v.equals("TO") || v.equals("tO")){
 			ponCelda(p.getX(),p.getY(),"avion");
 			b = true;
 		}
+		
 		if (v.equals("v") || v.equals("V")){
 			ponCelda(p.getX(),p.getY(),"viento");
 			b = true;
 		}
+		
 		if (!b){
 			System.out.println("Si quiere actualizar el mapa, introduce un valor valido");
 		}	
 	}	
+	
 	/*
 	 * Metodo para actualizar el Mapa por consola, va actualizar solo las celdas que el usuario pida, 
 	 * mateniendo las celdas iniciales salvo que se pida un cambio de las mismas. Antes de efectuar 
 	 * el cambio informa del estado actual de la celda y pregunta si deseas continuar.
 	 */
+	
 	public boolean actualizaMapa(){
 		input t= new input();
 		par aux; 
 		System.out.println("Desea actualizar el mapa(S/N)?");
 		String s = t.readString();
+	
 		if ( s.equals("s") || s.equals("S") ){
+		
 			while (s.equals("s")||s.equals("S")){
 				aux = coordenadas(t);
 				System.out.println("El valor actual de la celda es:" + this.dameCelda(aux.getX(),aux.getY()));
+			
 				if (this.dameCelda(aux.getX(),aux.getY()).equals("montana")){
 					System.out.println("Las montanas no se mueven");
 				}
@@ -195,11 +223,14 @@ public class mapa {
 				}	
 				System.out.println("Desea seguir actualizando(S/N)?");
 				s = t.readString();
-			}
+			}			
+			
 			return true;
 		}
 		else{
 			return false;
 		}
+		
 	}
+	
 }

@@ -7,10 +7,10 @@ public class estado {
 	
 	int x;	//representamos el avion con sus coordenadas
 	int y;
-	estado padre; 
+	estado padre; //estado padre
 	int	valor; //representacion del valor heuristico
 	int coste; //coste de llegar al nodo desde el inicial
-	int ctotal; // La estimacion del coste total -->  ctotal = heuristica + coste
+	int ctotal; //estimacion del coste total -->  ctotal = heuristica + coste
 
 	/*
 	 * Constructores, vacio y con parametros.
@@ -27,7 +27,6 @@ public class estado {
 	
 	public estado(int x, int y) {
 		super();
-		// TODO Auto-generated constructor stub
 		this.x = x;
 		this.y = y;
 		this.valor = 0;
@@ -41,7 +40,6 @@ public class estado {
 	
 	public estado(int x, int y, estado padre) {
 		super();
-		// TODO Auto-generated constructor stub
 		this.x = x;
 		this.y = y;
 		this.padre = padre;
@@ -52,12 +50,13 @@ public class estado {
 	
 	/*
 	 * Se da la posicion del avion, el nodo padre y 
-	 * el valor heuristico
+	 * el valor heuristico. El coste de llegar hasta el
+	 * es el del padre + 1 porque
+	 * todos los operadores tienen coste 1.
 	 */
 	
 	public estado(int x, int y, estado padre, int valor) {
 		super();
-		// TODO Auto-generated constructor stub
 		this.x = x;
 		this.y = y;
 		this.padre = padre;
@@ -117,12 +116,11 @@ public class estado {
 	public void setCtotal(int ctotal) {
 		this.ctotal = ctotal;
 	}
-	/*
-	 * Metodos de los operadores de movimiento.
-	 */
 	
 	/*
-	 * Al acceder al estado, le asignamos el padre.
+	 * Metodos de los operadores de movimiento.
+	 *
+	 * Al generar el estado al estado, le asignamos el padre.
 	 */
 
 	public estado moverArriba(){
@@ -146,7 +144,7 @@ public class estado {
 	}
 	
 	/*
-	 * Metodo para mostrar las coordenadas de un estado.
+	 * Metodo para mostrar las coordenadas de un estado en formato (x,y)
 	 */
 	
 	public void mostrar(){
@@ -246,7 +244,8 @@ public class estado {
 	}
 	
 	/*
-	 * Metodo para calcular las distintas heurisiticas
+	 * Metodo para calcular la heurística en funcion del
+	 * parametro heuristica del algoritmo. 
 	 */
 	
 	public int calculaHeurisitica (String heuristica, estado objetivo, mapa m){
@@ -261,7 +260,6 @@ public class estado {
 		if (heuristica == "manhattanCelda"){
 			aux = this.calculaManhattan(objetivo);
 			aux = aux  + this.calculaCelda(objetivo, m);
-			this.mostrar();
 		}
 		return aux;
 	}
