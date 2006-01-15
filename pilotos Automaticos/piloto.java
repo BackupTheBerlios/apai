@@ -1,6 +1,7 @@
-import mapa.mapa;
+import mapa.*;
 import algoritmos.*;
 import operaciones.*;
+import java.io.File;
 
 /*
  * Clase Principal donde contendra el menu
@@ -15,7 +16,7 @@ public class piloto {
 	 */
 	
 	public static algoritmo eleccionA(estado i, estado f, input t){
-		algoritmo alg= new primeroAnchura(i,f);;
+		algoritmo alg= new primeroAnchura(i,f);
 		String s;
 		System.out.print("Que algoritmo desea ejecutar?");
 		System.out.println("Anchura(A), Anchura sin Ciclos(AC), aEstrella(AE), Profundidad(P), Profundidad sin Ciclos(PC) o ");
@@ -141,60 +142,125 @@ public class piloto {
 		return e;
 	}
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		String s;
-		input t = new input();
-		estado ini=new estado(0,0);
-		estado fin=new estado(0,0);
-		mapa m;
+	public static void inicio (String s,input t,mapa m,algoritmo alg, estado ini, estado fin){
 		
-		System.out.println("Introduzca el tamaño maximo del mapa para las filas");
+		System.out.println("Desea cargar el piloto desde un archivo inicial(S/N)?");
 		s= t.readString();
-		int x= Integer.parseInt(t.readString());
-		System.out.println("Introduzca el tamaño maximo del mapa para las columnas");
-		s= t.readString();
-		int y= Integer.parseInt(t.readString());
-		m = new mapa(x,y);
-
-		System.out.println("Quiere introducir la celda de inicio (S/N)?");
-		s= t.readString();
+		boolean correcto=false;
 		if (s.equals("s")||s.equals("S")){
-			ini = cambioCelda(t,m);
+			while (!correcto){
+				System.out.println("Introduzca la ruta completa del archivo que desea cargar");
+				s= t.readString();
+				if (!s.equals("")){
+					File arch = new File(s);
+					MapaCargado mc = new MapaCargado(arch);
+					m = mc.getMapa();
+					ini = mc.getIni();
+					fin = mc.getFin();
+					correcto=true;
+				}
+			}
+			alg = eleccionA(ini,fin,t);
+			alg.resolver(m);
+			alg.mostrar(alg.getCamino());
 		}
-	
-		System.out.println("Quiere introducir la celda objetivo(S/N)?");
-		s= t.readString();
-		if (s.equals("s")||s.equals("S")){
-			fin= cambioCelda(t,m);
-		}
-		
-		m.actualizaMapa();
-		algoritmo alg;
-		alg = eleccionA(ini,fin,t);
-		alg.resolver(m);
-		alg.mostrar(alg.getCamino());
-		
-		System.out.println("Desea realizar algun cambio o seguir ejecutando(S/N)?");
-		s= t.readString();
-		
-		while (s.equals("s")||s.equals("S")){
-			System.out.println("Quiere modificar la celda de inicio ("+ini.getX()+","+ini.getY()+") (S/N)?");
+		else{
+			System.out.println("Introduzca el tamaño maximo del mapa para las filas");
 			s= t.readString();
-		
+			int x= Integer.parseInt(t.readString());
+			System.out.println("Introduzca el tamaño maximo del mapa para las columnas");
+			s= t.readString();
+			int y= Integer.parseInt(t.readString());
+			m = new mapa(x,y);
+
+			System.out.println("Quiere introducir la celda de inicio (S/N)?");
+			s= t.readString();
 			if (s.equals("s")||s.equals("S")){
 				ini = cambioCelda(t,m);
 			}
-			System.out.println("Quiere modificar la celda objetivo ("+fin.getX()+","+fin.getY()+") (S/N)?");
+		
+			System.out.println("Quiere introducir la celda objetivo(S/N)?");
 			s= t.readString();
-			
 			if (s.equals("s")||s.equals("S")){
 				fin= cambioCelda(t,m);
 			}
 			
+			m.actualizaMapa();
 			alg = eleccionA(ini,fin,t);
 			alg.resolver(m);
 			alg.mostrar(alg.getCamino());
+		}
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String s="";
+		input t = new input();
+		estado ini=new estado(0,0);
+		estado fin=new estado(0,0);
+		mapa m=new mapa(0,0);
+		algoritmo alg=new PrimeroProfundidadCiclos(ini,fin);
+		boolean correcto=false;
+		inicio(s,t,m,alg,ini,fin);
+				
+		System.out.println("Desea realizar algun cambio o seguir ejecutando(S/N)?");
+		s= t.readString();
+		
+		while (s.equals("s")||s.equals("S")){
+			
+			System.out.println("Desea cargar el piloto desde un archivo(S/N)?");
+			s= t.readString();
+			if (s.equals("s")||s.equals("S")){
+				while (!correcto){
+					System.out.println("Introduzca la ruta completa del archivo que desea cargar");
+					s= t.readString();
+					if (!s.equals("")){
+						File arch = new File(s);
+						MapaCargado mc = new MapaCargado(arch);
+						m = mc.getMapa();
+						ini = mc.getIni();
+						fin = mc.getFin();
+						correcto=true;
+					}
+				}
+				alg = eleccionA(ini,fin,t);
+				alg.resolver(m);
+				alg.mostrar(alg.getCamino());
+			}
+			
+			else{
+				System.out.println("Quiere modificar el mapa(S/N)?");
+				s= t.readString();
+				
+				if (s.equals("s")||s.equals("S")){
+					System.out.println("Introduzca el tamaño maximo del mapa para las filas");
+					s= t.readString();
+					int x= Integer.parseInt(t.readString());
+					System.out.println("Introduzca el tamaño maximo del mapa para las columnas");
+					s= t.readString();
+					int y= Integer.parseInt(t.readString());
+					m = new mapa(x,y);
+					m.actualizaMapa();
+				}
+				
+				System.out.println("Quiere modificar la celda de inicio ("+ini.getX()+","+ini.getY()+") (S/N)?");
+				s= t.readString();
+			
+				if (s.equals("s")||s.equals("S")){
+					ini = cambioCelda(t,m);
+				}
+				System.out.println("Quiere modificar la celda objetivo ("+fin.getX()+","+fin.getY()+") (S/N)?");
+				s= t.readString();
+				
+				if (s.equals("s")||s.equals("S")){
+					fin= cambioCelda(t,m);
+				}
+				
+				alg = eleccionA(ini,fin,t);
+				alg.resolver(m);
+				alg.mostrar(alg.getCamino());
+			}
+			
 			System.out.println("Desea realizar algun cambio o seguir ejecutando(S/N)?");
 			s= t.readString();
 		}
