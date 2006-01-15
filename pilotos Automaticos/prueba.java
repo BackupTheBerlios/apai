@@ -1,6 +1,6 @@
 import mapa.mapa;
 import algoritmos.*;
-import java.util.Vector;
+//import java.util.Vector;
 
 public class prueba {
 
@@ -16,7 +16,7 @@ public class prueba {
 		m.ponCelda(2,3,"avion");
 		//m.ponCelda(3,3,"avion");
 		estado ini = new estado(0,0);
-		estado fin = new estado(3,2);
+		estado fin = new estado(0,1);
 		//m.ponCelda(3,0,"montana");
 		//m.ponCelda(3,1,"montana");
 		//m.ponCelda(3,2,"montana");

@@ -17,7 +17,6 @@ public class primeroAnchura implements algoritmo {
 	
 	public primeroAnchura() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/*
@@ -26,7 +25,6 @@ public class primeroAnchura implements algoritmo {
 	
 	public primeroAnchura(estado inicial, estado objetivo) {
 		super();
-		// TODO Auto-generated constructor stub
 		this.inicial = inicial;
 		this.objetivo = objetivo;
 		this.abiertos = new Vector();
@@ -83,63 +81,75 @@ public class primeroAnchura implements algoritmo {
 	 * operadores que no generen situaciones de
 	 * peligro.
 	 * 
-	 * Al insertarlos en abiertos, tenemos en cuenta 
-	 * como extrae los hijos el algoritmo para 
-	 * insertarlos en orden y tener que sacar
-	 * siempre el primero.
+	 * Los insertamos al final de abiertos.
 	 */
 	
-	public void generarSucesor(estado e, mapa m, String s){
+	public boolean generarSucesor(estado e, mapa m, String s){
+		
 		estado abajo = e.moverAbajo();
 		estado derecha = e.moverDerecha();
 		estado izquierda = e.moverIzquierda();
 		estado arriba = e.moverArriba();
+		
 		if (!abajo.peligro(m)) {
 			abajo.setValor(0);
 			this.abiertos.add(abajo);
 		}
+		
 		if (!derecha.peligro(m)) {
 			derecha.setValor(0);
 			this.abiertos.add(derecha);
 		}
+		
 		if (!izquierda.peligro(m)) {
 			izquierda.setValor(0);
 			this.abiertos.add(izquierda);
 		}
+		
 		if (!arriba.peligro(m)) {
 			arriba.setValor(0);
 			this.abiertos.add(arriba);
 		}
+		
+		return true;
 	}
 	
 	/* 
-	 * Agnadir abiertos el estado inicial.
+	 * Inicializar la lista de abiertos a la lista unaria 
+	 * que contiene el estado inicial.
 	 * 
-	 * Hasta que no me queden nodos o encuentre la solucion:
-	 * - Sacar de abiertos el primero
-	 * - Agnadirlo a cerrados
-	 * - generar los sucesores
+	 * Mientras que existan estados en la lsita de abiertos nodos y
+	 * no encuentre la solucion:
+	 * - Actual es el primer elemento de abiertos.
+	 * - Expandir actual 
+	 * - Eliminarlo de abiertos y ponerlo en cerrados
 	 * 
 	 * Si he encontrado el objetivo genero el camino.
 	 */
 	
 	public void resolver(mapa m){
+		
 		estado actual = this.inicial;
 		this.abiertos.add(this.inicial);
+		
 		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
 			actual = (estado)this.abiertos.firstElement();
-			this.abiertos.removeElementAt(0);
-			this.cerrados.add(actual);
 			generarSucesor(actual, m,"");
+			this.abiertos.removeElementAt(0);
+			this.cerrados.add(actual);		
 		}
+		
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);
 		}
 	}	
+	
 	/*
 	 *  Muestra un vector.
 	 */
+	
 	public void mostrar(Vector v){
+	
 		if (v.isEmpty()){
 			System.out.println("Vacío");
 		}
@@ -151,5 +161,5 @@ public class primeroAnchura implements algoritmo {
 			System.out.println("]");
 		}
 	}
-
+	
 }

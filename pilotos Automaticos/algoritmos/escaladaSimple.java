@@ -104,34 +104,25 @@ public class escaladaSimple implements algoritmoInformado {
 	public void setHeuristica(String heuristica) {
 		this.heuristica = heuristica;
 	}
-	
-	/*
-	 * Metodo que muestra el camino recorrido 
-	 * para llegar a un vector
-	 */
 
-	public void mostrarCamino(){
-		System.out.print("["); 
-		for (int i = 0; i< this.getCamino().size(); i ++){
-			((estado)this.getCamino().elementAt(i)).mostrar();
-		}
-		System.out.println("]");
-	}
 	/*
 	 * Metodo que genera los hijos, aplicando los
 	 * operadores que no generen situaciones de
 	 * peligro.
 	 */
 	
-	public void generarSucesor(estado e, mapa m, String s) {
+	public boolean generarSucesor(estado e, mapa m, String s) {
+		boolean b = false;
 		if (s.equals("abajo")){
 			estado abajo = e.moverAbajo();
 			if (!abajo.peligro(m)) {
 				int aux;
 				aux = abajo.calculaHeurisitica(this.heuristica, this.objetivo, m);
 				aux = aux + abajo.getCoste();
+				abajo.setValor(aux);
 				abajo.setCtotal(aux + abajo.getValor());
 				this.abiertos.add(abajo);
+				b = true;
 			}
 		}
 		if (s.equals("derecha")){
@@ -140,8 +131,10 @@ public class escaladaSimple implements algoritmoInformado {
 				int aux;
 				aux = derecha.calculaHeurisitica(this.heuristica, this.objetivo, m);
 				aux = aux + derecha.getCoste();
+				derecha.setValor(aux);
 				derecha.setCtotal(aux + derecha.getValor());
 				this.abiertos.add(derecha);
+				b = true;
 			}
 		}	
 		if (s.equals("izquierda")){
@@ -150,8 +143,10 @@ public class escaladaSimple implements algoritmoInformado {
 				int aux;
 				aux = izquierda.calculaHeurisitica(this.heuristica, this.objetivo, m);
 				aux = aux + izquierda.getCoste();
+				izquierda.setValor(aux);
 				izquierda.setCtotal(aux + izquierda.getValor());
 				this.abiertos.add(izquierda);
+				b = true;
 			}
 		}
 		if (s.equals("arriba")){
@@ -160,10 +155,13 @@ public class escaladaSimple implements algoritmoInformado {
 				int aux;
 				aux = arriba.calculaHeurisitica(this.heuristica, this.objetivo, m);
 				aux = aux + arriba.getCoste();
+				arriba.setValor(aux);
 				arriba.setCtotal(aux + arriba.getValor());
 				this.abiertos.add(arriba);
+				b = true;
 			}	 
 		}	
+		return b;
 	}
 	
 	/* 
@@ -173,34 +171,49 @@ public class escaladaSimple implements algoritmoInformado {
 		estado actual;
 		estado nuevoEstado;
 		Vector operadores;
+		boolean b = false;
 		int aux;
 		aux = this.inicial.calculaHeurisitica(this.heuristica,this.objetivo,m);
-		System.out.println(aux);
-		this.inicial.setValor(aux);
+		this.inicial.setCtotal(aux);
 		this.objetivo.setValor(0);
 		this.abiertos.add(this.inicial);
-		actual = this.getInicial();
-		System.out.println(actual.getCtotal());
+		actual = (estado)this.abiertos.firstElement();
 		operadores = regenerarOperadores();
-		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
+		int j;
+		j = 4;
+		while ( j>0 || (!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
 			actual.mostrar();
+			System.out.println(actual.getValor());
+			this.objetivo.mostrar();
+			System.out.println(this.objetivo.getValor());
 			boolean cambio = false;
-			while (operadores.isEmpty() || (!cambio)){
+			while (!(operadores.isEmpty() || cambio)){
+				System.out.print("Entro al bucle de operadores con ");
 				String op;
 				op = (String)operadores.firstElement();
 				System.out.println(op);
-				generarSucesor(actual, m, op);
-				nuevoEstado = (estado)this.abiertos.lastElement();
-				nuevoEstado.mostrar();
-				System.out.println(nuevoEstado.getCtotal());
-				System.out.println(actual.getCtotal());
-				if (nuevoEstado.getCtotal() > actual.getCtotal()){
+				b = generarSucesor(actual, m, op);
+				if (b){
+					System.out.println ("if de generado");
+					System.out.println(op);
+					nuevoEstado = (estado)this.abiertos.lastElement();
+					nuevoEstado.mostrar();
+					System.out.println(nuevoEstado.getCtotal());
+					System.out.println(actual.getCtotal());
+					if (nuevoEstado.getCtotal() > actual.getCtotal()){
 						actual = (estado)this.abiertos.lastElement();
 						cambio = true;
 						System.out.println("Cambiando actual por nuevo");
+					}
+					//else {
+						//System.out.println("No cambio porque no");
+					//}
 				}
-				operadores.removeElement(operadores.elementAt(0));	
+				operadores.removeElementAt(0);
+				this.mostrar(this.abiertos);
 			}
+			System.out.print("Salgo del bucle de operadores. ");
+			System.out.println("He aplicado todos los operadores");
 			if (!cambio){
 				System.out.println("Antes de cambiar");
 				this.abiertos.removeElementAt(0);
@@ -209,6 +222,13 @@ public class escaladaSimple implements algoritmoInformado {
 				System.out.println("Cambiando actual por primero");
 				operadores = regenerarOperadores();
 			}
+			if (operadores.isEmpty()){
+				System.out.println("Me quede sin");
+				this.abiertos.removeElementAt(0);
+				this.cerrados.add(actual);
+			}
+			j--;
+			System.out.println(j);
 		}
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);

@@ -12,20 +12,31 @@ public class primeroProfundidad implements algoritmo {
 	Vector cerrados;
 	Vector camino;
 
+	/*
+	 * Constructores, vacío y con parámetros.
+	 */
+	
 	public primeroProfundidad() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+	
+	/*
+	 * Se da el estado inicial y el objetivo.
+	 */
 	
 	public primeroProfundidad(estado inicial, estado objetivo) {
 		super();
-		// TODO Auto-generated constructor stub
 		this.inicial = inicial;
 		this.objetivo = objetivo;
 		this.abiertos = new Vector();
 		this.cerrados = new Vector();
 		this.camino = new Vector();
 	}
+	
+	/*
+	 * Accesores y mutadores para camino, abiertos, inicial,
+	 * objetivo y cerrados.
+	 */
 	
 	public Vector getCamino() {
 		return camino;
@@ -67,60 +78,84 @@ public class primeroProfundidad implements algoritmo {
 		this.cerrados = cerrados;
 	}
 
-	public void generarSucesor(estado e, mapa m, String s){
+	/*
+	 * Metodo que genera los hijos, aplicando los
+	 * operadores que no generen situaciones de
+	 * peligro.
+	 * 
+	 * Los insertamos al final de abiertos. 
+	 */
+	
+	public boolean generarSucesor(estado e, mapa m, String s){
+		
 		estado abajo = e.moverAbajo();
 		estado derecha = e.moverDerecha();
 		estado izquierda = e.moverIzquierda();
 		estado arriba = e.moverArriba();
+		
 		if (!arriba.peligro(m)) {
 			arriba.setValor(0);
 			this.abiertos.add(arriba);
 		}
+		
 		if (!izquierda.peligro(m)) {
 			izquierda.setValor(0);
 			this.abiertos.add(izquierda);
 		}
+		
 		if (!derecha.peligro(m)) {
 			derecha.setValor(0);
 			this.abiertos.add(derecha);
 		}
+		
 		if (!abajo.peligro(m)) {
 			abajo.setValor(0);
 			this.abiertos.add(abajo);
 		}
+		
+		return true;
 	}
 	
-	/* 1. Si el estado inicial es el objetivo, salir y retornar éxito.
-	   2. Sino, haga lo siguiente hasta que se obtenga señal de éxito o fracaso:
-	         1. Genere un sucesor E del estado inicial. Si no hay más sucesores, retorne con señal de fracaso.
-	         2. Llame recursivamente al algoritmo, esta vez con E como el estado inicial.
-	         3. Si la señal es éxito, retorne, de otra manera, continúe en este lazo.
-	*/
+	/* 
+	 * Inicializar la lista de abiertos a la lista unaria 
+	 * que contiene el estado inicial.
+	 * 
+	 * Mientras que existan estados en la lsita de abiertos nodos y
+	 * no encuentre la solucion:
+	 * - Actual es el último elemento de abiertos.
+	 * - Expandir actual 
+	 * - Eliminarlo de abiertos y ponerlo en cerrados
+	 * 
+	 * Si he encontrado el objetivo genero el camino.
+	 * 
+	 * Si no quedan elementos en la lista de abiertos es que no
+	 * existe solución y termino indicando la situación.
+	 */
 	
 	public void resolver(mapa m){
+		
 		estado actual = this.inicial;
 		this.abiertos.add(this.inicial);
 		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
 			actual = (estado)this.abiertos.lastElement();
+			generarSucesor(actual, m,"");
 			this.abiertos.removeElement(abiertos.lastElement());
 			this.cerrados.add(actual);
-			generarSucesor(actual, m,"");
+	
 		}
-		actual.mostrar();
+	
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);
 		}
-		else{
-			if (abiertos.isEmpty()){
-				System.out.println("infinito");
-				camino.clear(); 
-			}
-		}	
+		
 	}
+	
 	/*
 	 *  Muestra un vector.
 	 */
+	
 	public void mostrar(Vector v){
+		
 		if (v.isEmpty()){
 			System.out.println("Vacío");
 		}

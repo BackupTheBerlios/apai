@@ -18,7 +18,6 @@ public class primeroAnchuraCiclos implements algoritmo {
 	
 	public primeroAnchuraCiclos() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/*
@@ -27,7 +26,6 @@ public class primeroAnchuraCiclos implements algoritmo {
 	
 	public primeroAnchuraCiclos(estado inicial, estado objetivo) {
 		super();
-		// TODO Auto-generated constructor stub
 		this.inicial = inicial;
 		this.objetivo = objetivo;
 		this.abiertos = new Vector();
@@ -36,7 +34,7 @@ public class primeroAnchuraCiclos implements algoritmo {
 	}
 
 	/*
-	 * Acessores y mutadores para camino, abiertos, inicial,
+	 * Accesores y mutadores para camino, abiertos, inicial,
 	 * objetivo y cerrados.
 	 */
 	
@@ -80,88 +78,107 @@ public class primeroAnchuraCiclos implements algoritmo {
 	}
 	
 	/*
-	 * Redefinición del método contains, 
-	 * ( miro en abiertos y en cerrados ) 
-	 * si es el mismo estado (equals es true), esta contenido. 
+	 * Redefinición del método contains.
+	 *  
+	 * Miro en abiertos y en cerrados si está antes de añadirlo, 
+	 * para evitar generar dos veces el mismo nodo.
+	 * 
+	 *  Con esto garantizamos la condición de terminación en caso 
+	 *  de que no exista solución.
 	 */
 	
 	public boolean contains (estado e){
-		boolean esta;
-		esta = false;
+		boolean esta = false;
 		estado aux;
+		
 		for (int i = 0; i< this.getAbiertos().size(); i++){
 			aux = (estado)this.getAbiertos().elementAt(i);
 			if (aux.equals(e)){
 				esta = esta || true;
 			}
 		}
+		
 		for (int i = 0; i< this.getCerrados().size(); i++){
 			aux = (estado)this.getCerrados().elementAt(i);
 			if (aux.equals(e)){
 				esta = esta || true;
 			}
 		}
+		
 		return esta;
 	}
 	
 	/*
-	 * Método que genera los hijos, aplicando los
+	 * Metodo que genera los hijos, aplicando los
 	 * operadores que no generen situaciones de
 	 * peligro.
 	 * 
-	 * Hay control de ciclos.
+	 * Los insertamos al final de abiertos.
 	 * 
-	 * Al insertarlos en abiertos, tenemos en cuenta 
-	 * como extrae los hijos el algoritmo para 
-	 * insertarlos en orden y tener que sacar
-	 * siempre el primero.
+	 * Hay control de ciclos. 
 	 */
 	
-	public void generarSucesor(estado e, mapa m, String s){
+	public boolean generarSucesor(estado e, mapa m, String s){
+		
 		estado abajo = e.moverAbajo();
 		estado derecha = e.moverDerecha();
 		estado izquierda = e.moverIzquierda();
 		estado arriba = e.moverArriba();
+		
 		if (!(abajo.peligro(m) || this.contains(abajo))) {
 			this.abiertos.add(abajo);
 		}
+		
 		if (!(derecha.peligro(m) || this.contains(derecha))) {
 			this.abiertos.add(derecha);
 		}
+		
 		if (!(izquierda.peligro(m) || this.contains(izquierda))) {
 			this.abiertos.add(izquierda);
 		}
+		
 		if (!(arriba.peligro(m) || this.contains(arriba))) {
 			this.abiertos.add(arriba);
 		}
+		
+		return true;
 	}
 	
 	/* 
-	 * Añadir abiertos el estado inicial.
+	 * Inicializar la lista de abiertos a la lista unaria 
+	 * que contiene el estado inicial.
 	 * 
-	 * Hasta que no me queden nodos o encuentre la solución:
-	 * - Sacar de abiertos el primero
-	 * - Añadirlo a cerrados
-	 * - generar los sucesores
+	 * Mientras que existan estados en la lsita de abiertos nodos y
+	 * no encuentre la solucion:
+	 * - Actual es el primer elemento de abiertos.
+	 * - Expandir actual 
+	 * - Eliminarlo de abiertos y ponerlo en cerrados
 	 * 
 	 * Si he encontrado el objetivo genero el camino.
+	 * 
+	 * Si no quedan elementos en la lista de abiertos es que no
+	 * existe solución y termino indicando la situación.
 	 */
 	
+	
 	public void resolver(mapa m){
+		
 		estado actual = new estado();
 		this.abiertos.add(this.inicial);
+		
 		while ((!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
 			actual = (estado)this.abiertos.firstElement();
-			this.abiertos.removeElementAt(0);
-			this.cerrados.add(actual);
 			generarSucesor(actual, m,"");
+			this.abiertos.removeElementAt(0);
+			this.cerrados.add(actual);	
 		}
+		
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);
 		}
 		else{
 			if (abiertos.isEmpty()){
-				System.out.println("infinito");
+				System.out.println("Infinito, no existe solucion");
 				camino.clear(); 
 			}
 		}
@@ -171,6 +188,7 @@ public class primeroAnchuraCiclos implements algoritmo {
 	 *  Muestra un vector.
 	 */
 	public void mostrar(Vector v){
+		
 		if (v.isEmpty()){
 			System.out.println("Vacío");
 		}

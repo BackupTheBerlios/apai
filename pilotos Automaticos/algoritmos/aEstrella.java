@@ -117,7 +117,7 @@ public class aEstrella implements algoritmoInformado {
 	 * Hay que agnadir en orden en funcion de la heuristica
 	 */
 	
-	public void generarSucesor(estado e, mapa m, String s) {
+	public boolean generarSucesor(estado e, mapa m, String s) {
 		estado abajo = e.moverAbajo();
 		estado derecha = e.moverDerecha();
 		estado izquierda = e.moverIzquierda();
@@ -155,6 +155,7 @@ public class aEstrella implements algoritmoInformado {
 			//int i = arriba.damePosicion(this.abiertos,arriba.getCtotal());
 			this.abiertos.add(arriba);
 		}	 
+		return true;
 	}
 	
 	/* 

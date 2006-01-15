@@ -1,4 +1,5 @@
 package algoritmos;
+
 import java.util.Vector;
 import mapa.mapa;
 
@@ -14,6 +15,6 @@ public interface algoritmo {
 		public Vector getCamino();
 		public void setCerrados(Vector cerrados);
 		public void resolver(mapa m);
-		public void generarSucesor(estado e, mapa m, String s);
+		public boolean generarSucesor(estado e, mapa m, String s);
 		public void mostrar(Vector v);
 }
