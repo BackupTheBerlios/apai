@@ -181,9 +181,8 @@ public class escaladaSimple implements algoritmoInformado {
 	 * 				- eliminar actual de abiertos
 	 * 				- actual = nuevo
 	 * 
-	 * 		- si cambie actualizar, regenrar los operadores
-	 * - Expandir actual 
-	 * - Eliminarlo de abiertos y ponerlo en cerrados
+	 * 		- si cambie actualizar, regenrar los operadores.
+	 * 		-Si aplique todos eliminarlo.
 	 * 
 	 * Si he encontrado el objetivo genero el camino.
 	 * 
