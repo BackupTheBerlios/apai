@@ -195,9 +195,9 @@ public class aEstrella implements algoritmoInformado {
 	
 	/*
 	 * Tal como indica el algoritmo A*, hay que recorrer el vector 
-	 * de abiertos, buscando el más prometedor, esto es, el mínimo.
-	 * Esta forma es lineal, aunque podríamos hacer un divide y vencerás
-	 * y de esta forma obtener un coste logarítmico...
+	 * de abiertos, buscando el ms prometedor, esto es, el mnimo.
+	 * Esta forma es lineal, aunque podramos hacer un divide y vencers
+	 * y de esta forma obtener un coste logartmico...
 	 */
 	public int masPrometedor(Vector v){
 		int peor = Integer.MAX_VALUE;

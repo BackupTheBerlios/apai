@@ -118,8 +118,8 @@ public class escaladaSimple implements algoritmoInformado {
 			if (!abajo.peligro(m)) {
 				int aux;
 				aux = abajo.calculaHeurisitica(this.heuristica, this.objetivo, m);
-				aux = aux + abajo.getCoste();
 				abajo.setValor(aux);
+				aux = aux + abajo.getCoste();
 				abajo.setCtotal(aux + abajo.getValor());
 				this.abiertos.add(abajo);
 				b = true;
@@ -130,8 +130,8 @@ public class escaladaSimple implements algoritmoInformado {
 			if (!derecha.peligro(m)) {
 				int aux;
 				aux = derecha.calculaHeurisitica(this.heuristica, this.objetivo, m);
-				aux = aux + derecha.getCoste();
 				derecha.setValor(aux);
+				aux = aux + derecha.getCoste();
 				derecha.setCtotal(aux + derecha.getValor());
 				this.abiertos.add(derecha);
 				b = true;
@@ -142,8 +142,8 @@ public class escaladaSimple implements algoritmoInformado {
 			if (!izquierda.peligro(m)) {
 				int aux;
 				aux = izquierda.calculaHeurisitica(this.heuristica, this.objetivo, m);
-				aux = aux + izquierda.getCoste();
 				izquierda.setValor(aux);
+				aux = aux + izquierda.getCoste();
 				izquierda.setCtotal(aux + izquierda.getValor());
 				this.abiertos.add(izquierda);
 				b = true;
@@ -154,8 +154,8 @@ public class escaladaSimple implements algoritmoInformado {
 			if (!arriba.peligro(m)) {
 				int aux;
 				aux = arriba.calculaHeurisitica(this.heuristica, this.objetivo, m);
-				aux = aux + arriba.getCoste();
 				arriba.setValor(aux);
+				aux = aux + arriba.getCoste();
 				arriba.setCtotal(aux + arriba.getValor());
 				this.abiertos.add(arriba);
 				b = true;
@@ -174,61 +174,67 @@ public class escaladaSimple implements algoritmoInformado {
 		boolean b = false;
 		int aux;
 		aux = this.inicial.calculaHeurisitica(this.heuristica,this.objetivo,m);
+		this.inicial.setValor(aux);
 		this.inicial.setCtotal(aux);
 		this.objetivo.setValor(0);
 		this.abiertos.add(this.inicial);
 		actual = (estado)this.abiertos.firstElement();
+		//System.out.println(this.inicial.getValor());
 		operadores = regenerarOperadores();
-		int j;
-		j = 4;
-		while ( j>0 || (!this.abiertos.isEmpty()) && (!(actual.equals(this.objetivo)))){
-			actual.mostrar();
-			System.out.println(actual.getValor());
-			this.objetivo.mostrar();
-			System.out.println(this.objetivo.getValor());
+		//System.out.println(actual.equals(this.objetivo));
+		while ((!this.abiertos.isEmpty()) && !(actual.equals(this.objetivo))){
+			//System.out.println("Mostrando actual");
+			//actual.mostrar();
+			//System.out.println(actual.getValor());
+			//this.objetivo.mostrar();
+			//System.out.println(this.objetivo.getValor());
+			//System.out.println(actual.equals(this.objetivo));
+			//this.mostrar(this.abiertos);
 			boolean cambio = false;
 			while (!(operadores.isEmpty() || cambio)){
-				System.out.print("Entro al bucle de operadores con ");
+				//System.out.print("Entro al bucle de operadores con ");
 				String op;
 				op = (String)operadores.firstElement();
-				System.out.println(op);
+				//System.out.println(op);
 				b = generarSucesor(actual, m, op);
 				if (b){
-					System.out.println ("if de generado");
-					System.out.println(op);
+					//System.out.print ("if de generado ");
+					//System.out.println(op);
 					nuevoEstado = (estado)this.abiertos.lastElement();
-					nuevoEstado.mostrar();
-					System.out.println(nuevoEstado.getCtotal());
-					System.out.println(actual.getCtotal());
-					if (nuevoEstado.getCtotal() > actual.getCtotal()){
+					//nuevoEstado.mostrar();
+					//System.out.println("Cambio porque");
+					//System.out.println(nuevoEstado.getCtotal());
+					//System.out.println(actual.getCtotal());
+					if (nuevoEstado.getCtotal() < actual.getCtotal()){
 						actual = (estado)this.abiertos.lastElement();
 						cambio = true;
-						System.out.println("Cambiando actual por nuevo");
+						//System.out.println("Cambiando actual por nuevo");
 					}
 					//else {
 						//System.out.println("No cambio porque no");
 					//}
 				}
 				operadores.removeElementAt(0);
-				this.mostrar(this.abiertos);
+				//this.mostrar(this.abiertos);
 			}
-			System.out.print("Salgo del bucle de operadores. ");
-			System.out.println("He aplicado todos los operadores");
-			if (!cambio){
-				System.out.println("Antes de cambiar");
+			//System.out.print("Salgo del bucle de operadores. ");
+			//System.out.println("He aplicado todos los operadores");
+			if (cambio){
+				//System.out.println("Antes de cambiar");
 				this.abiertos.removeElementAt(0);
 				this.cerrados.add(actual);
-				actual = (estado)this.abiertos.firstElement();
-				System.out.println("Cambiando actual por primero");
+				//System.out.println("Cambiando actual por primero");
 				operadores = regenerarOperadores();
 			}
-			if (operadores.isEmpty()){
-				System.out.println("Me quede sin");
-				this.abiertos.removeElementAt(0);
-				this.cerrados.add(actual);
+			else{
+				if (operadores.isEmpty()){
+					//System.out.println("Me quede sin");
+					this.abiertos.removeElementAt(0);
+					this.cerrados.add(actual);
+					actual = (estado)this.getAbiertos().firstElement();
+					operadores = regenerarOperadores();
+				}	
 			}
-			j--;
-			System.out.println(j);
 		}
 		if (actual.equals(this.objetivo)){
 			this.camino = actual.generarCamino(this.inicial);

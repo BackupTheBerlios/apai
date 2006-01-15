@@ -250,7 +250,7 @@ public class estado {
 	 */
 	
 	public int calculaHeurisitica (String heuristica, estado objetivo, mapa m){
-		//m.actualizaMapa();
+		m.actualizaMapa();
 		int aux = 0;
 		if (heuristica == "manhattan"){ 
 			aux = this.calculaManhattan(objetivo);

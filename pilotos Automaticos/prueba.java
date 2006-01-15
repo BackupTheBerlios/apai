@@ -16,7 +16,7 @@ public class prueba {
 		m.ponCelda(2,3,"avion");
 		//m.ponCelda(3,3,"avion");
 		estado ini = new estado(0,0);
-		estado fin = new estado(3,0);
+		estado fin = new estado(2,2);
 		//m.ponCelda(3,0,"montana");
 		//m.ponCelda(3,1,"montana");
 		//m.ponCelda(3,2,"montana");
