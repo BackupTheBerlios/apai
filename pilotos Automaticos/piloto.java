@@ -30,7 +30,7 @@ public class piloto {
 				correcto=true;
 			}
 			if (s.equals("ae")||s.equals("AE")||s.equals("aE")||s.equals("Ae")){
-				System.out.println("Que heuristica desea ejecutar manhattan(M) o celdas(C)?");
+				System.out.println("Que heuristica desea ejecutar manhattan(M) o celdas(C) o manhattanCeldas(MC)?");
 				s= t.readString();
 				if (s.equals("m")||s.equals("M")){
 					alg= new aEstrella(i,f,"manhattan");
@@ -38,6 +38,10 @@ public class piloto {
 				}
 				if (s.equals("c")||s.equals("C")){
 					alg= new aEstrella(i,f,"celdas");
+					correcto=true;
+				}
+				if (s.equals("mc")||s.equals("MC")||s.equals("Mc")||s.equals("mC")){
+					alg= new aEstrella(i,f,"manhattanCelda");
 					correcto=true;
 				}
 				if (!correcto){
@@ -54,6 +58,10 @@ public class piloto {
 				}
 				if (s.equals("c")||s.equals("C")){
 					alg= new escaladaSimple(i,f,"celdas");
+					correcto=true;
+				}
+				if (s.equals("mc")||s.equals("MC")||s.equals("Mc")||s.equals("mC")){
+					alg= new aEstrella(i,f,"manhattanCelda");
 					correcto=true;
 				}
 				if (!correcto){
@@ -124,15 +132,10 @@ public class piloto {
 		estado ini = new estado(0,0);
 		estado fin = new estado(2,2);
 		String s;
-		algoritmo alg= new aEstrella(ini,fin,"manhattan");
 		input t = new input();
 		
+		algoritmo alg= new aEstrella(ini,fin,"manhattan");
 		
-		//algoritmo alg= new primeroAnchura(ini,fin);
-		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
-		//alg= new aEstrella(ini,fin,"manhattan");
-		//algoritmo alg= new aEstrella(ini,fin,"celdas");
-		//algoritmo alg = new primeroProfundidad(ini, fin);
 		alg.mostrar(alg.getCamino());
 			
 		System.out.println("Desea realizar algun cambio o seguir ejecutando(S/N)?");
@@ -148,7 +151,6 @@ public class piloto {
 			if (s.equals("s")||s.equals("S")){
 				fin= cambioCelda(t,m);
 			}
-			
 			alg = eleccionA(ini,fin,t);
 			alg.resolver(m);
 			alg.mostrar(alg.getCamino());
