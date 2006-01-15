@@ -83,6 +83,10 @@ public class primeroProfundidad implements algoritmo {
 	 * operadores que no generen situaciones de
 	 * peligro.
 	 * 
+	 * Cambiamos el orden de aplicación de los operadores
+	 * para garantizar que al sacar los hijo se sacan en
+	 * el orden adecuado.
+	 * 
 	 * Los insertamos al final de abiertos. 
 	 */
 	
@@ -127,9 +131,6 @@ public class primeroProfundidad implements algoritmo {
 	 * - Eliminarlo de abiertos y ponerlo en cerrados
 	 * 
 	 * Si he encontrado el objetivo genero el camino.
-	 * 
-	 * Si no quedan elementos en la lista de abiertos es que no
-	 * existe solución y termino indicando la situación.
 	 */
 	
 	public void resolver(mapa m){
