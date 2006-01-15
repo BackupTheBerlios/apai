@@ -22,11 +22,11 @@ public class prueba {
 		//m.ponCelda(3,2,"montana");
 		//algoritmo alg= new primeroAnchura(ini,fin);
 		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
-		algoritmo alg= new aEstrella(ini,fin,"manhattan");
+		//algoritmo alg= new aEstrella(ini,fin,"manhattan");
 		//algoritmo alg= new aEstrella(ini,fin,"celdas");
 		//algoritmo alg = new PrimeroProfundidadCiclos(ini, fin);
 		//algoritmo alg = new PrimeroProfundidad(ini, fin);
-		//algoritmo alg = new escaladaSimple(ini,fin,"manhattan");
+		algoritmo alg = new escaladaSimple(ini,fin,"manhattan");
 		alg.resolver(m);
 		alg.mostrar(alg.getCamino());
 		
