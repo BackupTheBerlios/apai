@@ -168,8 +168,29 @@ public class escaladaSimple implements algoritmoInformado {
 	}
 	
 	/* 
+	 * Inicializar la lista de abiertos a la lista unaria 
+	 * que contiene el estado inicial.
 	 * 
+	 * Mientras que existan estados en la lista de abiertos nodos y
+	 * no encuentre la solucion:
+	 * 
+	 * - Actual es el primer elemento de abiertos.
+	 * - mientras queden operadores po aplicar
+	 * 		- aplicar operdor a actual (generamos nuevo)
+	 * 		- si nuevo mejor que actual 
+	 * 				- eliminar actual de abiertos
+	 * 				- actual = nuevo
+	 * 
+	 * 		- si cambie actualizar, regenrar los operadores
+	 * - Expandir actual 
+	 * - Eliminarlo de abiertos y ponerlo en cerrados
+	 * 
+	 * Si he encontrado el objetivo genero el camino.
+	 * 
+	 * Si no quedan elementos en la lista de abiertos es que no
+	 * existe solucion y termino indicando la situacion.
 	 */
+	
 	public void resolver(mapa m) {
 		estado actual;
 		estado nuevoEstado;
@@ -195,6 +216,8 @@ public class escaladaSimple implements algoritmoInformado {
 					nuevoEstado = (estado)this.abiertos.lastElement();
 				
 					if (nuevoEstado.getCtotal() < actual.getCtotal()){
+						this.abiertos.removeElementAt(0);
+						this.cerrados.add(actual);
 						actual = (estado)this.abiertos.lastElement();
 						cambio = true;
 					}
@@ -202,12 +225,9 @@ public class escaladaSimple implements algoritmoInformado {
 				}
 				
 				operadores.removeElementAt(0);
-				this.mostrar(this.abiertos);
 			}
 			
 			if (cambio){
-				this.abiertos.removeElementAt(0);
-				this.cerrados.add(actual);
 				operadores = regenerarOperadores();
 			}
 			else{

@@ -151,10 +151,11 @@ public class aEstrella implements algoritmoInformado {
 	}
 	
 	/* 
+	 *  
 	 * Inicializar la lista de abiertos a la lista unaria 
 	 * que contiene el estado inicial.
 	 * 
-	 * Mientras que existan estados en la lsita de abiertos nodos y
+	 * Mientras que existan estados en la lista de abiertos nodos y
 	 * no encuentre la solucion:
 	 * - Actual es el elemento más pormetedor de abiertos.
 	 * - Expandir actual 
