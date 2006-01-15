@@ -157,13 +157,13 @@ public class piloto {
 		int y= Integer.parseInt(t.readString());
 		m = new mapa(x,y);
 
-		System.out.println("Quiere modificar la celda de inicio (S/N)?");
+		System.out.println("Quiere introducir la celda de inicio (S/N)?");
 		s= t.readString();
 		if (s.equals("s")||s.equals("S")){
 			ini = cambioCelda(t,m);
 		}
 	
-		System.out.println("Quiere modificar la celda objetivo ("+fin.getX()+","+fin.getY()+") (S/N)?");
+		System.out.println("Quiere introducir la celda objetivo(S/N)?");
 		s= t.readString();
 		if (s.equals("s")||s.equals("S")){
 			fin= cambioCelda(t,m);
