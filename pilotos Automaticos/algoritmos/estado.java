@@ -161,7 +161,7 @@ public class estado {
 	 */
 	
 	public boolean peligro(mapa m){
-		//m.actualizaMapa();
+		m.actualizaMapa();
 		boolean aux = false;
 		String val = m.dameCelda(this.x, this.y);
 		if ((val=="avion")||(val=="montana")||(val=="")){
