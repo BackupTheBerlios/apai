@@ -14,21 +14,31 @@ public class prueba {
 		m.ponCelda(0,3,"avion");
 		m.ponCelda(1,0,"avion");
 		m.ponCelda(2,3,"avion");
+		m.ponCelda(3,1,"montana");
+		m.ponCelda(3,3,"montana");
 		//m.ponCelda(3,3,"avion");
-		estado ini = new estado(0,0);
-		estado fin = new estado(2,2);
 		//m.ponCelda(3,0,"montana");
 		//m.ponCelda(3,1,"montana");
 		//m.ponCelda(3,2,"montana");
+		estado ini = new estado(0,0);
+		estado fin = new estado(3,0);
 		//algoritmo alg= new primeroAnchura(ini,fin);
 		//algoritmo alg= new primeroAnchuraCiclos(ini,fin);
 		//algoritmo alg= new aEstrella(ini,fin,"manhattan");
 		//algoritmo alg= new aEstrella(ini,fin,"celdas");
-		//algoritmo alg = new PrimeroProfundidadCiclos(ini, fin);
-		//algoritmo alg = new PrimeroProfundidad(ini, fin);
-		algoritmo alg = new escaladaSimple(ini,fin,"manhattan");
+		//algoritmo alg= new aEstrella(ini,fin,"manhattanCelda");
+		algoritmo alg = new PrimeroProfundidadCiclos(ini, fin);
+		//algoritmo alg = new primeroProfundidad(ini, fin);
+		//algoritmo alg = new escaladaSimple(ini,fin,"manhattan");
+		//algoritmo alg = new escaladaSimple(ini,fin,"celdas");
+		//algoritmo alg = new escaladaSimple(ini,fin,"manhattanCelda");
 		alg.resolver(m);
+		System.out.print("Camino Resultante: ");
 		alg.mostrar(alg.getCamino());
+		System.out.print("Vector Abiertos: ");
+		alg.mostrar(alg.getAbiertos());
+		System.out.print("Vector Cerrados: ");
+		alg.mostrar(alg.getCerrados());
 		
 		/*
 		 * Prueba de mas prometedor
