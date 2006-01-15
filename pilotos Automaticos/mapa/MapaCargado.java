@@ -36,14 +36,8 @@ public class MapaCargado {
 		int x,y,xIni,yIni,xDest,yDest;
 		x = y = xIni = yIni = xDest = yDest = -1;
 
-		int lin = 0;
-		
-	    //declared here only to make visible to finally clause
 	    BufferedReader entrada = null;
 	    try {
-	      //use buffering
-	      //this implementation reads one line at a time
-	      //FileReader always assumes default encoding is OK!
 	      entrada = new BufferedReader( new FileReader(archivo) );
 	      String linea = null;
 	      /*
@@ -57,10 +51,6 @@ public class MapaCargado {
 	    	  	if( (linea = entrada.readLine()) != null){
 	    	  		linea = linea.trim();
 	    	  		if (linea.length() > 0 && (linea.charAt(0) != '#')) {
-	    	  			System.out.println("Entramos a leer cords " + i);
-	    	  			System.out.println(++lin);
-	    	  			System.out.println(linea);
-	    	  			System.out.println(linea.charAt(0));
 	    	  			switch(i){
 	    	  				case 1 : x = Integer.parseInt(linea.substring(0,linea.indexOf(',')).trim());
 	    	  					 	 y = Integer.parseInt(linea.substring(linea.indexOf(',')+1).trim());
@@ -78,7 +68,7 @@ public class MapaCargado {
 	    	  						 break;
 	    	  			}
 	    	  		}
-	    	  	} // Introducir control de errores!!!!!
+	    	  	} 
 	      }
 	      m = new mapa(x,y);
 	      ini = new estado(xIni,yIni);
@@ -89,9 +79,7 @@ public class MapaCargado {
 	      while (( linea = entrada.readLine()) != null){
 	        linea = linea.trim();
 	        if (linea.length() > 0 && linea.charAt(0) != '#' ){
-	        		System.out.println("Entramos a leer obst ");
-	  			System.out.println(++lin);
-	  			
+	      	
 	        		String coord = linea.substring(0,linea.lastIndexOf(',')).trim();
 	        		String obs = linea.substring(linea.lastIndexOf(',')+1).trim();
 	        		String obstaculo = "";
@@ -123,7 +111,6 @@ public class MapaCargado {
 	    finally {
 	      try {
 	        if (entrada!= null) {
-	          //flush and close both "input" and its underlying FileReader
 	          entrada.close();
 	        }
 	      }

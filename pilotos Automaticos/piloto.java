@@ -143,7 +143,8 @@ public class piloto {
 	}
 	
 	public static void inicio (String s,input t,mapa m,algoritmo alg, estado ini, estado fin){
-		
+		int x;
+		int y;
 		System.out.println("Desea cargar el piloto desde un archivo inicial(S/N)?");
 		s= t.readString();
 		boolean correcto=false;
@@ -166,11 +167,9 @@ public class piloto {
 		}
 		else{
 			System.out.println("Introduzca el tamaño maximo del mapa para las filas");
-			s= t.readString();
-			int x= Integer.parseInt(t.readString());
+			x= Integer.parseInt(t.readString());
 			System.out.println("Introduzca el tamaño maximo del mapa para las columnas");
-			s= t.readString();
-			int y= Integer.parseInt(t.readString());
+			y= Integer.parseInt(t.readString());
 			m = new mapa(x,y);
 
 			System.out.println("Quiere introducir la celda de inicio (S/N)?");
@@ -234,10 +233,8 @@ public class piloto {
 				
 				if (s.equals("s")||s.equals("S")){
 					System.out.println("Introduzca el tamaño maximo del mapa para las filas");
-					s= t.readString();
 					int x= Integer.parseInt(t.readString());
 					System.out.println("Introduzca el tamaño maximo del mapa para las columnas");
-					s= t.readString();
 					int y= Integer.parseInt(t.readString());
 					m = new mapa(x,y);
 					m.actualizaMapa();
